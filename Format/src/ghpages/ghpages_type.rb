@@ -19,21 +19,24 @@ class GhPagesType < Type
   end
 
   def generate_page(output_dir, nav_order, parent_title, grand_parent = nil)
-    return if @name =~ /Factory/ || @visibility != 'public'
-    return if @type == 'uml:Association'
+    # $logger.info "  Considering page for #{@name} #{@visibility} #{@type}"        
+    return if @type == 'uml:Association' or @name.empty?
+
+    $logger.info "  Generating page for #{@name}"        
 
     filename = File.join(output_dir, "#{slug}.md")
     File.open(filename, 'w') do |f|
       write_frontmatter(f, nav_order, parent_title, grand_parent)
       f.puts "\n# #{@name}"
-      write_documentation(f)
+      write_parents(f)
       write_stereotypes(f)
       write_version_info(f)
-      write_parents(f)
+      write_documentation(f)
       write_relations(f)
       write_enumerations(f) if enumeration?
       write_operations(f)
       write_constraints(f)
+      write_children(f)
     end
   end
 
@@ -54,7 +57,7 @@ class GhPagesType < Type
   def write_documentation(f)
     return if @documentation.nil? || @documentation.empty?
     @documentation.sections.each do |section|
-      f.puts "\n**#{section.title}**" unless section.title == 'Definition'
+      f.puts "\n### #{section.title}" unless section.title == 'Definition'
       f.puts "\n#{convert_markdown(section.text)}"
     end
   end
@@ -204,12 +207,64 @@ EOT
   end
 
   def write_operations(f)
-    return if @operations.nil? || @operations.empty?
+    return if @operations.empty?
+    $logger.debug "Adding operations to #{@name}"
+
     f.puts "\n## Operations"
     @operations.each do |op|
-      f.puts "\n### `#{op.name}`"
-      #content = convert_markdown(op.description.to_s.gsub(/\s+/, ' ').strip)
-      #f.puts "\n#{content}"
+      results = []
+      rows = op.parameters.map.with_index do |par, i|
+        type = Type.type_for_id(par.type) || par.type || 'string'
+
+        type_name = type.respond_to?(:format_target) ? type.format_target : type.to_s
+        if par.direction == 'return' 
+          results << [ 'Result', type_name, convert_markdown(par.documentation.definition || '') ]
+          ret = type_name
+          nil
+        elsif par.direction == 'out'
+          results << [ par.name, type_name, convert_markdown(par.documentation.definition || '') ]
+          nil
+        else
+          dflt = "`#{par.default}`" if par.default
+          int = par.introduced || op.introduced
+          dep = par.deprecated || op.deprecated
+          pn = dep ? "<strike>#{par.name}</strike>" : par.name
+          [pn, int, dep, type_name, par.multiplicity, dflt, convert_markdown(par.documentation.definition || '') ]
+        end
+      end.compact
+
+      f.puts "\n### #{op.name}"
+      desc = (op.documentation and op.documentation.definition) ? convert_markdown(op.documentation.definition.to_s) : 'None'
+      f.puts <<EOT
+#### Description
+
+#{desc}"
+
+#### Version Info
+
+{: .auto-width }
+| Introduced | Deprecated | Updated |"
+|---|---|---|
+| #{op.introduced} | #{op.deprecated} |  #{op.updated} |
+
+#### Parameters:
+<table><thead><tr><th>Name</th><th>Int</th><th>Dep</th><th>Type</th><th>Multiplicity</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
+EOT
+      rows.each do |r|
+        f.puts "<tr>"
+        r.each { |c| f.puts "<td markdown=\"block\">\n#{c}\n</td>" }
+        f.puts "</tr>"
+      end
+      f.puts "</tbody></table>"
+
+      f.puts "\n#### Results:"
+      f.puts "\n<table><thead><tr><th>Name</th><th>Type</th><th>Documentation</th></tr></thead><tbody>"
+      results.each do |r|
+        f.puts "<tr>"
+        r.each { |c| f.puts "<td markdown=\"block\">\n#{c}\n</td>" }
+        f.puts "</tr>"
+      end
+      f.puts "</tbody></table>"
     end
   end
 
@@ -224,6 +279,34 @@ EOT
       f.puts "\n<tr><td markdown=\"block\">\n\n#{convert_markdown(c.documentation)}\n\n</td><td markdown=\"block\">\n\n```\n#{c.ocl}\n```\n\n</td></tr>"
     end
     f.puts "\n</tbody></table>"
+  end
+
+  def write_children(f)
+    if @relation && @type == 'uml:AssociationClass'
+      f.puts "\n## Organizes"
+      f.puts "\n{: .auto-width }\n| Name | Int | Dep |"
+      f.puts "|---|---|---|"
+      [@relation.source.type].concat(@relation.source.type.children.sort_by(&:name)).
+                each do |t|
+        f.puts "| #{t.format_target} | #{t.introduced} | #{t.deprecated} |"
+      end
+      f.puts
+    end
+
+    if not @children.empty?
+      normative = @children.select do |c| 
+        c.introduced
+        c.normative
+      end
+
+      f.puts "\n## Subclasses"
+      f.puts "\n{: .auto-width }\n| Name | Int | Dep |"
+      f.puts "|---|---|---|"
+      rows = @children.sort_by(&:name).each do |child|
+        f.puts "| #{child.format_target} | #{child.introduced} | #{child.deprecated} |"
+      end
+      f.puts
+    end   
   end
 
   def quote_yaml(text)

@@ -135,6 +135,10 @@ module GhPagesHelpers
   def convert_markdown(content, expand = true)
     content.gsub(/\{\{(.+?)\}\}/) do |m|
       convert_macro(m, expand)
+    end.gsub(%r{\((figures/[^.]+\.(?:png|jpg|jpeg|svg))}) do |m|
+      "(/#{$1}"
+    end.gsub(/\{: width="([0-9.]+)"\}/) do |m|
+      "{: width=\"#{$1.to_f * 100}%\"}"
     end
   end
 
