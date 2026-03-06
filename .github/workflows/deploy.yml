@@ -43,7 +43,7 @@ jobs:
       - name: Build model documentation
         run: bundle exec ruby src/generate.rb ghpages
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: model-docs
           path: Format/model/
@@ -59,7 +59,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Download model documentation
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: model-docs
           path: ./docs/model
