@@ -1,6 +1,5 @@
 *~
 Format/vendor
 .vscode
-model
-just-the-docs/vendor
+docs/vendor
 .bundle
