@@ -1,5 +1,7 @@
 *~
-./Format/vendor
+Format/vendor/
 .vscode
-./docs/vendor
+docs/vendor/
 .bundle
+Format/model/
+docs/model/

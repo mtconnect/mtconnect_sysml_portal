@@ -25,6 +25,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-model:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Format
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1        
+        with:
+          working-directory: ./Format
+          ruby-version: "3.4"
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          cache-version: 0 # Increment this number if you need to re-download cached gems
+      - name: Build model documentation
+        run: bundle exec ruby src/generate.rb ghpages
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: model-docs
+          path: Format/model/
+
   # Build job
   build:
     runs-on: ubuntu-latest
@@ -34,6 +57,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Download model documentation
+        uses: actions/download-artifact@v3
+        with:
+          name: model-docs
+          path: ./docs/model
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1        
         with:
