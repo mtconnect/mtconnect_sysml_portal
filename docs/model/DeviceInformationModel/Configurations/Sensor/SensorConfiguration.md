@@ -18,7 +18,7 @@ configuration for a [`Sensor`]({% link model/DeviceInformationModel/Components/C
 
 ### Description
 
-![SensorConfiguration]({% link figures/mtconnect.png %} "SensorConfiguration"){: width="80.0%"}
+![SensorConfiguration]({% link figures/SensorConfiguration.png %} "SensorConfiguration"){: width="80.0%"}
 
 > Note: See *Section Configuration Schema Diagrams* for XML schema.
 

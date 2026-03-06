@@ -138,7 +138,9 @@ module GhPagesHelpers
       convert_macro(m, expand)
     end.gsub(%r{\((figures/[^.]+\.(?:png|jpg|jpeg|svg))}) do |m|
       link = URI.decode_uri_component($1)
-      if File.exist?(File.join(File.dirname(__FILE__), '..', '..', 'docs', link))
+      path = File.join(File.dirname(__FILE__), '..', '..', '..', 'docs', link)
+      p path
+      if File.exist?(File.join(File.dirname(__FILE__), '..', '..', '..', 'docs', link))
         "({% link #{link} %}"
       else
         $logger.warn "Cannot find linked file #{link}, skipping"

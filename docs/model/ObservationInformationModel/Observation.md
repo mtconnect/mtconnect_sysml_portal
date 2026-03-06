@@ -17,13 +17,13 @@ abstract entity that provides telemetry data for a [`DataItem`]({% link model/De
 
 ### Description
 
-![Observations]({% link figures/mtconnect.png %} "Observations"){: width="80.0%"}
+![Observations]({% link figures/Observations.png %} "Observations"){: width="80.0%"}
 
 > Note: See *Section Observations Schema Diagrams* for XML schema. The XML schema also shows differences in XML representation of certain MTConnect entities.
 
 *Figure DeviceStream Example* shows a complete example of [`DeviceStream`]({% link model/ObservationInformationModel/DeviceStream.md %}) for the [`Device`]({% link model/DeviceInformationModel/Device.md %}) shown in `Device Information Model`.
 
-![DeviceStream Example]({% link figures/mtconnect.png %} "DeviceStream Example"){: width="80.0%"}
+![DeviceStream Example]({% link figures/DeviceStream Example.png %} "DeviceStream Example"){: width="80.0%"}
 
 > Note: See devicestream-example for the *XML* representation of the same example.
 
@@ -38,7 +38,7 @@ This section provides semantic information for the [`Observation`]({% link model
 
 [`Observation`]({% link model/ReferenceAgentArchitecture/InformationModel/Observation.md %}) entities made by a [`Component`]({% link model/DeviceInformationModel/Components/Component.md %}) are organized by a [`ComponentStream`]({% link model/ObservationInformationModel/ComponentStream.md %}) which is specifically created for that [`Component`]({% link model/DeviceInformationModel/Components/Component.md %}).
 
-![Observations made for DataItem Example]({% link figures/mtconnect.png %} "Observations made for DataItem Example"){: width="80.0%"}
+![Observations made for DataItem Example]({% link figures/Observations made for DataItem Example.png %} "Observations made for DataItem Example"){: width="80.0%"}
 
 > Note: See *Section Observations made for DataItem Example* for how XML representation of the same example is separated into <span class="hoverterm">MTConnectDevices Response Document<span class="definition" data-term="MTConnectDevices Response Document">*response document* published by an *MTConnect Agent* in response to a *probe request*.</span></span> and <span class="hoverterm">MTConnectStreams Response Document<span class="definition" data-term="MTConnectStreams Response Document">*response document* published by an *MTConnect Agent* in response to a *current request* or a *sample request*.</span></span>.
 

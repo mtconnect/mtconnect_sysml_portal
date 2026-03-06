@@ -160,25 +160,25 @@ See `ItemLife` element in `MTConnectAssets` schema.
 
 #### Measurement Diagrams
 
-![Cutting Tool Measurement 3]({% link figures/mtconnect.png %} "Cutting Tool Measurement 3"){: width="80.0%"}
+![Cutting Tool Measurement 3]({% link figures/Cutting Tool Measurement 3.png %} "Cutting Tool Measurement 3"){: width="80.0%"}
 
-![Cutting Tool Measurement 4]({% link figures/mtconnect.png %} "Cutting Tool Measurement 4"){: width="80.0%"}
+![Cutting Tool Measurement 4]({% link figures/Cutting Tool Measurement 4.png %} "Cutting Tool Measurement 4"){: width="80.0%"}
 
-![Cutting Tool Measurement 5]({% link figures/mtconnect.png %} "Cutting Tool Measurement 5"){: width="80.0%"}
+![Cutting Tool Measurement 5]({% link figures/Cutting Tool Measurement 5.png %} "Cutting Tool Measurement 5"){: width="80.0%"}
 
-![Cutting Tool Measurement 6]({% link figures/mtconnect.png %} "Cutting Tool Measurement 6"){: width="80.0%"}
+![Cutting Tool Measurement 6]({% link figures/Cutting Tool Measurement 6.png %} "Cutting Tool Measurement 6"){: width="80.0%"}
 
-![Cutting Tool Measurement 7]({% link figures/mtconnect.png %} "Cutting Tool Measurement 7"){: width="80.0%"}
+![Cutting Tool Measurement 7]({% link figures/Cutting Tool Measurement 7.png %} "Cutting Tool Measurement 7"){: width="80.0%"}
 
-![Cutting Tool Measurement 8]({% link figures/mtconnect.png %} "Cutting Tool Measurement 8"){: width="80.0%"}
+![Cutting Tool Measurement 8]({% link figures/Cutting Tool Measurement 8.png %} "Cutting Tool Measurement 8"){: width="80.0%"}
 
 ### Cutting Tool Examples
 
 #### Shell Mill
 
-![Shell Mill Side View]({% link figures/mtconnect.png %} "Shell Mill Side View"){: width="80.0%"}
+![Shell Mill Side View]({% link figures/Shell Mill Side View.png %} "Shell Mill Side View"){: width="80.0%"}
 
-![Indexable Insert Measurements]({% link figures/mtconnect.png %} "Indexable Insert Measurements"){: width="80.0%"}
+![Indexable Insert Measurements]({% link figures/Indexable Insert Measurements.png %} "Indexable Insert Measurements"){: width="80.0%"}
 
 ~~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -250,7 +250,7 @@ http://mtconnect.org/schemas/MTConnectAssets\_1.2.xsd">
 
 #### Step Drill
 
-![Step Mill Side View]({% link figures/mtconnect.png %} "Step Mill Side View"){: width="80.0%"}
+![Step Mill Side View]({% link figures/Step Mill Side View.png %} "Step Mill Side View"){: width="80.0%"}
 
 ~~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -325,7 +325,7 @@ http://mtconnect.org/schemas/MTConnectAssets\_1.2.xsd">
 
 #### Shell Mill with Individual Loci
 
-![Shell Mill with Explicate Loci]({% link figures/mtconnect.png %} "Shell Mill with Explicate Loci"){: width="80.0%"}
+![Shell Mill with Explicate Loci]({% link figures/Shell Mill with Explicate Loci.png %} "Shell Mill with Explicate Loci"){: width="80.0%"}
 
 ~~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -374,7 +374,7 @@ http://mtconnect.org/schemas/MTConnectAssets\_1.2.xsd">
 
 #### Drill with Individual Loci
 
-![Step Drill with Explicate Loci]({% link figures/mtconnect.png %} "Step Drill with Explicate Loci"){: width="80.0%"}
+![Step Drill with Explicate Loci]({% link figures/Step Drill with Explicate Loci.png %} "Step Drill with Explicate Loci"){: width="80.0%"}
 
 ~~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -431,7 +431,7 @@ http://mtconnect.org/schemas/MTConnectAssets\_1.2.xsd">
 
 #### Shell Mill with Different Inserts on First Row
 
-![Shell Mill with Different Inserts on First Row]({% link figures/mtconnect.png %} "Shell Mill with Different Inserts on First Row"){: width="80.0%"}
+![Shell Mill with Different Inserts on First Row]({% link figures/Shell Mill with Different Inserts on First Row.png %} "Shell Mill with Different Inserts on First Row"){: width="80.0%"}
 
 ~~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
