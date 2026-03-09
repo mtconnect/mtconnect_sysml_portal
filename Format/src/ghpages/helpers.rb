@@ -27,7 +27,7 @@ module GhPagesHelpers
       m = m.parent
     end
     parts << "#{slug}.md"
-    File.join('model', *parts)
+    File.join(*parts)
   end
 
 
@@ -260,5 +260,39 @@ module GhPagesHelpers
     else
       "`#{block}::#{operation}`"
     end
+  end
+
+  def write_table(f, columns, rows, options)
+    # Write theader
+    if options[:auto_width]
+      tclass = ' class="auto-width"'
+    end
+    f.puts "<table#{tclass}><thead><th>#{columns.map(&:to_s).join('</th><th>')}</th></thead>"
+
+    template = ''
+    columns.each_with_index do |c, i|
+      open = ''
+      close = ''
+      attrs = ''
+      if col_opts = options[c]
+        if col_opts[:code]
+          open = '<code>'
+          close = '</code>'
+          col_opts.remove(:code)
+        end
+        attrs = ' ' + col_opts.map { |k, v| %{#{k}="#{v}"} }.join() unless col_opts.empty?
+        close = open = "\n" if col_opts[:markdown]
+      end
+      template << "<td#{attrs}>#{open}\#{r[#{i}]}#{close}</td>"      
+    end
+
+    lambda = eval "lambda { |r| %{#{template}} }"
+
+    # Write the body
+    f.puts "  <tbody>"
+    rows.each do |row|
+      f.puts "      <tr>#{lambda.call(row)}</tr>"
+    end
+    f.puts "</tbody></table>"
   end
 end

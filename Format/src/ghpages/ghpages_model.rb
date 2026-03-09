@@ -57,6 +57,8 @@ class GhPagesModel < Model
   def self.generate_pages
     $logger.info "Generating GhPages markdown"
 
+    root = @@models['MTConnect']
+
     # Write root index
     root_index = File.join(@@output_dir, 'index.md')
     File.open(root_index, 'w') do |f|
@@ -67,7 +69,11 @@ class GhPagesModel < Model
       f.puts "layout: default"
       f.puts "---"
       f.puts "\n# MTConnect\n"
+
+      root.write_documentation(f)
     end
+
+
 
     # Gather top-level packages (direct children of the MTConnect root)
     top_level = @@models.values.select do |m|

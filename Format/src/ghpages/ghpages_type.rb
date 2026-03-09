@@ -96,7 +96,7 @@ EOT
     f.puts "\n**Supertype:** #{names}"
   end
 
-  def wrte_relation(f, r)
+  def wrte_relation(r)
     ints, deps = [introduced], [deprecated]
     ints << r.introduced
     deps << r.deprecated
@@ -162,7 +162,8 @@ EOT
       doc = "#{doc}\n#{r.association_doc}"
     end
     content = convert_markdown("#{doc} #{text}")
-    f.puts %{<tr><td>#{name}</td><td>#{type_name}</td><td>#{int}</td><td>#{dep}</td><td>#{mult}</td>\n<td markdown="block">\n\n#{content}\n\n</td>\n</tr>}
+    [name, type_name, int, dep, mult, content]
+    #f.puts %{<tr><td>#{name}</td><td>#{type_name}</td><td>#{int}</td><td>#{dep}</td><td>#{mult}</td>\n<td markdown="block">\n\n#{content}\n\n</td>\n</tr>}
   end
 
   def write_relations(f)
@@ -178,21 +179,26 @@ EOT
     end
 
     unless properties.empty?
-      f.puts "\n## Properties"
-      f.puts "\n<table><thead><tr><th>Name</th><th>Type</th><th>Int</th><th>Dep</th><th>Multiplicty</th><th>Description</th></tr></thead><tbody>"
-      properties.each do |r|
-        wrte_relation(f, r)
+      f.puts "\n## Properties\n\n"
+      #f.puts "\n<table><thead><tr><th>Name</th><th>Type</th><th>Int</th><th>Dep</th><th>Multiplicty</th><th>Description</th></tr></thead><tbody>"
+
+      rows = properties.map do |r|
+        wrte_relation(r)
       end
-      f.puts "</tbody></table>"
+      write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
+                  rows, { Description: { markdown: 'block' }})
+      #f.puts "</tbody></table>"
     end
 
     unless relations.empty?
-      f.puts "\n## Relations"
-      f.puts "\n<table><thead><tr><th>Name</th><th>Type</th><th>Int</th><th>Dep</th><th>Multiplicty</th><th>Description</th></tr></thead><tbody>"
-      relations.each do |r|
-        wrte_relation(f, r)
+      f.puts "\n## Relations\n\n"
+      #f.puts "\n<table><thead><tr><th>Name</th><th>Type</th><th>Int</th><th>Dep</th><th>Multiplicty</th><th>Description</th></tr></thead><tbody>"
+      rows = relations.map do |r|
+        wrte_relation(r)
       end
-      f.puts "\n</tbody></table>"
+      write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
+                  rows, { Description: { markdown: 'block' }})
+      #f.puts "\n</tbody></table>"
     end
   end
 
