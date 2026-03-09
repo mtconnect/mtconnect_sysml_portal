@@ -4,5 +4,5 @@ Format/vendor/
 docs/vendor/
 .bundle
 Format/model/
-docs/model/
+docs/model
 Format/Gemfile.lock

@@ -197,6 +197,7 @@ EOT
   end
 
   def write_enumerations(f)
+    # TODO: Make this into a table
     return if @literals.nil? || @literals.empty?
     f.puts "\n## Enumeration Literals"
     f.puts "\n| # | Literal | Int | Dep | Upd | Description |\n|---|---|---|---|---|---|"
