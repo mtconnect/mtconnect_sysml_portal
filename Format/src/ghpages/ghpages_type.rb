@@ -163,7 +163,7 @@ EOT
     end
     name = "<code>#{name}</code>"
     if dep
-      name = "<s>#{name}</s>" 
+      name = "<strike>#{name}</strike>" 
     end
     mult = r.multiplicity rescue ''
     doc = r.documentation
@@ -192,7 +192,7 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }})
+                  rows, { Description: { markdown: 'block' }, id: :Name})
     end
 
     unless relations.empty?
@@ -201,7 +201,7 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }})
+                  rows, { Description: { markdown: 'block' }, id: :Name})
     end
   end
 
@@ -211,9 +211,11 @@ EOT
     f.puts "\n## Enumeration Literals\n\n"
     rows = literals.sort_by { |lit| lit.name }.map.with_index do |lit, i|
       content = convert_markdown(lit.description.to_s.gsub(/\s+/, ' ').strip)
-      [lit.name, lit.introduced, lit.deprecated, lit.updated, content]
+      name = lit.deprecated ? "<strike>#{lit.name}</strike>" : lit.name
+      [name, lit.introduced, lit.deprecated, lit.updated, content]
     end
-    write_table(f, [:Name, :Int, :Dep, :Upd, :Description], rows, { Description: { markdown: 'block'}})
+    write_table(f, [:Name, :Int, :Dep, :Upd, :Description], rows, 
+                { Description: { markdown: 'block'}, id: :Name})
   end
 
   def write_operations(f)
@@ -264,7 +266,8 @@ EOT
                   {Description: { markdown: 'block'}, :'Default Value' => { code: true }, Type: { markdown: 'block' }})
 
       f.puts "\n#### Results:\n\n"
-      write_table(f, [:Name, :Type, :Description], results, {Description: { markdown: 'block'}, Type: { markdown: 'block' }})
+      write_table(f, [:Name, :Type, :Description], results, 
+                  {Description: { markdown: 'block'}, Type: { markdown: 'block' }, id: :Name})
     end
   end
 

@@ -152,7 +152,7 @@ module GhPagesHelpers
       
   def format_version_link(version, path, text = version)
     if version >= '2.0'
-      %{[#{text}](https://model.mtconnect.org/versions/#{version}/#{path.sub(/\.md$/,'')}/)}
+      %{[#{text}](https://model.mtconnect.org/Version#{version}/#{path.sub(/\.md$/,'')}/)}
     else
       text
     end
@@ -177,7 +177,7 @@ module GhPagesHelpers
 
     if page_path and File.exist?(expanded_page_path)
       index = "##{ref}" if ref
-      "[#{sub}]({% link #{page_path} %}#{index})"
+      "[#{display}]({% link #{page_path} %}#{index})"
     end
   end
 
@@ -213,7 +213,7 @@ module GhPagesHelpers
     end
 
     if b
-      format_block(b) + "::`#{prop}`"
+      %{[`#{b.name}::#{prop}`]({% link #{b.page_path} %}#{prop})}
     else
       "`#{property}`"
     end
@@ -285,11 +285,16 @@ module GhPagesHelpers
     end
 
     lambda = eval "lambda { |r| %{#{template}} }"
+    id = columns.index(options[:id]) if options[:id]
 
     # Write the body
     f.puts "  <tbody>"
     rows.each do |row|
-      f.puts "      <tr>#{lambda.call(row)}</tr>"
+      if id
+        v = row[id].gsub(/<[^>]+>/, '')
+        attrs = %{ id="#{v}"}
+      end
+      f.puts "      <tr#{attrs}>#{lambda.call(row)}</tr>"
     end
     f.puts "</tbody></table>"
   end
