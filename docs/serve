@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+if ARGV.length < 1
+  puts "serve <verson>"
+  exit 1
+end
+
+version = ARGV[0]
+source = "./tmp/Source#{version}"
+destination = "../deploy/Version#{version}/"
+
+system("bundle exec jekyll serve -I -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /Version#{version} -d #{destination}")

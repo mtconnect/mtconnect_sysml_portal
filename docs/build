@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+if ARGV.length < 1
+  puts "build <verson>"
+  exit 1
+end
+
+version = ARGV[0]
+source = "./tmp/Source#{version}"
+destination = "../deploy/Version#{version}/"
+
+FileUtils.rm_r source if File.exist?(source)
+FileUtils.rm_r destination if File.exist?(destination)
+
+FileUtils.mkdir_p source
+
+%w{_config.yml _includes _layouts _sass _site 404.html assets}.each do |d|
+  FileUtils.ln_s(d, File.join(source, d), relative: true)
+end
+
+Dir["../Format/Version#{version}/*"].each do |d|
+  FileUtils.ln_s(File.expand_path(d), File.join(source, File.basename(d)))
+end
+
+system("bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /Version#{version} -d #{destination}")
