@@ -11,6 +11,7 @@ version = ARGV[0]
 source = "./tmp/Source#{version}"
 destination = "../deploy/Version#{version}/"
 
+
 FileUtils.rm_r source if File.exist?(source)
 FileUtils.rm_r destination if File.exist?(destination)
 
@@ -25,3 +26,5 @@ Dir["../Format/Version#{version}/*"].each do |d|
 end
 
 system("bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /Version#{version} -d #{destination}")
+
+FileUtils.ln_s(File.expand_path(File.join("..", "Version#{version}", "MTConnectSysMLModel.xml")), File.join(destination, "MTConnectSysMLModel.xml"))
