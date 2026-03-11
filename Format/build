@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'fileutils'
+
+p File.join('..', 'build.yml')
+
+config = YAML.load_file(File.join('..', 'build.yml'))
+config['build'].each do |version|
+  dir = File.expand_path(File.join('..', 'build', "Version#{version}"), File.dirname(__FILE__))
+  p dir
+  FileUtils.rm_r dir if File.exist?(dir)
+  FileUtils.mkdir_p dir
+
+  system("ruby src/generate.rb -v #{version} ghpages")
+end
