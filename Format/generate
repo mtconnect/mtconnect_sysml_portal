@@ -1,3 +1,0 @@
-#!/bin/sh
-
-ruby src/generate.rb -v $1 ghpages

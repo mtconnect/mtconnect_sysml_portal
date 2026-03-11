@@ -45,7 +45,7 @@ EOT
 ---
 title: "Version #{@version}"
 nav_order: #{@nav_order}
-parent: "Versions"
+parent: "Changes"
 layout: default
 ---
 

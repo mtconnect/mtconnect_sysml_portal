@@ -1,13 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
+require 'yaml'
 
-if ARGV.length < 1
-  puts "build <verson> [<version>...]"
-  exit 1
-end
-
-ARGV.each do |version|
+config = YAML.load_file(File.join('..', 'build.yml'))
+config['build'].each do |version|
   source = "./tmp/Source#{version}"
   destination = "../deploy/Version#{version}/"
 
