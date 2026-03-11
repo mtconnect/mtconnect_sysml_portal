@@ -4,18 +4,18 @@ class GhPagesVersion
   include GhPagesHelpers
 
   def self.generate_versions(dir, order)
-    ver_dir = File.expand_path(File.join(dir, 'Versions'))
+    ver_dir = File.expand_path(File.join(dir, 'Changes'))
     FileUtils.mkdir_p(ver_dir)
     File.open(File.join(ver_dir, 'index.md'), 'w') do |f|
       f.puts <<EOT
 ---
-title: "Versions"
+title: "Changes"
 nav_order: #{order}
 has_children: true
 layout: default
 ---
 
-# Versions
+# Changes
 
 EOT
     end
