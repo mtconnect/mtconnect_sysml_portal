@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'fileutils'
+
+config = YAML.load_file(File.join('build.yml'))
+directories = config['build'].map { |v| "Version#{v}" }
+
+begin
+  puts "Archiving the deploy directory"
+  command = "tar -czf deploy.tgz -C deploy #{directories.join(' ')}"
+  puts command
+  system(command) || raise(command)
+
+  puts "Copying the deploy archivessu  to the mtconnect projects site"
+  command = "scp deploy.tgz deploy@projects.mtconnect.org:~/"
+  puts command
+  system(command) || raise(command)
+
+  puts "Removing the old content and deploying the new"
+  command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
+      "rm -r #{directories.join(' ')} && " + 
+      "tar -xzf ~/deploy.tgz && " + 
+      "rm ~/deploy.tgz'"
+  puts command
+  system(command) || raise(command)
+
+  puts("Creating symbolic links to new latest directories")
+  command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
+      "ln -fs /opt/redmine/model/root/Version#{config['production']} latest && " +
+      "ln -fs /opt/redmine/model/root/Version#{config['development']} development'"
+  puts command
+  system(command) || raise(command)
+
+rescue => e
+  puts "Deployment failed: #{e.message}"
+  exit(1)
+ensure
+  FileUtils.rm_f('deploy.tgz')
+end
