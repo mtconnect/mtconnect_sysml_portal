@@ -100,7 +100,7 @@ EOT
             else
               'Block'
             end
-        [ reason, t, "#{obj.format_target}" ]
+        [ reason, t, "#{obj.format_target(nil, true)}" ]
         
       when Relation::Relation
         owner = obj.owner
@@ -108,20 +108,20 @@ EOT
         name = owner.name + obj.name
         f = obj.deprecated ? "<strike>#{obj.name}</strike>" : obj.name
         t = Relation::Attribute === obj ? 'Property' : 'Relation'
-        [ reason, t, "#{owner.format_target(obj.name)} #{f}" ]
+        [ reason, t, "#{owner.format_target(obj.name, true)} #{f}" ]
         
       when Type::Literal
         owner = obj.owner
         subject = owner
         name = owner.name + obj.name
         f = obj.deprecated ? "<strike>#{obj.name}</strike>" : obj.name
-        [ reason, 'Literal', "#{owner.format_target(obj.name)} <code>#{f}</code>"]
+        [ reason, 'Literal', "#{owner.format_target(obj.name, true)} <code>#{f}</code>"]
         
       when Operation
         block = obj.owner
         subject = block
         name = block.name + obj.name
-        [ reason, 'Operation', "#{block.format_target(obj.name)}" ]
+        [ reason, 'Operation', "#{block.format_target(obj.name, true)}" ]
         
       when Operation::Parameter
         owner = obj.owner
@@ -129,7 +129,7 @@ EOT
         block = owner.owner
         name = block.name + owner.name + obj.name
         f = obj.deprecated ? "<strike>#{obj.name}</strike>" : obj.name
-        [ reason, 'Parameter', "#{block.format_target(owner.name)}(#{f})" ]
+        [ reason, 'Parameter', "#{block.format_target(owner.name, true)}(#{f})" ]
         
       else
         $logger.warn "Cannot find info for #{obj.class} #{obj.name}"
