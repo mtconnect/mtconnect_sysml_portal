@@ -147,17 +147,19 @@ EOT
       else
         type_name = r.target ? "`#{r.target.name}`" : 'Unknown'
       end
-      if r.default
+      if r.read_only
+        type_name << " (Only: `#{r.default}`)" if r.default
+      elsif r.default
         type_name << " (Default: `#{r.default}`)"
       end
       $logger.debug "Type: #{type_name} for #{r.name} in #{self.name}"
     rescue
-      puts "Error finding type for relation #{r.name} in #{self.name}: #{$!} #{$!.backtrace.join("\n")}"
+      $logger.error "Error finding type for relation #{r.name} in #{self.name}: #{$!} #{$!.backtrace.join("\n")}"
       type_name = 'Unknown'
     end
     name = "<code>#{name}</code>"
     if dep
-      name = "<strike>#{name}</strike>" 
+      name = "<strike>#{name}</strike>"
     end
     mult = r.multiplicity rescue ''
     doc = r.documentation
