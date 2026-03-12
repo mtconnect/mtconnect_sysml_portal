@@ -49,7 +49,7 @@ jobs:
           path: ./build
 
   # Build job
-  build:
+  build-site:
     runs-on: ubuntu-latest
     needs: build-model
     defaults:
