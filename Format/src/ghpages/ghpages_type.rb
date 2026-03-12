@@ -93,7 +93,7 @@ class GhPagesType < Type
 ## Version Info
 
 {: .auto-width }
-| Introduced | Deprecated | Updated |"
+| Introduced | Deprecated | Updated |
 |---|---|---|
 | #{intro} | #{dep} |  #{upd} |
 EOT
