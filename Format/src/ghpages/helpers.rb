@@ -278,10 +278,10 @@ module GhPagesHelpers
         markdown = col_opts[:markdown]
         if markdown
           col_opts[:markdown] = %{\#{r[#{i}].include?("\n") ? 'block' : 'span'}}
+          close = open = "\n"
         end
 
-        attrs = ' ' + col_opts.map { |k, v| %{#{k}="#{v}"} }.join() unless col_opts.empty?
-        close = open = "\n" if markdown
+        attrs = col_opts.map { |k, v| %{ #{k}="#{v}"} }.join() unless col_opts.empty?
       end
       if code
         template << "<td#{attrs}>#{open}\#{CGI.escapeHTML(r[#{i}].to_s)}#{close}</td>"      
