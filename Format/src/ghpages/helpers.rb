@@ -233,7 +233,7 @@ module GhPagesHelpers
     display = plural ? ActiveSupport::Inflector.pluralize(term) : term
     if expand and t = GhPagesType.term_for_name(term) and not t.documentation.empty?
       body = convert_markdown(t.documentation.definition, false).gsub(/\s+/, ' ')
-      %{<span class="hoverterm">#{display}<span markdown="1" class="definition" data-term="#{term}">#{body}</span></span>}
+      %{<span class="hoverterm">#{display}<span markdown="span" class="definition" data-term="#{term}">#{body}</span></span>}
     else
       "*#{display}*"
     end
@@ -276,6 +276,10 @@ module GhPagesHelpers
           col_opts.delete(:code)
         end
         markdown = col_opts[:markdown]
+        if markdown
+          col_opts[:markdown] = %{\#{r[#{i}].include?("\n") ? 'block' : 'span'}}
+        end
+
         attrs = ' ' + col_opts.map { |k, v| %{#{k}="#{v}"} }.join() unless col_opts.empty?
         close = open = "\n" if markdown
       end

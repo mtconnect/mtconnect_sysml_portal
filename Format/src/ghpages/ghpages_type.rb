@@ -143,20 +143,14 @@ EOT
     name = r.respond_to?(:association_name) && r.association_name ? r.association_name : r.name
     begin
       if r.final_target && r.final_target.type
-        if r.final_target.type.type == 'uml:Class' or r.final_target.type.type == 'uml:Enumeration'
-          page = r.final_target.type.page_path rescue nil
-        end
-      end
-      if page
-        type_name = %{<a href="{% link #{page} %}"><code>#{r.final_target.type.name}</code></a>}
-      elsif r.final_target && r.final_target.type
-        type_name = "<code>#{r.final_target.type.name}</code>"
-      elsif r.final_target
-        type_name = "<code>#{r.final_target.type.name}</code>"
+        type_name = r.final_target.type.format_target(r.default)
       else
-        type_name = r.target ? "<code>#{r.target.name}</code>" : 'Unknown'
+        type_name = r.target ? "`#{r.target.name}`" : 'Unknown'
       end
-      # puts "Type: #{type_name} for #{r.name} in #{self.name}"
+      if r.default
+        type_name << " (Default: `#{r.default}`)"
+      end
+      $logger.debug "Type: #{type_name} for #{r.name} in #{self.name}"
     rescue
       puts "Error finding type for relation #{r.name} in #{self.name}: #{$!} #{$!.backtrace.join("\n")}"
       type_name = 'Unknown'
@@ -192,7 +186,7 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name})
+                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'}})
     end
 
     unless relations.empty?
@@ -201,7 +195,7 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name})
+                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'}})
     end
   end
 
