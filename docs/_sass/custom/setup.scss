@@ -3,3 +3,8 @@
 $content-width: 100rem;
 $nav-width: 30rem;
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    @import "color_schemes/dark";
+  }
+}
