@@ -128,6 +128,7 @@ class GhPagesType < Type
   end
 
   def format_relation(r)
+    # puts "Relation #{r.name} is a part of #{@name}" if Relation::Association === r and r.part
     ints, deps = [introduced], [deprecated]
     ints << r.introduced
     deps << r.deprecated
@@ -139,7 +140,6 @@ class GhPagesType < Type
       deps << assoc.deprecated
 
       if r.thru?
-        puts "Association #{r.name} is a through association for #{r.target.type.name} in #{r.target.type.type}"
         inter = r.target.type
         text << " (through `#{inter.name}`)"
       end
@@ -211,64 +211,42 @@ class GhPagesType < Type
     end
   end
 
-  def write_relations(f)
-    unless @parents.empty?
-      parent_rels = @parents.map { |parent| parent.visible_relations }.flatten.compact
-      unless parent_rels.empty?
-        relations, properties = parent_rels.partition do |r|
-          r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
-        end
-
-        unless properties.empty?
-          f.puts "<details markdown='block'><summary markdown='block'>\n## Inherited Properties\n</summary>\n\n"
-          rows = properties.map do |r|
-            format_relation(r)
-          end.compact
-          write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                      rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
-                              Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
-          f.puts "</details>\n\n"
-        end
-
-        unless relations.empty?
-          rows = relations.map do |r|
-            format_relation(r)
-          end.compact
-          f.puts "<details markdown='block'><summary markdown='block'>\n## Inherited Relations\n</summary>\n\n"
-          write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                      rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
-                              Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
-          f.puts "</details>\n\n"
-        end
-      end
-    end
-
-    public_rels = visible_relations
-    return if public_rels.empty?
-
-    relations, properties = public_rels.partition do |r|
-      r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
-    end
-
-    unless properties.empty?
-      f.puts "\n## Properties\n\n"
-      rows = properties.map do |r|
-        format_relation(r)
-      end
-      write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
-                          Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
-    end
-
-    unless relations.empty?
-      f.puts "\n## Relations\n\n"
+  def write_relation_rows(f, relations, header, footer)
+      f.puts header
       rows = relations.map do |r|
         format_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
                   rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
                           Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
+      f.puts footer if footer
+  end
+
+  def write_relation_content(f, all_relations, property_header, relations_header, property_footer = nil, relations_footer = nil)
+    # TODO: We may want to split out properties, relations, and parts.
+    relations, properties = all_relations.partition do |r|
+      r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
     end
+    unless properties.empty?
+      write_relation_rows(f, properties, property_header, property_footer)
+    end
+    unless relations.empty?
+      write_relation_rows(f, relations, relations_header, relations_footer)
+    end
+  end
+
+  def write_relations(f)
+    unless @parents.empty?
+      parent_rels = @parents.map { |parent| parent.visible_relations }.flatten.compact
+      write_relation_content(f, parent_rels, 
+        "<details markdown='block'><summary markdown='block'>\n## Inherited Properties\n</summary>\n\n",
+        "<details markdown='block'><summary markdown='block'>\n## Inherited Relations\n</summary>\n\n",
+        "</details>\n\n", "</details>\n\n"
+      )
+    end
+
+    write_relation_content(f, visible_relations, 
+      "\n## Properties\n\n", "\n## Relations\n\n")
   end
 
   def write_enumerations(f)

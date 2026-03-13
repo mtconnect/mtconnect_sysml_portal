@@ -195,7 +195,7 @@ module Relation
   end
   
   class Association < Relation
-    attr_reader :final_target, :association, :assoc_type, :inversion
+    attr_reader :final_target, :association, :assoc_type, :inversion, :part
     
     class End < Connection
       include Extensions
