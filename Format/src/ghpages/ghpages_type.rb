@@ -28,7 +28,7 @@ class GhPagesType < Type
     end
   end
 
-  def generate_page(output_dir, nav_order, parent_title, grand_parent = nil)
+  def generate_page(nav_order, parent_title, grand_parent = nil)
     # $logger.info "  Considering page for #{@name} #{@visibility} #{@type}"        
     return if @type == 'uml:Association' or @name.empty?
 
@@ -79,7 +79,8 @@ class GhPagesType < Type
   end
 
   def write_documentation(f)
-    return if @documentation.nil? || @documentation.empty?
+    return if @documentation.nil? || @documentation.empty? || 
+      @documentation.sections.all? { |s| s.title == 'Definition' }
 
     f.puts "\n## Documentation"
     @documentation.sections.each do |section|

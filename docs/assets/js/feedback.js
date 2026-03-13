@@ -29,9 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     status.textContent = 'Sending...';
     try {
-      const { token } = await (await fetch('{{ site.comment_url }}/csrf_token', {
-        credentials: 'include'
-      })).json();
+      const tokenResponse = await fetch('{{ site.comment_url }}/csrf_token', {
+        credentials: 'include',
+        redirect: 'manual'
+      });
+      if (tokenResponse.type === 'opaqueredirect') {
+          // user not logged in — open Redmine login in new tab
+          status.textContent = 'Please log into project.mtconnect.org to submit feedback.';
+          window.open('{{ site.comment_url }}/login', '_blank');
+          return;
+      }
+      if (!tokenResponse.ok) {
+        throw new Error("Network Error");
+      }
+      const { token } = await tokenResponse.json();
 
       const response = await fetch('{{ site.comment_url }}/cameo_comment', {
         method: 'POST',
@@ -54,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         status.textContent = 'Error : ' + await response.text();
       }
     } catch (e) {
-      status.textContent = 'Network error.';
+      status.textContent = e.message;
     }
   });
 });

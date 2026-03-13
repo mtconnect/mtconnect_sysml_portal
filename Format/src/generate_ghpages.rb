@@ -29,6 +29,10 @@ class GhPagesGenerator
       FileUtils.ln_s(File.join($model_dir, 'figures'), File.join(dir, 'figures'))
     end
 
+    unless File.exist?(File.join(dir, 'diagrams'))
+      FileUtils.ln_s(File.join($model_dir, 'diagrams'), File.join(dir, 'diagrams'))
+    end
+
     File.open(File.join(dir, '_config_version.yml'), 'w') do |f|
       f.puts "title: MTConnect SysML Model V#{$mtconnect_version}"
       f.puts "comment_url: #{ENV['COMMENT_URL'] || 'https://projects.mtconnect.org'}"

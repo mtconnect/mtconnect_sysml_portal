@@ -65,13 +65,17 @@ class GhPagesModel < Model
     # Write root index
     root_index = File.join(@@output_dir, 'index.md')
     File.open(root_index, 'w') do |f|
-      f.puts "---"
-      f.puts "title: MTConnect"
-      f.puts "nav_order: 1"
-      f.puts "has_children: true"
-      f.puts "layout: default"
-      f.puts "---"
-      f.puts "\n# MTConnect\n"
+      f.puts <<~EOT
+      ---
+      title: MTConnect"
+      nav_order: 1
+      has_children: true
+      layout: default
+      ---
+
+      # MTConnect
+
+      EOT
 
       root.write_documentation(f)
     end
@@ -82,7 +86,7 @@ class GhPagesModel < Model
     end
 
     top_level.sort_by { |m| TOP_ORDER.index(m.name) || TOP_ORDER.length }.each_with_index do |model, i|
-      model.generate_page(nil, i + 2)
+      model.generate_page(i + 2, nil)
     end
 
     top_level.length + 2
@@ -92,7 +96,7 @@ class GhPagesModel < Model
   # parent_title  - Just-the-Docs `parent:` value (nil for top-level pages)
   # nav_order     - position in the navigation
   # grand_parent  - Just-the-Docs `grand_parent:` value (for depth >= 3)
-  def generate_page(parent_title, nav_order, grand_parent = nil)
+  def generate_page(nav_order, parent_title, grand_parent = nil)
     dir = File.join(@@output_dir, page_dir)
     FileUtils.mkdir_p(dir)
 
@@ -104,18 +108,30 @@ class GhPagesModel < Model
       write_documentation(f)
     end
 
-    $logger.info "Generated page for #{@title}"
+    $logger.info "Generated children for #{@title}"
 
     # Child packages
     ordered_children = @children.sort_by { |c| c.name }
     ordered_children.each_with_index do |child, i|
-      child.generate_page(@title, i + 1, parent_title)
+      child.generate_page(i + 1, @title, parent_title)
     end
+    order = ordered_children.length + 1
+
+    $logger.info "Generate types for #{@title}"
 
     # Types within this package
     ordered_types = public_types.sort_by { |t| t.name }
     ordered_types.each_with_index do |type, i|
-      type.generate_page(dir, ordered_children.length + i + 1, @title, parent_title)
+      type.generate_page(order + i, @title, parent_title)
+    end
+    order += ordered_types.length
+
+    if @diagrams and @diagrams.any?
+      $logger.info "Generate diagrams for #{@title}"
+      ordered_diagrams = @diagrams.sort_by { |d| d.name }
+      ordered_diagrams.each_with_index do |diagram, i|
+        diagram.generate_page(order + i, @title, parent_title)
+      end
     end
   end
 
