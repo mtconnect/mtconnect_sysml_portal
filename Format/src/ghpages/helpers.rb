@@ -171,10 +171,13 @@ module GhPagesHelpers
     return block
   end
 
-  def format_target(ref = nil, validate = false)
-    sub = "::#{ref}" if ref
-    display = "`#{@name}#{sub}`"
-
+  def format_target(ref = nil, validate = false, text = nil)
+    unless text
+      sub = "::#{ref}" if ref
+      display = "`#{@name}#{sub}`"
+    else
+      display = "`#{text}`"
+    end
     if page_path and (!validate or File.exist?(expanded_page_path))
       index = "##{ref}" if ref
       "[#{display}]({% link #{page_path} %}#{index})"

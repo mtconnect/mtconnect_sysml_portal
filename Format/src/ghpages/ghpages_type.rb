@@ -39,6 +39,7 @@ class GhPagesType < Type
       f.puts "\n# #{@name}"
       write_parents(f)
       write_stereotypes(f)
+      write_definition(f)
       write_version_info(f)
       write_documentation(f)
       write_relations(f)
@@ -63,11 +64,33 @@ class GhPagesType < Type
     f.puts "---"
   end
 
+  def write_definition(f)
+    return if @documentation.nil? || @documentation.empty?
+    definition = @documentation.definition
+    if definition
+      f.puts <<~EOT
+        
+        ## Definition
+        
+        #{convert_markdown(definition)}
+        
+      EOT
+    end
+  end
+
   def write_documentation(f)
     return if @documentation.nil? || @documentation.empty?
+
+    f.puts "\n## Documentation"
     @documentation.sections.each do |section|
-      f.puts "\n### #{section.title}" unless section.title == 'Definition'
-      f.puts "\n#{convert_markdown(section.text)}"
+      unless section.title == 'Definition'
+        f.puts <<~EOT
+                  
+          ### #{section.title}
+          
+          #{convert_markdown(section.text)}
+        EOT
+      end
     end
   end
 
@@ -94,7 +117,7 @@ class GhPagesType < Type
 
 {: .auto-width }
 | Introduced | Deprecated | Updated |
-|---|---|---|
+|---:|---:|---:|
 | #{intro} | #{dep} |  #{upd} |
 EOT
   end
@@ -143,14 +166,18 @@ EOT
     name = r.respond_to?(:association_name) && r.association_name ? r.association_name : r.name
     begin
       if r.final_target && r.final_target.type
-        type_name = r.final_target.type.format_target(r.default)
+        type_name = r.final_target.type.format_target
+        default = r.final_target.type.format_target(r.default, nil, r.default) if r.default
       else
         type_name = r.target ? "`#{r.target.name}`" : 'Unknown'
+        default = "`#{r.default}`" if r.default
       end
-      if r.read_only
-        type_name << " (Only: `#{r.default}`)" if r.default
-      elsif r.default
-        type_name << " (Default: `#{r.default}`)"
+      if default
+        if r.read_only
+          type_name << " (Only: #{default})"
+        else
+          type_name << " (Default: #{default})"
+        end
       end
       $logger.debug "Type: #{type_name} for #{r.name} in #{self.name}"
     rescue
@@ -188,7 +215,8 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'}})
+                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
+                          Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
     end
 
     unless relations.empty?
@@ -197,7 +225,8 @@ EOT
         wrte_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'}})
+                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
+                          Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
     end
   end
 
@@ -211,7 +240,8 @@ EOT
       [name, lit.introduced, lit.deprecated, lit.updated, content]
     end
     write_table(f, [:Name, :Int, :Dep, :Upd, :Description], rows, 
-                { Description: { markdown: 'block'}, id: :Name})
+                { Description: { markdown: 'block'}, id: :Name,
+                  Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
   end
 
   def write_operations(f)
@@ -252,14 +282,15 @@ EOT
 
 {: .auto-width }
 | Introduced | Deprecated | Updated |"
-|---|---|---|
+|---:|---:|---:|
 | #{op.introduced} | #{op.deprecated} |  #{op.updated} |
 
 #### Parameters:
 
 EOT
       write_table(f, [:Name, :Int, :Dep, :Type, :Multiplicity, :'Default Value', :Description], rows, 
-                  {Description: { markdown: 'block'}, :'Default Value' => { code: true }, Type: { markdown: 'block' }})
+                  {Description: { markdown: 'block'}, :'Default Value' => { code: true }, Type: { markdown: 'block' },
+                    Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
 
       f.puts "\n#### Results:\n\n"
       write_table(f, [:Name, :Type, :Description], results, 
