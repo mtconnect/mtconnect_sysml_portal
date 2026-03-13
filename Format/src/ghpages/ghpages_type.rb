@@ -64,16 +64,26 @@ class GhPagesType < Type
     f.puts "---"
   end
 
+  def write_stereotypes(f)
+    return unless @stereotypes && !@stereotypes.empty?
+    visible = @stereotypes.reject { |s| ['normative', 'deprecated'].include?(s.name) }
+    return if visible.empty?
+    f.puts "\n**Stereotypes:** #{visible.map { |s| "`<<#{s.name}>>`" }.join(', ')}\n\n"
+  end
+
+  def write_parents(f)
+    return if @parents.nil? || @parents.empty?
+    names = @parents.map { |p| p.format_target }.join(', ')
+    f.puts "\n**Supertype:** #{names}\n\n"
+  end
+
   def write_definition(f)
     return if @documentation.nil? || @documentation.empty?
     definition = @documentation.definition
     if definition
       f.puts <<~EOT
-        
-        ## Definition
-        
-        #{convert_markdown(definition)}
-        
+        **Definition:** #{convert_markdown(definition)}
+
       EOT
     end
   end
@@ -95,13 +105,6 @@ class GhPagesType < Type
     end
   end
 
-  def write_stereotypes(f)
-    return unless @stereotypes && !@stereotypes.empty?
-    visible = @stereotypes.reject { |s| ['normative', 'deprecated'].include?(s.name) }
-    return if visible.empty?
-    f.puts "\n**Stereotypes:** #{visible.map { |s| "`<<#{s.name}>>`" }.join(', ')}"
-  end
-
   def write_version_info(f)
     intro = introduced
     dep = deprecated
@@ -113,23 +116,18 @@ class GhPagesType < Type
       end
     end
 
-    f.puts <<EOT
-## Version Info
-
-{: .auto-width }
-| Introduced | Deprecated | Updated |
-|---:|---:|---:|
-| #{intro} | #{dep} |  #{upd} |
-EOT
+    f.puts <<~EOT
+      
+      ## Version Info
+      
+      {: .auto-width }
+      | Introduced | Deprecated | Updated |
+      |---:|---:|---:|
+      | #{intro} | #{dep} |  #{upd} |
+    EOT
   end
 
-  def write_parents(f)
-    return if @parents.nil? || @parents.empty?
-    names = @parents.map { |p| "`#{p.name}`" }.join(', ')
-    f.puts "\n**Supertype:** #{names}"
-  end
-
-  def wrte_relation(r)
+  def format_relation(r)
     ints, deps = [introduced], [deprecated]
     ints << r.introduced
     deps << r.deprecated
@@ -197,13 +195,54 @@ EOT
     content = convert_markdown("#{doc} #{text}")
     [name, type_name, int, dep, mult, content]
   end
+  
+  def visible_relations
+    @relations.select do |r|
+      r.type != 'uml:Constraint' && r.visibility == 'public' && r.name != 'Supertype'
+    end
+  end
+  
+  def all_relations
+    if parent
+      parent.all_relations + visible_relations
+    else
+      visible_relations
+    end
+  end
 
   def write_relations(f)
-    public_rels = @relations.select do |r|
-      r.type != 'uml:Constraint' &&
-        r.visibility == 'public' &&
-        r.name != 'Supertype'
+    unless @parents.empty?
+      parent_rels = @parents.map { |parent| parent.visible_relations }.flatten.compact
+      unless parent_rels.empty?
+        relations, properties = parent_rels.partition do |r|
+          r.target && r.target.type.type == 'uml:Class'
+        end
+
+        unless properties.empty?
+          f.puts "<details markdown='block'><summary markdown='block'>\n## Inherited Properties\n</summary>\n\n"
+          rows = properties.map do |r|
+            format_relation(r)
+          end.compact
+          write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
+                      rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
+                              Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
+          f.puts "</details>\n\n"
+        end
+
+        unless relations.empty?
+          rows = relations.map do |r|
+            format_relation(r)
+          end.compact
+          f.puts "<details markdown='block'><summary markdown='block'>\n## Inherited Relations\n</summary>\n\n"
+          write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
+                      rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
+                              Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
+          f.puts "</details>\n\n"
+        end
+      end
     end
+
+    public_rels = visible_relations
     return if public_rels.empty?
 
     relations, properties = public_rels.partition do |r|
@@ -213,7 +252,7 @@ EOT
     unless properties.empty?
       f.puts "\n## Properties\n\n"
       rows = properties.map do |r|
-        wrte_relation(r)
+        format_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
                   rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
@@ -223,7 +262,7 @@ EOT
     unless relations.empty?
       f.puts "\n## Relations\n\n"
       rows = relations.map do |r|
-        wrte_relation(r)
+        format_relation(r)
       end
       write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
                   rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
