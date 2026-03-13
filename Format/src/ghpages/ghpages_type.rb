@@ -139,6 +139,7 @@ class GhPagesType < Type
       deps << assoc.deprecated
 
       if r.thru?
+        puts "Association #{r.name} is a through association for #{r.target.type.name} in #{r.target.type.type}"
         inter = r.target.type
         text << " (through `#{inter.name}`)"
       end
@@ -215,7 +216,7 @@ class GhPagesType < Type
       parent_rels = @parents.map { |parent| parent.visible_relations }.flatten.compact
       unless parent_rels.empty?
         relations, properties = parent_rels.partition do |r|
-          r.target && r.target.type.type == 'uml:Class'
+          r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
         end
 
         unless properties.empty?
@@ -246,7 +247,7 @@ class GhPagesType < Type
     return if public_rels.empty?
 
     relations, properties = public_rels.partition do |r|
-      r.target && r.target.type.type == 'uml:Class'
+      r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
     end
 
     unless properties.empty?
