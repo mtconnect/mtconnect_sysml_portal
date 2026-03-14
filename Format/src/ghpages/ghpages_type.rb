@@ -255,7 +255,9 @@ class GhPagesType < Type
       if rels.any?
         groups = group_relations(rels)
         f.puts "\n<details markdown='block'><summary markdown='block'>\n## Inherited from #{parent.format_target}\n</summary>\n\n"
+        f.puts "<hr/>"
         parent.write_relations(f, groups, 3)
+        f.puts "<hr/>"
         f.puts "</details>\n\n"
       end
     end    
