@@ -32,6 +32,8 @@ class GhPagesType < Type
     # $logger.info "  Considering page for #{@name} #{@visibility} #{@type}"        
     return if @type == 'uml:Association' or @name.empty?
 
+    grouped_relations = group_relations(@relations)
+
     $logger.info "  Generating page for #{@name}"        
 
     File.open(@expanded_page_path, 'w') do |f|
@@ -42,7 +44,8 @@ class GhPagesType < Type
       write_definition(f)
       write_version_info(f)
       write_documentation(f)
-      write_relations(f)
+      write_inheritance(f)
+      write_relations(f, grouped_relations)
       write_enumerations(f) if enumeration?
       write_operations(f)
       write_constraints(f)
@@ -52,6 +55,35 @@ class GhPagesType < Type
 
   def slug
     @name.gsub(/[^a-z0-9]+/i, '')
+  end
+
+  def group_relations(rels)
+    rels.group_by do |r|
+      case r
+      when Relation::Attribute
+        :properties
+      when Relation::Association
+        if r.inversion
+          :inversions
+        elsif r.part
+          :parts
+        else
+          :connections
+        end
+      when Relation::Constraint
+        :constraints
+      when Relation::Generalization
+        :generalizations
+      when Relation::Realization  
+        :realizations
+      when Relation::Dependency
+        :dependencies
+      when Relation::Slot
+        :slots
+      else
+        :unknown
+      end      
+    end
   end
 
   def write_frontmatter(f, nav_order, parent_title, grand_parent)
@@ -197,50 +229,51 @@ class GhPagesType < Type
     [name, type_name, int, dep, mult, content]
   end
   
-  def visible_relations
-    @relations.select do |r|
-      r.type != 'uml:Constraint' && r.visibility == 'public' && r.name != 'Supertype'
-    end
-  end
-  
-  def all_relations
-    inherited = @parents.flat_map(&:all_relations)
-    inherited + visible_relations
-  end
-
-  def write_relation_rows(f, relations, header, footer)
-    f.puts header
-    rows = relations.map do |r|
+  def write_relation_rows(f, rels)
+    rows = rels.map do |r|
       format_relation(r)
     end
     write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
                 rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
                         Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
-    f.puts footer if footer
   end
 
-  def write_relation_content(f, all_relations, property_header, relations_header, property_footer = nil, relations_footer = nil)
-    # TODO: We may want to split out properties, relations, and parts.
-    relations, properties = all_relations.partition do |r|
-      r.target and (r.target.type.type == 'uml:Class' or r.target.type.type == 'uml:AssociationClass')
-    end
-    unless properties.empty?
-      write_relation_rows(f, properties, property_header, property_footer)
-    end
-    unless relations.empty?
-      write_relation_rows(f, relations, relations_header, relations_footer)
+  def visible_relations
+    @relations.select do |r|
+      Relation::Association === r or Relation::Attribute === r
     end
   end
+  
+  def all_relations
+    inherited = @parents.flat_map(&:all_relations)
+    inherited + @relations
+  end
 
-  def write_relations(f)
+  def write_inheritance(f)
     @parents.each do |parent|
-      f.puts "\n<details markdown='block'><summary markdown='block'>\n## Inherited from #{parent.format_target}\n</summary>\n\n"
-      write_relation_content(f, parent.all_relations, "\n### Properties\n\n", "\n### Relations\n\n")
-      f.puts "</details>\n\n"
-    end
-
-    write_relation_content(f, visible_relations, "\n## Properties\n\n", "\n## Relations\n\n")
+      rels = parent.all_relations
+      if rels.any?
+        groups = group_relations(rels)
+        f.puts "\n<details markdown='block'><summary markdown='block'>\n## Inherited from #{parent.format_target}\n</summary>\n\n"
+        parent.write_relations(f, groups, 3)
+        f.puts "</details>\n\n"
+      end
+    end    
   end
+
+  def write_relation_group(f, rels, title, level = 2)
+    return if rels.nil? or rels.empty?
+    $logger.debug "    Adding #{title} to #{@name}"
+    f.puts "\n#{'#' * level} #{title}\n\n"
+    write_relation_rows(f, rels)
+  end
+
+  def write_relations(f, groups, level = 2)
+    write_relation_group(f, groups[:properties], "Properties", level)
+    write_relation_group(f, groups[:connections], "Relations", level)
+    write_relation_group(f, groups[:parts], "Parts", level)
+    write_relation_group(f, groups[:inversions], "Part Of", level)
+  end 
 
   def write_enumerations(f)
     # TODO: Make this into a table
