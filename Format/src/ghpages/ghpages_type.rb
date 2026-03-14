@@ -204,22 +204,19 @@ class GhPagesType < Type
   end
   
   def all_relations
-    if parent
-      parent.all_relations + visible_relations
-    else
-      visible_relations
-    end
+    inherited = @parents.flat_map(&:all_relations)
+    inherited + visible_relations
   end
 
   def write_relation_rows(f, relations, header, footer)
-      f.puts header
-      rows = relations.map do |r|
-        format_relation(r)
-      end
-      write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
-                  rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
-                          Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
-      f.puts footer if footer
+    f.puts header
+    rows = relations.map do |r|
+      format_relation(r)
+    end
+    write_table(f, [:Name, :Type, :Int, :Dep, :Multiplicity, :Description], 
+                rows, { Description: { markdown: 'block' }, id: :Name, Type: { markdown: 'span'},
+                        Int: { style: 'text-align: right' }, Dep: { style: 'text-align: right' }})
+    f.puts footer if footer
   end
 
   def write_relation_content(f, all_relations, property_header, relations_header, property_footer = nil, relations_footer = nil)
@@ -236,17 +233,13 @@ class GhPagesType < Type
   end
 
   def write_relations(f)
-    unless @parents.empty?
-      parent_rels = @parents.map { |parent| parent.visible_relations }.flatten.compact
-      write_relation_content(f, parent_rels, 
-        "<details markdown='block'><summary markdown='block'>\n## Inherited Properties\n</summary>\n\n",
-        "<details markdown='block'><summary markdown='block'>\n## Inherited Relations\n</summary>\n\n",
-        "</details>\n\n", "</details>\n\n"
-      )
+    @parents.each do |parent|
+      f.puts "\n<details markdown='block'><summary markdown='block'>\n## Inherited from #{parent.format_target}\n</summary>\n\n"
+      write_relation_content(f, parent.all_relations, "\n### Properties\n\n", "\n### Relations\n\n")
+      f.puts "</details>\n\n"
     end
 
-    write_relation_content(f, visible_relations, 
-      "\n## Properties\n\n", "\n## Relations\n\n")
+    write_relation_content(f, visible_relations, "\n## Properties\n\n", "\n## Relations\n\n")
   end
 
   def write_enumerations(f)
