@@ -253,7 +253,7 @@ class GhPagesType < Type
     @parents.each do |parent|
       rels = parent.all_relations
       if rels.any?
-        groups = group_relations(rels)
+        groups = { properties: group_relations(rels)[:properties] }
         f.puts "\n<details markdown='block'><summary markdown='block'>\n## Inherited from #{parent.format_target}\n</summary>\n\n"
         f.puts "<hr/>"
         parent.write_relations(f, groups, 3)
