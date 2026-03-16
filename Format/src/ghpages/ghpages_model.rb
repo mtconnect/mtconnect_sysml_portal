@@ -77,7 +77,10 @@ class GhPagesModel < Model
 
       EOT
 
-      root.write_documentation(f)
+      root.write_documentation(f) do |md|
+        md.gsub('[`MTConnectSysMLModel.xml`](./MTConnectSysMLModel.xml)', 
+                %{[`MTConnectSysMLModel.xml`](/Version#{$mtconnect_version}/MTConnectSysMLModel.xml){: download="MTConnectSysMLModel.xml"}})
+      end
     end
 
     # Gather top-level packages (direct children of the MTConnect root)
@@ -165,10 +168,11 @@ class GhPagesModel < Model
     f.puts "---"
   end
 
-  def write_documentation(f)
+  def write_documentation(f, &block)
     return if @documentation.nil? || @documentation.empty?
     @documentation.sections.each do |section|
       md = convert_markdown(section.text)
+      md = yield md if block_given?
       if section.title == 'Definition'
         f.puts "\n#{md}\n"
       else
