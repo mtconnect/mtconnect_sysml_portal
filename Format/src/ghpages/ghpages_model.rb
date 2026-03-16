@@ -67,7 +67,7 @@ class GhPagesModel < Model
     File.open(root_index, 'w') do |f|
       f.puts <<~EOT
       ---
-      title: MTConnect"
+      title: MTConnect
       nav_order: 1
       has_children: true
       layout: default
