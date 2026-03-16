@@ -41,17 +41,22 @@ EOT
   end
 
     def write_frontmatter(f)
-      f.puts <<EOT
----
-title: "Version #{@version}"
-nav_order: #{@nav_order}
-parent: "Changes"
-layout: default
----
-
-# [Version #{@version}](/Version#{@version}/)
-
+      f.puts <<~EOT
+        ---
+        title: "Version #{@version}"
+        nav_order: #{@nav_order}
+        parent: "Changes"
+        layout: default
+        ---
+        
 EOT
+
+    maj, min = @version.split('.').map(&:to_i)
+    if (maj >= 2)
+      f.puts "# [Version #{@version}](/Version#{@version}/)"
+    else
+      f.puts "# Version #{@version}"
+    end
   end
 
   def find_sterotypes(sts)
