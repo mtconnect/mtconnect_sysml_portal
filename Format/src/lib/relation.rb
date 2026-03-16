@@ -421,8 +421,9 @@ module Relation
   class Slot < Relation
     def initialize(owner, a)
       super(owner, a)
-      @target_id = a['definingFeature']
-      @target = @relation = nil
+      @target_id = 
+      @target = LazyPointer.new(a['definingFeature'])
+      @relation = nil
       @value = get_value(a, 'value')
     end
 

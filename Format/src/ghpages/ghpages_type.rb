@@ -34,12 +34,16 @@ class GhPagesType < Type
 
     grouped_relations = group_relations(@relations)
 
-    $logger.info "  Generating page for #{@name}"        
+    $logger.info "  Generating page for #{@name}"
 
     File.open(@expanded_page_path, 'w') do |f|
       write_frontmatter(f, nav_order, parent_title, grand_parent)
-      f.puts "\n# #{@name}"
       write_parents(f)
+      if @abstract
+        f.puts "\n# *<<abstract>> #{@name}*"
+      else
+        f.puts "\n# #{@name}"
+      end
       write_stereotypes(f)
       write_definition(f)
       write_version_info(f)
@@ -49,6 +53,7 @@ class GhPagesType < Type
       write_enumerations(f) if enumeration?
       write_operations(f)
       write_constraints(f)
+      write_slots(f, grouped_relations[:slots])
       write_children(f)
     end
   end
@@ -106,7 +111,7 @@ class GhPagesType < Type
   def write_parents(f)
     return if @parents.nil? || @parents.empty?
     names = @parents.map { |p| p.format_target }.join(', ')
-    f.puts "\n**Supertype:** #{names}\n\n"
+    f.puts "\n**Superclass (is-a):** #{names}\n\n"
   end
 
   def write_definition(f)
@@ -114,8 +119,10 @@ class GhPagesType < Type
     definition = @documentation.definition
     if definition
       f.puts <<~EOT
-        **Definition:** #{convert_markdown(definition)}
-
+        ## Definition
+        
+        #{convert_markdown(definition)}
+        
       EOT
     end
   end
@@ -272,8 +279,8 @@ class GhPagesType < Type
 
   def write_relations(f, groups, level = 2)
     write_relation_group(f, groups[:properties], "Properties", level)
-    write_relation_group(f, groups[:connections], "Relations", level)
     write_relation_group(f, groups[:parts], "Parts", level)
+    write_relation_group(f, groups[:connections], "Relations", level)
     write_relation_group(f, groups[:inversions], "Part Of", level)
   end 
 
@@ -356,6 +363,23 @@ EOT
     end
     write_table(f, [:'Error Message', :'OCL Expression'], rows, 
                 {:'Error Message' => { markdown: 'block'}, :'OCL Expression' => { markdown: 'block' }})
+  end
+
+  def write_slots(f, slots)
+    return if slots.nil? or slots.empty? 
+
+    rows = slots.map do |slot|
+      if LazyPointer === slot.value
+        value = slot.value.name
+      else 
+        value = slot.value
+      end
+      [slot.target.name, value]
+    end
+
+    f.puts "\n## Slots\n\n"
+    write_table(f, [:Name, :Value], rows, 
+      { Name: { code: true }, Value: { code: true }})
   end
 
   def write_children(f)

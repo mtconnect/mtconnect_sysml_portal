@@ -35,8 +35,15 @@ class GhPagesDiagram < Diagram
       f.puts "nav_order: #{nav_order}"
       f.puts "layout: default"
       f.puts "---"
-      f.puts "\n# #{@name} Diagram\n"
-      f.puts "![#{@name}]({% link #{@image_path} %})"
+      f.puts <<~EOT
+        
+        # #{@name} Diagram
+        
+        <object data="{% link #{@image_path} %}" type="image/svg+xml" width="95%">
+          <img src="{% link #{@image_path} %}" alt="#{@name} Diagram">
+        </object>
+        
+      EOT
     end
   end
 end

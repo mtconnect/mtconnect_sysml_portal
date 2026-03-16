@@ -115,7 +115,7 @@ EOT
         subject = owner
         name = owner.name + obj.name
         f = obj.deprecated ? "<strike>#{obj.name}</strike>" : obj.name
-        [ reason, 'Literal', "#{owner.format_target(obj.name, true)} <code>#{f}</code>"]
+        [ reason, 'Literal', "#{owner.format_target(obj.name, true)}"]
         
       when Operation
         block = obj.owner

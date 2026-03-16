@@ -171,10 +171,12 @@ module GhPagesHelpers
     return block
   end
 
-  def format_target(ref = nil, validate = false, text = nil)
+  def format_target(ref = nil, validate = false, text = nil)    
     unless text
-      sub = "::#{ref}" if ref
-      display = "`#{@name}#{sub}`"
+      display = @abstract ? "*<<abstract>> `#{@name}" : "`#{@name}"
+      display << "::#{ref}" if ref
+      display << '`'
+      display << '*' if @abstract
     else
       display = "`#{text}`"
     end
