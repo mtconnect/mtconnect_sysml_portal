@@ -78,8 +78,9 @@ class GhPagesModel < Model
       EOT
 
       root.write_documentation(f) do |md|
-        md.gsub('[`MTConnectSysMLModel.xml`](./MTConnectSysMLModel.xml)', 
-                %{[`MTConnectSysMLModel.xml`](/Version#{$mtconnect_version}/MTConnectSysMLModel.xml){: download="MTConnectSysMLModel.xml"}})
+        fn = "MTConnectSysMLModel_V#{$mtconnect_version}.xml"
+        md.sub('[`MTConnectSysMLModel.xml`](./MTConnectSysMLModel.xml)', 
+                %{[`#{fn}`]({% link #{fn} %}){: download="#{fn}"}})
       end
     end
 

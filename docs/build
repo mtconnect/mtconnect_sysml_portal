@@ -2,12 +2,15 @@
 
 require 'fileutils'
 require 'yaml'
+require '../lib/utils'
 
-config = YAML.load_file(File.join('..', 'build.yml'))
-config['build'].each do |version|
-  source = "./tmp/Source#{version}"
-  destination = "../deploy/Version#{version}/"
+base = File.expand_path('..', File.dirname(__FILE__))
+versions = versions_for_build
+versions.each do |version|
+  puts "\n--------------------------------\nBuilding Version #{version}\n\n"
 
+  source = File.join(File.dirname(__FILE__), 'tmp', "Source#{version}/")
+  destination = File.join(base, 'deploy', "Version#{version}/")
 
   FileUtils.rm_r source if File.exist?(source)
   FileUtils.rm_r destination if File.exist?(destination)
@@ -17,12 +20,11 @@ config['build'].each do |version|
   %w{_config.yml _includes _layouts _sass 404.html assets}.each do |d|
     FileUtils.ln_s(d, File.join(source, d), relative: true)
   end
+  FileUtils.ln_s(File.join(base, "Version#{version}", "MTConnectSysMLModel.xml"), File.join(source, "MTConnectSysMLModel_V#{version}.xml"))
 
-  Dir["../build/Version#{version}/*"].each do |d|
-    FileUtils.ln_s(File.expand_path(d), File.join(source, File.basename(d)))
+  Dir[File.join(base, 'build', "Version#{version}", '*')].each do |d|
+    FileUtils.ln_s(d, File.join(source, File.basename(d)))
   end
 
   system("bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /Version#{version} -d #{destination}")
-
-  FileUtils.ln_s(File.expand_path(File.join("..", "Version#{version}", "MTConnectSysMLModel.xml")), File.join(destination, "MTConnectSysMLModel.xml"))
 end
