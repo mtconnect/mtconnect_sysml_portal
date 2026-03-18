@@ -127,7 +127,7 @@ def build_version(base, src, dest, version = nil)
     end
   end
 
-  command = "bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /#{dest} -d #{destination}"
+  command = "bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}_config_version.yml -b /#{dest} -d #{destination}"
   puts "Running command: #{command}"
   system(command) || raise(command)
 end
