@@ -7,14 +7,15 @@ require '../lib/utils'
 base = File.expand_path('..', File.dirname(__FILE__))
 
 def write_root_page(dir, versions, latest, development)
-  puts "\n--------------------------------\nBuilding Root Page: #{dir}\n\n"
+  puts "\n--------------------------------\nGenerating Root Page: #{dir}\n\n"
   FileUtils.rm_r dir if File.exist?(dir)
   FileUtils.mkdir_p dir
 
   FileUtils.ln_s('./figures', File.join(dir, 'figures'), relative: true)
 
-  puts "Opening file: #{File.join(dir, 'index.md')}"
-  File.open(File.join(dir, 'index.md'), 'w') do |f|
+  fn = File.join(dir, 'index.md')
+  puts "Generating file: #{fn}"
+  File.open(fn, 'w') do |f|
     f.puts <<~EOT
       ---
       title: MTConnect
@@ -25,14 +26,15 @@ def write_root_page(dir, versions, latest, development)
 
       # MTConnect SysML Model Documentation
 
-      ## Versions
+      ## Latest Versions
 
       * [Latest Version (#{latest})](/Version#{latest}/)
       * [Development Version (#{development})](/Version#{development}/)
 
       ## All Versions
+
     EOT
-    versions.each do |version|
+    versions.sort.reverse.each do |version|
       f.puts "* [Version #{version}](/Version#{version}/)"
     end
 
@@ -99,14 +101,16 @@ not they had advance notice of the possibility of such damage.
 EOT
   end
 
-  File.open(File.join(dir, '_config_version.yml'), 'w') do |f|
+  fn = File.join(dir, '_config_version.yml')
+  puts "Generating file: #{fn}"
+  File.open(fn, 'w') do |f|
     f.puts "title: MTConnect SysML Model Documentation"
     f.puts "comment_url: #{ENV['COMMENT_URL'] || 'https://projects.mtconnect.org'}"
   end
 end
 
 def build_version(base, src, dest, version = nil)
-  puts "\n--------------------------------\nBuilding Version #{src}\n\n"
+  puts "\n--------------------------------\nBuilding #{src} -> /#{dest}\n\n"
 
   source = File.join(File.dirname(__FILE__), 'tmp', "#{src}/")
   destination = File.join(base, 'deploy', "#{dest}/")
@@ -134,7 +138,5 @@ write_root_page(File.join(File.dirname(__FILE__), 'tmp', 'Root'), versions, late
 build_version(base, 'Root', '',)
 
 versions.each do |version|
-  puts "\n--------------------------------\nBuilding Version #{version}\n\n"
-
   build_version(base, "Source#{version}", "Version#{version}", version)
 end
