@@ -98,6 +98,9 @@ class GhPagesType < Type
     f.puts "grand_parent: #{quote_yaml(grand_parent)}" if grand_parent
     f.puts "nav_order: #{nav_order}"
     f.puts "layout: default"
+    if @documentation && @documentation.definition
+      f.puts "definition: #{quote_yaml(convert_markdown(@documentation.definition, false))}\n\n"
+    end
     f.puts "---"
   end
 
@@ -119,9 +122,7 @@ class GhPagesType < Type
     definition = @documentation.definition
     if definition
       f.puts <<~EOT
-        ## Definition
-        
-        #{convert_markdown(definition)}
+        **Definition:** #{convert_markdown(definition)}
         
       EOT
     end

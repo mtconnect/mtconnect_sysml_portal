@@ -23,7 +23,7 @@ module GhPagesHelpers
       command = $1
       args = $3.gsub(/\\([<>])/, '\1') if $3
       
-      #puts "Macro: #{command} (#{args})"
+      #puts "Macro: #{command} (#{args} #{expand})"
 
       case command         
       when 'term'
@@ -46,7 +46,7 @@ module GhPagesHelpers
 
       when 'def'
         text = GhPagesHelpers::Definitions.dig(*args.split('::')) || "`#{args}`"
-        convert_markdown(text)
+        convert_markdown(text, expand)
 
       when 'latex'
         args
@@ -312,6 +312,6 @@ module GhPagesHelpers
 
   def quote_yaml(text)
     return nil if text.nil?
-    text.to_s.include?('"') ? "'#{text}'" : "\"#{text}\""
+    %{'#{text.to_s.gsub("'", "''").gsub(/\r?\n/, ' ')}'}
   end
 end

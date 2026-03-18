@@ -104,23 +104,26 @@ function initSearch() {
 
       var index = lunr(function(){
         this.ref('id');
-        this.field('title', { boost: 200 });
+        this.field('doc', { boost: 200 });
+        this.field('title', { boost: 100 });
         this.field('content', { boost: 2 });
         {%- if site.search.rel_url != false %}
-        this.field('relUrl');
+        this.field('relUrl', { boost: 10 });
         {%- endif %}
         this.metadataWhitelist = ['position']
 
         for (var i in docs) {
           {% include lunr/custom-index.js %}
+          var docBoost = /^\/(Glossary|ReferenceAgent|WIP)[^\/]*\//.test(docs[i].relUrl) ? 1 : 10;
           this.add({
             id: i,
+            doc: docs[i].doc,
             title: docs[i].title,
             content: docs[i].content,
             {%- if site.search.rel_url != false %}
             relUrl: docs[i].relUrl
             {%- endif %}
-          });
+          }, { boost: docBoost });
         }
       });
 

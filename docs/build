@@ -139,7 +139,6 @@ versions, latest, development = versions_for_build
 
 write_root_page(File.join(File.dirname(__FILE__), 'tmp', 'Root'), versions, latest, development)
 build_version(base, 'Root', '',)
-system("cat ../deploy/index.html")
 
 versions.each do |version|
   build_version(base, "Source#{version}", "Version#{version}", version)

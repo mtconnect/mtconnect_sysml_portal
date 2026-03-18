@@ -13,7 +13,7 @@ begin
   puts command
   system(command) || raise(command)
 
-  puts "Copying the deploy archivessu  to the mtconnect projects site"
+  puts "Copying the deploy archives to the mtconnect projects site"
   command = "scp deploy.tgz deploy@projects.mtconnect.org:~/"
   puts command
   system(command) || raise(command)
