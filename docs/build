@@ -4,8 +4,6 @@ require 'fileutils'
 require 'yaml'
 require '../lib/utils'
 
-base = File.expand_path('..', File.dirname(__FILE__))
-
 def write_root_page(dir, versions, latest, development)
   puts "\n--------------------------------\nGenerating Root Page: #{dir}\n\n"
   FileUtils.rm_r dir if File.exist?(dir)
@@ -129,13 +127,17 @@ def build_version(base, src, dest, version = nil)
     end
   end
 
-  system("bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /#{dest} -d #{destination}")
+  command = "bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b /#{dest} -d #{destination}"
+  puts "Running command: #{command}"
+  system(command) || raise(command)
 end
 
+base = File.expand_path('..', File.dirname(__FILE__))
 versions, latest, development = versions_for_build
 
 write_root_page(File.join(File.dirname(__FILE__), 'tmp', 'Root'), versions, latest, development)
 build_version(base, 'Root', '',)
+system("cat ../deploy/index.html")
 
 versions.each do |version|
   build_version(base, "Source#{version}", "Version#{version}", version)
