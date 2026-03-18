@@ -113,20 +113,22 @@ def build_version(base, src, dest, version = nil)
   source = File.join(File.dirname(__FILE__), 'tmp', "#{src}/")
   destination = File.join(base, 'deploy', "#{dest}/")
 
-  FileUtils.rm_r source if version and File.exist?(source)
-  FileUtils.mkdir_p source
-  FileUtils.rm_r destination if File.exist?(destination)
-
-  %w{_config.yml _includes _layouts _sass 404.html assets}.each do |d|
-    FileUtils.ln_s(d, File.join(source, d), relative: true)
-  end
   if version
+    FileUtils.rm_r source if File.exist?(source)
+    FileUtils.mkdir_p source
+    FileUtils.rm_r destination if File.exist?(destination)
+  
     FileUtils.ln_s(File.join(base, "Version#{version}", "MTConnectSysMLModel.xml"), File.join(source, "MTConnectSysMLModel_V#{version}.xml"))
     Dir[File.join(base, 'build', "Version#{version}", '*')].each do |d|
       FileUtils.ln_s(d, File.join(source, File.basename(d)))
     end
   end
 
+  %w{_config.yml _includes _layouts _sass 404.html assets}.each do |d|
+    FileUtils.ln_s(d, File.join(source, d), relative: true)
+  end
+
+  dest = '.' if dest.empty?
   command = "bundle exec jekyll build -s #{source} --config ./_config.yml,#{source}_config_version.yml --baseurl /#{dest} -d #{destination}"
   puts "Running command: #{command}"
   system(command) || raise(command)
