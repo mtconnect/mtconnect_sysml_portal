@@ -16,6 +16,8 @@ class Constraint
 
     spec = rule.specification
     @ocl = spec.body.text
+
+    LazyPointer.register(@id, self)
   end
 end
     

@@ -4,11 +4,12 @@ require 'yaml'
 require 'fileutils'
 
 config = YAML.load_file(File.join('build.yml'))
-directories = config['build'].map { |v| "Version#{v}" }
+files = ['404.html', 'index.html', 'assets', 'figures', 'robots.txt', 'sitemap.xml']
+files += config['build'].map { |v| "Version#{v}" }
 
 begin
   puts "Archiving the deploy directory"
-  command = "tar -czf deploy.tgz -C deploy #{directories.join(' ')}"
+  command = "tar -czf deploy.tgz -C deploy #{files.join(' ')}"
   puts command
   system(command) || raise(command)
 
@@ -19,7 +20,7 @@ begin
 
   puts "Removing the old content and deploying the new"
   command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
-      "rm -rf #{directories.join(' ')} && " + 
+      "rm -rf #{files.join(' ')} && " + 
       "tar -xzf ~/deploy.tgz && " + 
       "rm ~/deploy.tgz'"
   puts command

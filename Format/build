@@ -5,7 +5,7 @@ require 'fileutils'
 require '../lib/utils'
 
 base = File.expand_path('..', File.dirname(__FILE__))
-versions = versions_for_build
+versions, latest, development = versions_for_build
 versions.each do |version|
   puts "\n--------------------------------\nBuilding Version #{version}\n\n"
 
