@@ -8,8 +8,12 @@ gem 'rspec-xml'
 gem 'memoist'
 gem 'uuid'
 gem 'activesupport'
-gem 'debug'
 
 gem 'redcarpet'
 gem 'kramdown'
 gem 'kramdown-math-katex'
+
+group :development, :test do
+  gem 'debug'
+  gem 'rdbg'
+end
