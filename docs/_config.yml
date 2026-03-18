@@ -17,7 +17,7 @@ title: MTConnect SysML Model
 description: MTConnect SysML Model Documentation
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://model.mtconnect.org" # the base hostname & protocol for your site, e.g. http://example.com
-#repository: mtconnect/mtconnect_sysml_portal # for github-metadata
+repository: mtconnect/mtconnect_sysml_portal # for github-metadata
 
 permalink: pretty
 
