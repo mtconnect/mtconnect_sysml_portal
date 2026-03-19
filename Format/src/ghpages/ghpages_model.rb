@@ -52,7 +52,8 @@ class GhPagesModel < Model
 
   def initialize(*args)
     super
-    @title = "#{@name} Package"
+    inf = informative ? "«informative» " : ""
+    @title = "#{inf}#{@name} Package"
     @page_path = File.join(page_dir, 'index.md')
     @expanded_page_path = File.join(@@output_dir, page_dir, 'index.md')
   end
@@ -107,6 +108,7 @@ class GhPagesModel < Model
     has_children = !public_types.empty? || !@children.empty?
 
     File.open(@expanded_page_path, 'w') do |f|
+
       write_frontmatter(f, @title, parent_title, nav_order, has_children, grand_parent)
       f.puts "\n# #{@title}\n"
       write_documentation(f)

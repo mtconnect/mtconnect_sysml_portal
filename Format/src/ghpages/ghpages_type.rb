@@ -40,7 +40,7 @@ class GhPagesType < Type
       write_frontmatter(f, nav_order, parent_title, grand_parent)
       write_parents(f)
       if @abstract
-        f.puts "\n# *<<abstract>> #{@name}*"
+        f.puts "\n# *« abstract » #{@name}*"
       else
         f.puts "\n# #{@name}"
       end
