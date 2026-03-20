@@ -30,6 +30,7 @@ class GhPagesDiagram < Diagram
     File.open(@expanded_page_path, 'w') do |f|
       f.puts "---"
       f.puts "title: #{@name} Diagram"
+      f.puts "label: #{quote_yaml(label)}"
       f.puts "parent: #{parent_title}"
       f.puts "grand_parent: #{quote_yaml(grand_parent)}" if grand_parent
       f.puts "nav_order: #{nav_order}"

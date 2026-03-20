@@ -94,6 +94,7 @@ class GhPagesType < Type
   def write_frontmatter(f, nav_order, parent_title, grand_parent)
     f.puts "---"
     f.puts "title: #{quote_yaml(@name)}"
+    f.puts "label: #{quote_yaml(label)}"
     f.puts "parent: #{quote_yaml(parent_title)}" if parent_title
     f.puts "grand_parent: #{quote_yaml(grand_parent)}" if grand_parent
     f.puts "nav_order: #{nav_order}"

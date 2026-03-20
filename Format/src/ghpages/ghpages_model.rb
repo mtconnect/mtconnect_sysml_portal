@@ -163,6 +163,7 @@ class GhPagesModel < Model
   def write_frontmatter(f, title, parent, nav_order, has_children, grand_parent = nil)
     f.puts "---"
     f.puts "title: #{quote_yaml(title)}"
+    f.puts "label: #{quote_yaml(label)}"
     f.puts "parent: #{quote_yaml(parent)}" if parent
     f.puts "grand_parent: #{quote_yaml(grand_parent)}" if grand_parent
     f.puts "nav_order: #{nav_order}"

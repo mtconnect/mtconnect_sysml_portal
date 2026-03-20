@@ -1,3 +1,4 @@
 {%- capture newline %}
 {% endcapture -%}
 "definition": {{ include.page.definition | markdownify | replace:newline,' ' | strip_html | normalize_whitespace | strip | jsonify }},
+"label": {{ include.page.label | markdownify | replace:newline,' ' | strip_html | normalize_whitespace | strip | jsonify }},

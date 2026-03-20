@@ -33,16 +33,16 @@ module GhPagesHelpers
         format_term(args, true, expand)
 
       when 'operation'
-        format_operation(args)
+        format_operation(args, expand)
 
       when 'block'
-        format_block(args)
+        format_block(args, expand)
 
       when 'property'
-        format_property(args)
+        format_property(args, expand)
 
       when 'package'
-        format_package(args)
+        format_package(args, expand)
 
       when 'def'
         text = GhPagesHelpers::Definitions.dig(*args.split('::')) || "`#{args}`"
@@ -171,7 +171,7 @@ module GhPagesHelpers
     return block
   end
 
-  def format_target(ref = nil, validate = false, text = nil)    
+  def format_target(ref = nil, validate = false, text = nil, expand = true)    
     unless text
       display = @abstract ? "*«abstract» `#{@name}" : "`#{@name}"
       display << "::#{ref}" if ref
@@ -180,7 +180,7 @@ module GhPagesHelpers
     else
       display = "`#{text}`"
     end
-    if page_path and (!validate or File.exist?(expanded_page_path))
+    if expand and page_path and (!validate or File.exist?(expanded_page_path))
       index = "##{ref}" if ref
       "[#{display}]({% link #{page_path} %}#{index})"
     else
@@ -188,7 +188,7 @@ module GhPagesHelpers
     end
   end
 
-  def format_block(block)
+  def format_block(block, expand = true)
     if LazyPointer === block
       block.resolve
       block = block.obj
@@ -200,35 +200,37 @@ module GhPagesHelpers
       name = block.respond_to?(:name) ? block.name : block
       b = find_block(name)
     end
-    if b
-      %{[`#{b.name}`]({% link #{b.page_path} %})}
+    if expand and b
+      b.format_target(nil, false, nil, expand)
     else
       "`#{block}`"
     end                    
   end
 
-  def format_property(property)
+  def format_property(property, expand = true)
     # TODO: Handle property chains like `Device::data_items::name`
     f1, f2, f3, = property.split('::')
     b  = nil
     if f3
-      b, prop = find_block("#{f1}::#{f2}"), f3
+      bn = "#{f1}::#{f2}"
+      b, prop = find_block(bn), f3
     elsif f2
-      b, prop = find_block(f1), f2
+      bn = f1
+      b, prop = find_block(bn), f2
     else
       prop = f1
     end
 
     if b
-      %{[`#{b.name}::#{prop}`]({% link #{b.page_path} %}##{prop})}
+      b.format_target(prop, false, nil, expand)
     else
-      "`#{property}`"
+      "`#{bn}::#{property}`"
     end
   end
 
-  def format_package(package)
+  def format_package(package, expand = true)
     if b = GhPagesModel.model_for_name(package)
-      b.format_target
+      b.format_target(nil, false, nil, expand)
     else
       "`#{package}`"                
     end                    
@@ -244,7 +246,7 @@ module GhPagesHelpers
     end
   end
 
-  def format_operation(name)
+  def format_operation(name, expand = true)
     operation, block, package = name.split('::').reverse
     if package
       model = GhPagesModel.model_for_name(package)
@@ -255,7 +257,7 @@ module GhPagesHelpers
 
     op = type.operations.find { |o| o.name == operation } if type
     if op
-      model.format_target(op.name)
+      model.format_target(op.name, false, nil, expand)
     else
       "`#{block}::#{operation}`"
     end
@@ -313,5 +315,11 @@ module GhPagesHelpers
   def quote_yaml(text)
     return nil if text.nil?
     %{'#{text.to_s.gsub("'", "''").gsub(/\r?\n/, ' ')}'}
+  end
+
+  def label
+    @name.gsub(/([A-Z]+)([A-Z][a-z])/, '\1 \2').
+         gsub(/([a-z])([A-Z])/, '\1 \2').
+         gsub(/\./, ' ')
   end
 end

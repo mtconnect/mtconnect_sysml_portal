@@ -104,9 +104,9 @@ function initSearch() {
 
       var index = lunr(function(){
         this.ref('id');
-        this.field('doc', { boost: 200 });
-        this.field('title', { boost: 100 });
-        this.field('content', { boost: 2 });
+        this.field('label', { boost: 200 });
+        this.field('doc', { boost: 100 });
+        this.field('content', { boost: 1 });
         {%- if site.search.rel_url != false %}
         this.field('relUrl', { boost: 10 });
         {%- endif %}
@@ -118,7 +118,7 @@ function initSearch() {
           this.add({
             id: i,
             doc: docs[i].doc,
-            title: docs[i].title,
+            label: docs[i].label,
             content: docs[i].content,
             {%- if site.search.rel_url != false %}
             relUrl: docs[i].relUrl

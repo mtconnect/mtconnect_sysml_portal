@@ -2,6 +2,15 @@
 layout: null
 ---
 document.addEventListener('DOMContentLoaded', function() {
+  const auxNavList = document.querySelector('.aux-nav-list');
+  if (auxNavList) {
+    const li = document.createElement('li');
+    li.className = 'aux-nav-list-item';
+    li.innerHTML = '<button id="feedback-btn" class="btn feedback-btn">Comment</button>';
+    auxNavList.insertBefore(li, auxNavList.firstChild);
+  }
+
+
   const btn = document.getElementById('feedback-btn');
   const panel = document.getElementById('feedback-panel');
   const submitBtn = document.getElementById('feedback-submit');
