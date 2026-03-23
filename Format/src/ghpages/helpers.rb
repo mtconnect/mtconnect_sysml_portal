@@ -132,7 +132,8 @@ module GhPagesHelpers
         "({% link figures/mtconnect.png %}"
       end
     end.gsub(/\{: width="([0-9.]+)"\}/) do |m|
-      "{: width=\"#{$1.to_f * 100}%\"}"
+      #"{: width=\"#{$1.to_f * 100}%\"}"
+      ''
     end
   end
 
