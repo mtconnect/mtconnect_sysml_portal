@@ -301,11 +301,12 @@ class GhPagesType < Type
   end
 
   def write_operations(f)
-    return if @operations.empty?
+    opers = @operations.select { |o| o.normative? }
+    return if opers.empty?
     $logger.debug "Adding operations to #{@name}"
 
     f.puts "\n## Operations"
-    @operations.each do |op|
+    opers.each do |op|
       results = []
       rows = op.parameters.map.with_index do |par, i|
         type = Type.type_for_id(par.type) || par.type || 'string'

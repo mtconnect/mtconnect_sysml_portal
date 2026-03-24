@@ -50,6 +50,12 @@ module Extensions
     get_versions if not defined? @updated
     @updated
   end
+
+  def normative?
+    get_versions if not defined? @normative
+    @normative
+  end
+  alias :normative :normative?
   
   def informative
     return @informative if defined? @informative
