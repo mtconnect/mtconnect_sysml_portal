@@ -332,12 +332,12 @@ class GhPagesType < Type
       f.puts <<EOT
 #### Description
 
-#{desc}"
+#{desc}
 
 #### Version Info
 
 {: .auto-width }
-| Introduced | Deprecated | Updated |"
+| Introduced | Deprecated | Updated |
 |---:|---:|---:|
 | #{op.introduced} | #{op.deprecated} |  #{op.updated} |
 
