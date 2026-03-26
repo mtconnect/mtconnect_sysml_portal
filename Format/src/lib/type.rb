@@ -385,17 +385,16 @@ class Type
     @parents = []
     glossary = @model.root.name == 'Glossary'
     @relations.each do |r|
-      if r.is_a?(Relation::Generalization)
-        if r.target
-          target_glossary = r.target.type.model.root.name == 'Glossary'
-          if glossary == target_glossary
-            @parents << r.target.type
-          end
-        end
+      if r.is_a?(Relation::Generalization) and r.target and
+          glossary == (r.target.type.model.root.name == 'Glossary')
+        @parents << r.target.type
       end
     end
     $logger.debug "Parents for #{@name}: #{@parents.map { |p| p.name }.join(', ') }"
     @parents
+  rescue => e
+    $logger.error "Error finding root for #{name}: #{e.message}"
+    raise
   end
 
   def root

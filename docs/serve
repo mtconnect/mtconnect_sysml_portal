@@ -10,7 +10,9 @@ if ARGV.length == 1
 else
   source = "./tmp/Root"
   destination = "../deploy/"
-  base = "/"
+  base = ""
 end
 
-system("bundle exec jekyll serve -I -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b #{base} -d #{destination}")
+ENV['JEKYLL_ENV'] = 'development'
+ENV['PAGES_REPO_NWO'] = ""
+system(%{bundle exec jekyll serve -I -s #{source} --config ./_config.yml,#{source}/_config_version.yml -b "#{base}" -d "#{destination}"})
