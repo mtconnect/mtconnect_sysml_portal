@@ -27,7 +27,7 @@ build:
   - 2.7
 
 # Creates symbolic links for the version to redirect
-development: 2.7
+development: 2.8
 production: 2.7
 ```
 
