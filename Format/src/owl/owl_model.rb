@@ -2,7 +2,15 @@ require 'model'
 require 'owl/owl_type'
 require 'owl/helpers'
 
+$mtc_base_iri = "https://model.mtconnect.org/ontology/machinetool/"
+$mtc_cnstr = "https://model.mtconnect.org/ontology/construct/"
+$mtc_indv = "https://model.mtconnect.org/ontology/individual/"
+
+
 class OwlModel < Model
+  include OwlHelpers
+
+  attr_reader :iri, :domain
 
   @@output_dir = nil
   @@generator  = nil
@@ -28,60 +36,57 @@ class OwlModel < Model
     Diagram
   end
 
-  def self.generate_ontology
-    $logger.info "Generating OWL Turtle ontology"
+  def initialize(parent, e)
+    super    
+    @domain = turtle_name(@name)
+    @iri = "<#{$mtc_base_iri}#{@domain}/>"
+  end
 
-    output_file = File.join(@@output_dir, "mtconnect_v#{$mtconnect_version}.ttl")
+  def generate_ontology
+    return if @name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
+      root.name == 'Glossary'
+
+    output_file = File.join(@@output_dir, "#{@domain}.ttl")
+    $logger.info "Generating OWL Turtle ontology for model #{@name} to #{output_file}"
 
     File.open(output_file, 'w') do |f|
       write_prefixes(f)
       write_ontology_header(f)
 
-      @@models.each_value do |model|
-        next if model.name.nil? or model.name == 'MTConnect' or model.name == 'Glossary'
-        # model.write_turtle(f)
-        model.types.each do |type| 
-          type.write_turtle(f) 
-        end
+      @types.each do |type| 
+        type.write_turtle(f) 
       end
     end
 
     $logger.info "Written #{output_file}"
   end
 
-  def self.write_prefixes(f)
-    base_uri = "https://model.mtconnect.org/ontology/v#{$mtconnect_version}/"
+  def write_prefixes(f)
     f.puts <<~TTL
       @prefix owl:  <http://www.w3.org/2002/07/owl#> .
       @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
       @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
       @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
       @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-      @prefix mtc:  <#{base_uri}> .
+      @prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+      @prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+      @prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+      @prefix mtc-cnstr:  <#{$mtc_cnstr}> .
+      @prefix mtc-indv:  <#{$mtc_indv}> .
 
     TTL
   end
 
-  def self.write_ontology_header(f)
+  def write_ontology_header(f)
     f.puts <<~TTL
-      <https://model.mtconnect.org/ontology/v#{$mtconnect_version}/>
+      #{@iri}
           a owl:Ontology ;
-          rdfs:label "MTConnect Ontology v#{$mtconnect_version}" ;
+          rdfs:label "#{label}" ;
+          owl:imports <https://spec.industrialontologies.org/ontology/core/Core> ;
+          owl:versionIRI <https://model.mtconnect.org/ontology/v#{$mtconnect_version}/mtconnect/#{@domain}/> ;
           owl:versionInfo "#{$mtconnect_version}" .
-
+      
     TTL
-  end
-
-  def write_turtle(f)
-    return if @name.nil?
-    local = turtle_name(@name)
-    f.puts "mtc:#{local}"
-    f.puts "    a owl:Class ;"
-    f.puts "    rdfs:label #{turtle_string(@name)} ;"
-    doc = plain_documentation
-    f.puts "    skos:definition #{turtle_string(doc)} ;" if doc && !doc.empty?
-    f.puts "    rdfs:isDefinedBy mtc: ."
-    f.puts
   end
 
   def plain_documentation
@@ -94,7 +99,7 @@ class OwlModel < Model
   end
 
   def turtle_name(name)
-    name.gsub(/[^a-zA-Z0-9_]/, '_')
+    name.gsub(/[^a-zA-Z0-9_]/, '')
   end
 
   def turtle_string(str)

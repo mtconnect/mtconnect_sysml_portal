@@ -8,4 +8,5 @@ docs/model
 Format/Gemfile.lock
 deploy/
 build/
-/owl/
+owl/
+/json_schema/

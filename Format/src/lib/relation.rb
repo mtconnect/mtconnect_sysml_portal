@@ -11,8 +11,6 @@ module Relation
 
   @@unhandled = Set.new(%w{memberEnd classifier Extension ownedConnector templateBinding ownedTemplateSignature ownedBehavior})
   def self.create_association(owner, r)
-
-    
     return nil if @@unhandled.include?(r.name)
 
     case r['xmi:type']

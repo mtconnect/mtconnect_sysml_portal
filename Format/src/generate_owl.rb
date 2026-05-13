@@ -44,7 +44,7 @@ class OwlGenerator
     @top.find_data_types
     @top.find_definitions
 
-    OwlModel.generate_ontology
+    OwlModel.models.each_value(&:generate_ontology)
   end
 
 end

@@ -12,7 +12,7 @@ class Type
   
   attr_reader :name, :id, :type, :model, :parents, :children, :relations, :stereotypes, :is_subtype,
               :constraints, :extended, :literals, :invariants, :classifier, :assoc, :xmi, :subtypes, :multiplicity, :optional,
-              :operations
+              :operations, :leaf, :abstract, :visibility
   attr_accessor :documentation, :relation
 
   attr_writer :is_subtype
@@ -138,6 +138,9 @@ class Type
   end
 
   def self.resolve_types
+    # TODO: We do not resolve types. Need to check if this is needed
+    return
+
     @@types_by_id.each do |id, type|
       $logger.debug "     -- Resolving types for #{type.name}"
       #type.resolve_types

@@ -19,6 +19,7 @@ require 'generate_portal'
 require 'generate_validation'
 require 'generate_ghpages'
 require 'generate_owl'
+require 'generate_json_schema'
 require 'type'
 require 'model'
 require 'kramdown'
@@ -36,6 +37,9 @@ parser = OptionParser.new do |opts|
   end
   opts.on('-m', '--model MODEL_VERSION', 'Model Version Number') do |ver|
     Options[:model_version] = ver
+  end
+  opts.on('--json-draft DRAFT', 'Limit JSON Schema generation to one draft (e.g. draft_04, draft_2020_12). Default: all configured drafts.') do |d|
+    Options[:json_draft] = d
   end
 end
 parser.parse!
@@ -101,6 +105,10 @@ operations.each do |op|
   when 'owl'
     owl_generator = OwlGenerator.new xmi_node.at('//uml:Model')
     owl_generator.generate()
+
+  when 'json_schema'
+    json_schema_generator = JsonSchemaGenerator.new xmi_node.at('//uml:Model')
+    json_schema_generator.generate()
 
   else
     $logger.error "Invalid option #{op}"
