@@ -393,7 +393,7 @@ class Type
         @parents << r.target.type
       end
     end
-    $logger.debug "Parents for #{@name}: #{@parents.map { |p| p.name }.join(', ') }"
+    # $logger.debug "Parents for #{@name}: #{@parents.map { |p| p.name }.join(', ') }"
     @parents
   rescue => e
     $logger.error "Error finding root for #{name}: #{e.message}"

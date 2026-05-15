@@ -46,7 +46,24 @@ class OwlType < Type
   def write_type(f, local)
     # Categorize using the MTConnect component structure. Not all components are types, some are physcal things
     # or systems and some are types. 
-    return if @leaf
+
+    if @leaf
+      # Pun the class as an instance of an MTConnect Kind and make it organized by a composition type
+      f.puts <<~TTL
+        mtc-cnstr:#{local}
+            a owl:NamedIndividual, mtc-cnstr:MTConnectKind ;
+            mtc-cnstr:organizedBy mtc-cnstr:CompositionType .
+        
+      TTL
+    elsif @stereotypes.map(&:name).include?('organizer')
+      f.puts <<~TTL
+        mtc-cnstr:#{local}
+            a owl:NamedIndividual, mtc-cnstr:OrganizerType .
+        
+      TTL
+    end
+
+
   end
 
   def write_class(f, local)

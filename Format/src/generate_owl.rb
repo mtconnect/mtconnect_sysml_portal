@@ -29,6 +29,13 @@ class OwlGenerator
   end
 
   def generate
+    core = File.join(File.dirname(__FILE__), 'owl', 'MTConnectCore.ttl')
+    File.read(core).gsub(/\$mtconnect_version/, $mtconnect_version).tap do |content|
+      output_file = File.join('..', '..', 'owl', 'MTConnectCore.ttl')
+      File.write(output_file, content)
+      $logger.info "Generated core ontology to #{output_file}"
+    end
+
     dir = File.expand_path(File.join('..', '..', 'owl'), File.dirname(__FILE__))
     FileUtils.mkdir_p(dir)
 

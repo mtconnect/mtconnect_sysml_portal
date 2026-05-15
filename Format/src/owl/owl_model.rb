@@ -82,8 +82,8 @@ class OwlModel < Model
       #{@iri}
           a owl:Ontology ;
           rdfs:label "#{label}" ;
-          owl:imports <https://spec.industrialontologies.org/ontology/core/Core> ;
-          owl:versionIRI <https://model.mtconnect.org/ontology/v#{$mtconnect_version}/mtconnect/#{@domain}/> ;
+          owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+          owl:versionIRI <https://model.mtconnect.org/ontology/v#{$mtconnect_version}/machinetool/#{@domain}/> ;
           owl:versionInfo "#{$mtconnect_version}" .
       
     TTL

@@ -23,37 +23,51 @@ class JsonSchemaModel < Model
   def self.use_unevaluated?;@@draft_spec[:use_unevaluated]; end
   def self.ref_prefix;      "#/#{defs_key}/";               end
 
+  def self.add_package(defs, seen, model, skip, level = 1)
+    if skip.include?(model.name)
+      $logger.debug "#{'  ' * level}xx Skipping package #{model.name}"
+      return
+    end
+    $logger.debug "#{'  ' * level}-- Adding package #{model.name} to document"
+    model.types.each do |t|
+      if seen.include?(t.name) or t.name.include?('.')
+        $logger.debug "#{'  ' * (level + 1)}xx - Skipping type #{t.name} - already seen or invalid name"
+        next
+      end
+      if t.type != 'uml:Association'
+        $logger.debug "#{'  ' * (level + 1)}++ - Adding type #{t.name}"
+        defs[t.name] = t.to_json_schema
+        seen << t.name
+      else
+        $logger.debug "#{'  ' * (level + 1)}xx - Skipping association #{t.name}"
+      end
+    end
+    model.children.each do |c|
+      add_package(defs, seen, c, skip, level + 1)
+    end
+  end
+
   # Emit one .schema.json per top-level document under the active draft.
   def self.generate_documents(docs)
     docs.each do |spec|
       root = Type.type_for_name(spec[:root])
       unless root
-        $logger.warn "Root class #{spec[:root]} not found in model — skipping"
+        $logger.warn "Root class #{spec[:root]} not found — skipping"
         next
       end
 
       defs    = {}
-      pending = [root]
       seen    = Set.new
       packages = spec[:packages]
+      skip = Set.new(spec[:skip] || [])
 
-      until pending.empty?
-        t = pending.shift
-        if t.nil? or (LazyPointer === t and !t.resolve)
-          $logger.warn "Unresolvable reference to #{t.name} — skipping"
-          next
-        elsif seen.include?(t.name)
-          next
-        end
-        seen << t.name
-        if packages.include?(t.model.root.name)
-          $logger.debug "#{spec[:root]}: Type #{t.name} for package #{t.model.root.name}"
-          defs[t.name] = t.to_json_schema
-        end
-        t.referenced_types.each do |rt| 
-          if !seen.include?(rt.name) and !rt.name.include?('.')
-            pending << rt
-          end
+      packages.each do |p|
+        $logger.debug "#{spec[:root]}: Adding package #{p} to document"
+        model = Model.model_for_name(p)
+        if model.nil?
+          $logger.warn "Package #{p} not found — skipping"
+        else
+          add_package(defs, seen, model, skip)
         end
       end
 

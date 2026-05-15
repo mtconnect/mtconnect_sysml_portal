@@ -46,8 +46,10 @@ class JsonSchemaGenerator
 
   ROOT_DOCUMENTS = [
     { envelope: 'MTConnectDevices', root: 'MTConnectDevices', 
-      packages:  ["Device Information Model", "Interface Information Model", "Profile", "Fundamentals"] },
-    { envelope: 'MTConnectStreams', root: 'MTConnectStreams', packages: ["Observation Information Model", "Profile", "Fundamentals"] },
+      packages:  ["Device Information Model", "Interface Interaction Model", "Profile", "Representations", "MTConnectDevices Response Document"],
+      skip: ['DataItem Types for Interface', 'Operation and Error Recovery'] },
+    { envelope: 'MTConnectStreams', root: 'MTConnectStreams', 
+      packages: ["Observation Information Model", "DataItem Types for Interface", "Profile", "Fundamentals"] },
     { envelope: 'MTConnectAssets',  root: 'MTConnectAssets', packages: ["Asset Information Model", "Profile", "Fundamentals"] },
     { envelope: 'MTConnectError',   root: 'MTConnectError', packages: ["Fundamentals", "Profile"] }
   ]

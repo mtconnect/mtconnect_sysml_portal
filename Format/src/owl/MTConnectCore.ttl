@@ -1,0 +1,82 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/MTConnectCore/>
+    a owl:Ontology ;
+    rdfs:label "components" ;
+    owl:imports <https://spec.industrialontologies.org/ontology/core/Core/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/$mtconnect_version/mtconnect/MTConnectCore/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:MTConnectMixin
+    a owl:Class, owl:NamedIndividual, mtc-cnstr:ComponentType ;
+    rdfs:label "mtconnect mixin" ;
+    iof-av:naturalLanguageDefinition "classifier whose instances are mixins"@en ;
+    rdfs:subClassOf iof-cnstr:Classifier .
+
+mtc-cnstr:MTConnectKind
+    a owl:Class, owl:NamedIndividual, mtc-cnstr:ComponentType ;
+    iof-av:naturalLanguageDefinition "classifier whose instances are independent continuants"@en ;
+    rdfs:label "mtconnect kind" ;
+    rdfs:subClassOf iof-cnstr:Classifier .
+
+mtc-cnstr:ComponentType
+    a owl:Class, owl:NamedIndividual, mtc-cnstr:OrganizerType ;
+    rdfs:label "component type" ;
+    iof-av:naturalLanguageDefinition "classifier that organizes kinds and mixins"@en ;
+    rdfs:subClassOf iof-cnstr:Classifier ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizes ;
+                      owl:someValuesFrom [a owl:Class ; 
+                        owl:unionOf ( mtc-cnstr:MTConnectKind mtc-cnstr:MTConnectMixin ) ] 
+                    ] .
+
+mtc-cnstr:CompositionType 
+    a owl:Class, owl:NamedIndividual, mtc-cnstr:OrganizerType ;
+    rdfs:label "composition type" ;
+    iof-av:naturalLanguageDefinition "component type whose instances are kinds"@en ;
+    rdfs:subClassOf iof-cnstr:ComponentType ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizes ;
+                      owl:someValuesFrom iof-cnstr:MTConnectKind ] .
+
+mtc-cnstr:OrganizerType
+    a owl:Class ;
+    rdfs:label "organizer type" ;
+    iof-av:naturalLanguageDefinition "classifier that organizes component types"@en ;
+    rdfs:subClassOf iof-cnstr:Classifier ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizes ;
+                      owl:someValuesFrom iof-cnstr:ComponentType ] .
+
+mtc-cnstr:organizes 
+    a owl:ObjectProperty ;
+    owl:subPropertyOf iof-cnstr:classifies ;
+    skos:definition "organizes a set of entities into disjoint maybe incomplete subsets" ;
+    rdfs:label "organizes" .
+
+mtc-cnstr:organizedBy
+    a owl:ObjectProperty ;
+    owl:subPropertyOf iof-cnstr:classifiedBy ;
+    owl:inverseOf mtc-cnstr:organizes ;
+    rdfs:label "organized by" .
+
+mtc-cnstr:partitions 
+    a owl:ObjectProperty ;
+    owl:subPropertyOf mtc-cnstr:organizes ;
+    skos:definition "partitions a set of entities into disjoint complete subsets" ;
+    rdfs:label "partitions" .
+
+mtc-cnstr:partitionedBy
+    a owl:ObjectProperty ;
+    owl:subPropertyOf mtc-cnstr:organizedBy ;
+    owl:inverseOf mtc-cnstr:partitions ;
+    rdfs:label "partitioned by" .
