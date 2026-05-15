@@ -211,16 +211,16 @@ class JsonSchemaType < Type
     base
   end
 
-  # Modern: keep allOf inheritance; unevaluatedProperties: false on the
-  # combined schema catches extras without fighting additionalProperties/allOf.
+  # Modern: non-leaf types use allOf + $ref chains so subtypes can extend them.
+  # Leaf types use a flat merged schema with additionalProperties: false —
+  # unevaluatedProperties tracing through deep $ref chains is inconsistently
+  # implemented across JSON Schema validators (e.g. IDE validators), so merging
+  # all inherited properties explicitly is the only universally safe approach.
   def class_schema_modern
+    return class_schema_flat if @children.empty?
+
     props, required, child_groups = collect_property_schemas
     child_groups.each { |k, v| props[k] = v }
-
-    # Non-leaf types must not carry unevaluatedProperties: false because a
-    # subtype instance validated against the base schema would fail when its
-    # own properties are evaluated by the allOf ref that points to this schema.
-    leaf = @children.empty?
 
     own = { 'type' => 'object', 'title' => @name }
     doc = plain_documentation
@@ -230,14 +230,9 @@ class JsonSchemaType < Type
 
     parents = get_parents.reject { |p| p.model.root.name == 'Glossary' }
     if parents.empty?
-      own['unevaluatedProperties'] = false if leaf
       own
     else
-      result = {
-        'allOf' => parents.map { |p| { '$ref' => "#{JsonSchemaModel.ref_prefix}#{p.name}" } } + [own]
-      }
-      result['unevaluatedProperties'] = false if leaf
-      result
+      { 'allOf' => parents.map { |p| { '$ref' => "#{JsonSchemaModel.ref_prefix}#{p.name}" } } + [own] }
     end
   end
 

@@ -23,6 +23,38 @@ class JsonSchemaModel < Model
   def self.use_unevaluated?;@@draft_spec[:use_unevaluated]; end
   def self.ref_prefix;      "#/#{defs_key}/";               end
 
+  # Remove properties from all schemas in defs whose only content is a $ref
+  # to a type that is not present in defs.  Relationships that exist in the
+  # SysML model but belong to a different document (e.g. ComponentStream in
+  # the Devices document) are silently dropped so the schema stays self-contained.
+  def self.prune_missing_refs(defs)
+    prefix = ref_prefix                          # e.g. "#/$defs/"
+    defs.each_value { |schema| prune_schema(schema, defs, prefix) }
+  end
+
+  def self.prune_schema(schema, defs, prefix)
+    return unless schema.is_a?(Hash)
+
+    if (props = schema['properties'])
+      to_remove = props.select do |_key, v|
+        v.is_a?(Hash) && v.size == 1 &&
+          (ref = v['$ref']) &&
+          ref.start_with?(prefix) &&
+          !defs.key?(ref[prefix.length..])
+      end.keys
+      to_remove.each do |key|
+        props.delete(key)
+        schema['required']&.delete(key)
+        $logger.debug "  Pruned missing-ref property: #{key}"
+      end
+      schema.delete('required') if schema['required']&.empty?
+    end
+
+    %w[allOf anyOf oneOf].each do |combiner|
+      schema[combiner]&.each { |s| prune_schema(s, defs, prefix) }
+    end
+  end
+
   def self.add_package(defs, seen, model, skip, level = 1)
     if skip.include?(model.name)
       $logger.debug "#{'  ' * level}xx Skipping package #{model.name}"
@@ -70,6 +102,8 @@ class JsonSchemaModel < Model
           add_package(defs, seen, model, skip)
         end
       end
+
+      prune_missing_refs(defs)
 
       schema = {
         '$schema'     => schema_uri,
