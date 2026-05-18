@@ -79,6 +79,68 @@ class JsonSchemaModel < Model
     end
   end
 
+  # For every Sample subtype already collected in defs, synthesise an
+  # XxxTimeSeries variant: same schema but with value overridden to a
+  # float array and sampleCount added as an integer property.
+  def self.add_timeseries_variants(defs)
+    ts_entries = {}
+    defs.each do |name, schema|
+      t = Type.type_for_name(name)
+      next unless name == 'Sample' or (t && t.respond_to?(:is_a_type?) && t.is_a_type?('Sample'))
+      units = t.relation('units') && t.relation('units').default
+      next if units && units =~ /3D$/
+
+      ts_name = "#{name}TimeSeries"
+      next if defs.key?(ts_name) || ts_entries.key?(ts_name)
+      ts = JSON.parse(JSON.generate(schema))
+      props = ts['properties'] ||= {}
+      props['value']       = { 'type' => 'array', 'items' => { 'type' => 'number' } }
+      props['sampleCount'] = { 'type' => 'integer' }
+      ts['title'] = ts_name
+      ts_entries[ts_name] = ts
+      $logger.debug "  TimeSeries variant: #{ts_name}"
+    end
+    unless ts_entries.empty?
+      defs.merge!(ts_entries)
+      $logger.info "  Added #{ts_entries.size} TimeSeries variants"
+    end
+  end
+
+  def self.add_datasets_and_tables(defs)
+    # The SysML model has no Dataset or Table types; these must be injected
+    # based on the presence of Dataset/Table stereotypes on any type.
+    ds_entries = {}
+    enum = Type.type_for_name('EventEnum')
+    literals = enum.literals
+    defs.each do |name, schema|
+      t = Type.type_for_name(name)
+      next unless name == 'Event' or (t && t.respond_to?(:is_a_type?) && t.is_a_type?('Event'))
+      table = t.documentation.definition.include?('tabular')
+
+      result = t.relation('result')
+      if result and result.target and result.target.type and result.target.type.type == 'uml:Class'
+        target = result.target.type
+        dataSet = target.parents.first.name == 'DataSet'
+      end
+
+      if table or dataSet
+        ds_name = table ? "#{name}Table" : "#{name}DataSet"
+        next if defs.key?(ds_name) || ds_entries.key?(ds_name)
+        ds = JSON.parse(JSON.generate(schema))
+        props = ds['properties'] ||= {}
+        props['value'] = { 'type' => 'object' }
+        props['count'] = { 'type' => 'integer' }
+        ds['title'] = ds_name
+        ds_entries[ds_name] = ds
+        $logger.debug "  DataSet/Table variant: #{ds_name}"
+      end
+    end
+    unless ds_entries.empty?
+      defs.merge!(ds_entries)
+      $logger.info "  Added #{ds_entries.size} DataSet/Table variants"
+    end
+  end
+
   # Emit one .schema.json per top-level document under the active draft.
   def self.generate_documents(docs)
     docs.each do |spec|
@@ -103,6 +165,8 @@ class JsonSchemaModel < Model
         end
       end
 
+      add_timeseries_variants(defs)
+      add_datasets_and_tables(defs)
       prune_missing_refs(defs)
 
       schema = {

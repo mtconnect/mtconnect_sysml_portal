@@ -111,6 +111,12 @@ class JsonSchemaType < Type
     'MTConnectAssets' => {
       'jsonVersion'   => { 'type' => 'integer' },
       'schemaVersion' => { 'type' => 'string' },
+      # Some agents embed $schema inside the envelope rather than at the document root.
+      '$schema'       => { 'type' => 'string' },
+    },
+    'MTConnectError' => {
+      'jsonVersion'   => { 'type' => 'integer' },
+      'schemaVersion' => { 'type' => 'string' },
     },
     'MTConnectStreams' => {
       'jsonVersion'   => { 'type' => 'integer' },
@@ -118,6 +124,11 @@ class JsonSchemaType < Type
     },
     'Header' => {
       'schemaVersion' => { 'type' => 'string' },
+      # Streams-document sequence fields — absent from Fundamentals SysML Header class.
+      'bufferSize'    => { 'type' => 'integer', 'minimum' => 0 },
+      'nextSequence'  => { 'type' => 'integer' },
+      'lastSequence'  => { 'type' => 'integer' },
+      'firstSequence' => { 'type' => 'integer' },
     },
     'Component' => {
       'hash' => { 'type' => 'string' },
@@ -490,6 +501,9 @@ class JsonSchemaType < Type
     'Sample.units',        # defined in Devices document, not repeated in streams
     'Event.type',
     'Condition.conditionId', # not universally present in current implementations
+    # Devices-only header fields; absent in Streams/Assets/Error documents.
+    'Header.assetBufferSize',
+    'Header.assetCount',
   ].freeze
 
   # Base types whose direct subtypes appear as discriminator keys in wire-format
@@ -523,6 +537,7 @@ class JsonSchemaType < Type
     'Assets'        => 'Asset',
     'Specifications'=> 'Specification',
     'Measurements'  => 'ToolingMeasurement',
+    'Errors'        => 'Error',
   }.freeze
 
   # Build a wrapper object schema from a container → {key → array-schema} map.
@@ -580,6 +595,12 @@ class JsonSchemaType < Type
       else
         props = sub_names.each_with_object({}) do |sn, h|
           h[sn] = { 'type' => 'array', 'items' => { '$ref' => "#{JsonSchemaModel.ref_prefix}#{sn}" } }
+          # Every Sample subtype also has a TimeSeries representation (XxxTimeSeries)
+          # with value as a float array and an additional sampleCount property.
+          if container == 'Samples'
+            h["#{sn}TimeSeries"] = { 'type' => 'array',
+                                     'items' => { '$ref' => "#{JsonSchemaModel.ref_prefix}#{sn}TimeSeries" } }
+          end
         end
         { 'type' => 'object', 'properties' => props, 'additionalProperties' => false }
       end
@@ -678,6 +699,10 @@ class JsonSchemaType < Type
       # AssociationClass itself, so it must be injected explicitly.
       base['CuttingItem'] ||= { 'type'  => 'array',
                                  'items' => { '$ref' => "#{JsonSchemaModel.ref_prefix}CuttingItem" } }
+    when 'MTConnectError'
+      # The SysML model has no hasError array relation on MTConnectError; the
+      # Errors container (keyed by error subtype name) must be injected here.
+      base['Errors'] ||= build_wrapper_schema('Errors', {})
     end
     base
   end
