@@ -221,14 +221,16 @@ class JsonSchemaType < Type
     # The base Sample.result schema is kept as {} to avoid allOf conflicts;
     # concrete types get the correct type here where there is no allOf chain.
     if props.key?('value')
-      if is_3d_sample?
-        # 3-D types (PathPosition, Orientation, …): value is a [x,y,z] numeric array.
+      if has_3d_units? && is_a_type?('Sample')
+        # 3-D Sample types (PathPosition, Orientation, …): value is a [x,y,z] numeric array.
         props['value'] = { 'type' => 'array', 'items' => { 'type' => 'number' } }
       elsif is_a_type?('Sample')
-        # 1-D types: value is a number for normal readings, or "UNAVAILABLE".
+        # 1-D Sample types: value is a number for normal readings, or "UNAVAILABLE".
         props['value'] = { 'oneOf' => [{ 'type' => 'number' },
                                        { 'type' => 'string', 'enum' => ['UNAVAILABLE'] }] }
       end
+      # 3-D Event types (Rotation, Translation, …) are handled by collect_property_schemas
+      # via has_3d_units?, so no additional override is needed here.
     end
 
     # Non-leaf types (those with subtypes) must not close their schema with
@@ -369,9 +371,12 @@ class JsonSchemaType < Type
             else
               build_attr_schema(r, tgt)
             end
-          # For 3-D sample types in allOf schemas (e.g. PathPosition), the value
-          # is a numeric array regardless of the SysML attribute type.
-          schema = { 'type' => 'array', 'items' => { 'type' => 'number' } } if attr_name == 'value' && is_3d_sample?
+          # For 3-D observation types (Sample or Event with 3D units default),
+          # override the SysML result type with a [x, y, z] numeric array.
+          if attr_name == 'value' && has_3d_units?
+            schema = { 'type' => 'array', 'items' => { 'type' => 'number' },
+                       'minItems' => 3, 'maxItems' => 3 }
+          end
           # Event subtypes: UNAVAILABLE is always a valid sentinel in addition to
           # the specific enum values (e.g. ExecutionEnum).  Skip the base Event
           # class whose value override is already {} (fully permissive).
@@ -900,17 +905,19 @@ class JsonSchemaType < Type
     r.respond_to?(:default) && r.default && !r.default.to_s.strip.empty?
   end
 
-  # True when this type is a Sample subtype whose units default ends in "3D"
-  # (e.g. MILLIMETER_3D, DEGREE_3D).  These types report their value as a
-  # [x, y, z] numeric array rather than a scalar number.
-  def is_3d_sample?
-    return false unless is_a_type?('Sample')
+  # True when this type's own units attribute has a default ending in "3D"
+  # (e.g. MILLIMETER_3D, DEGREE_3D), indicating a [x, y, z] numeric array value.
+  def has_3d_units?
     @relations.each do |r|
       next unless r.is_a?(Relation::Attribute) && r.name.to_s == 'units'
       default = r.respond_to?(:default) && r.default
       return true if default && default.to_s =~ /3D$/
     end
     false
+  end
+
+  def is_3d_sample?
+    is_a_type?('Sample') && has_3d_units?
   end
 
 end

@@ -55,6 +55,14 @@
                     "value": 1234.0
                   }
                 ],
+                "VariableDataSet": [
+                  {
+                    "dataItemId": "wot1",
+                    "sequence": 123,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": 1234.0
+                  }
+                ],
                 "BadValueEvent": [
                   {
                     "dataItemId": "bad1",

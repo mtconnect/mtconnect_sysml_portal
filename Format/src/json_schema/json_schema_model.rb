@@ -23,6 +23,11 @@ class JsonSchemaModel < Model
   DATASET_TEMPLATE_SIG = '_19_0_3_68e0225_1634040001139_645314_47'.freeze
   TABLE_TEMPLATE_SIG   = '_19_0_3_68e0225_1634039408198_849137_33'.freeze
 
+  # Explicit DataSet/Table classification for Event types whose SysML model
+  # does not carry a templateBinding (e.g. deprecated or informally-specified
+  # types that agents nonetheless emit in DataSet wire format).
+  EXPLICIT_DATASET_TYPES = %w[AssetCount].freeze
+
   # All keyword-level decisions read from the active draft spec.
   def self.defs_key;        @@draft_spec[:defs_key];        end
   def self.id_key;          @@draft_spec[:id_key];          end
@@ -203,6 +208,8 @@ class JsonSchemaModel < Model
           when :table   then table   = true
           end
         end
+
+        dataSet = true if !table && EXPLICIT_DATASET_TYPES.include?(name)
       end
 
       next unless table || dataSet
@@ -211,7 +218,8 @@ class JsonSchemaModel < Model
       next if defs.key?(ds_name) || ds_entries.key?(ds_name)
       ds = JSON.parse(JSON.generate(schema))
       props = ds['properties'] ||= {}
-      props['value'] = { 'type' => 'object' }
+      props['value'] = { 'oneOf' => [{ 'type' => 'object' },
+                                     { 'type' => 'string', 'enum' => ['UNAVAILABLE'] }] }
       props['count'] = { 'type' => 'integer' }
       ds['title'] = ds_name
       ds_entries[ds_name] = ds

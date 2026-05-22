@@ -56,6 +56,32 @@
                       "G54": { "x": 1.0, "y": 2.0, "z": 3.0 },
                       "G55": { "x": 4.0, "y": 5.0, "z": 6.0 }
                     }
+                  },
+                  {
+                    "dataItemId": "wot1",
+                    "sequence": 123,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": "UNAVAILABLE"
+                  }
+                ],
+                "VariableDataSet": [
+                  {
+                    "dataItemId": "wot1",
+                    "sequence": 123,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": {
+                      "R1": 1.0,
+                      "R2": 2.0
+                    }
+                  },
+                  {
+                    "value": "UNAVAILABLE",
+                    "count": 0,
+                    "dataItemId": "Lp1CommonVariable",
+                    "name": "p1CommonVariable",
+                    "sequence": 104,
+                    "subType": "x:COMMON",
+                    "timestamp": "2026-05-12T18:42:35.760346Z"
                   }
                 ],
                 "x:ExtenededEventType": [
@@ -64,6 +90,30 @@
                     "sequence": 124,
                     "timestamp": "2026-05-15T17:26:37.644221Z",
                     "value": "AnyValue"
+                  }
+                ],
+                "Rotation": [
+                  {
+                    "value": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "dataItemId": "workoffsetrot",
+                    "sequence": 400,
+                    "timestamp": "2026-05-12T18:42:37.281707Z"
+                  }
+                ],
+                "Translation": [
+                  {
+                    "value": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "dataItemId": "workoffsetrot",
+                    "sequence": 400,
+                    "timestamp": "2026-05-12T18:42:37.281707Z"
                   }
                 ]
               }

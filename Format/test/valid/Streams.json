@@ -1,5 +1,5 @@
 {
-  "$schema": "file:/Users/will/projects/MTConnect/Documentation/mtconnect_sysml_portal/json_schema/MTConnectStreams_2.7.schema.json",
+  "$schema": "file:/Users/will/projects/MTConnect/Documentation/mtconnect_sysml_portal/json_schema/MTConnectStreams_2.8.schema.json",
   "MTConnectStreams": {
     "jsonVersion": 2,
     "schemaVersion": "2.7",
