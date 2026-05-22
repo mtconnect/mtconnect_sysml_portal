@@ -66,6 +66,16 @@ class JsonSchemaType < Type
     'Constraints.Value'      => { 'type' => 'array',
                                   'items' => { 'type' => 'object',
                                                'properties' => { 'value' => { 'type' => 'string' } } } },
+    # Observation.result is typed 'string' in the SysML model (XML default), but in JSON
+    # the wire format uses 'value' (renamed).  Keep the Observation base schema permissive
+    # so Condition (which can omit value) and allOf chains work without conflicts.
+    'Observation.result'     => {},
+    # Sample.result is typed 'float' in SysML.  The base schema is kept permissive
+    # so that allOf chains for 3-D subtypes (PathPosition, Orientation, …) don't
+    # conflict.  Leaf 1-D types get the strict oneOf[number,"UNAVAILABLE"] override
+    # in class_schema_flat; 3-D types get the array override there and in
+    # collect_property_schemas; TimeSeries variants are handled by add_timeseries_variants.
+    'Sample.result'          => {},
     # nativeUnits on DataItem and SolidModel may be from UnitEnum or NativeUnitEnum.
     'DataItem.nativeUnits'   => { 'type' => 'string' },
     'SolidModel.nativeUnits' => { 'type' => 'string' },
@@ -138,7 +148,6 @@ class JsonSchemaType < Type
     },
     'Observation' => {
       'value'     => {},
-      'hash'      => { 'type' => 'string' },
       'assetType' => { 'type' => 'string' },
       'count'     => { 'type' => 'integer' },
     },
@@ -208,6 +217,20 @@ class JsonSchemaType < Type
     props, required, child_groups = collected_properties_recursive
     child_groups.each { |k, v| props[k] = v }
 
+    # Apply per-category value type constraints for leaf Sample types.
+    # The base Sample.result schema is kept as {} to avoid allOf conflicts;
+    # concrete types get the correct type here where there is no allOf chain.
+    if props.key?('value')
+      if is_3d_sample?
+        # 3-D types (PathPosition, Orientation, …): value is a [x,y,z] numeric array.
+        props['value'] = { 'type' => 'array', 'items' => { 'type' => 'number' } }
+      elsif is_a_type?('Sample')
+        # 1-D types: value is a number for normal readings, or "UNAVAILABLE".
+        props['value'] = { 'oneOf' => [{ 'type' => 'number' },
+                                       { 'type' => 'string', 'enum' => ['UNAVAILABLE'] }] }
+      end
+    end
+
     # Non-leaf types (those with subtypes) must not close their schema with
     # additionalProperties: false — instances of a concrete subtype may carry
     # extra properties not known to the base schema.
@@ -232,6 +255,17 @@ class JsonSchemaType < Type
 
     props, required, child_groups = collect_property_schemas
     child_groups.each { |k, v| props[k] = v }
+
+    # Apply value type constraint for non-base 1-D Sample subtypes.
+    # In allOf mode the base Sample schema keeps value as {} (permissive) so it
+    # doesn't conflict with 3-D subtypes in the allOf chain.  But a concrete 1-D
+    # Sample subtype (Position, Velocity, …) with its own allOf element CAN carry
+    # the scalar constraint without causing conflicts, because no type in the
+    # generated schema extends these intermediate types via allOf.
+    if is_a_type?('Sample') && @name != 'Sample' && !is_3d_sample?
+      props['value'] = { 'oneOf' => [{ 'type' => 'number' },
+                                      { 'type' => 'string', 'enum' => ['UNAVAILABLE'] }] }
+    end
 
     own = { 'type' => 'object', 'title' => @name }
     doc = plain_documentation
@@ -314,17 +348,19 @@ class JsonSchemaType < Type
         next if r.name.to_s.start_with?('observes')
         tgt_name = tgt.name.to_s
         next if r.name.to_s == tgt_name.downcase && !primitive?(tgt)
+        # SysML model names the observation data property 'result'; JSON wire format uses 'value'.
+        attr_name    = r.name.to_s == 'result' ? 'value' : r.name.to_s
         override_key = "#{@name}.#{r.name}"
         if r.is_array?
           if (override = PROPERTY_TYPE_OVERRIDES[override_key])
-            own_props[r.name] = override
+            own_props[attr_name] = override
             # Array overrides are always considered optional.
           else
             # Standard attribute array: accumulate into child_groups so that
             # collected_properties_recursive can merge across the ancestor chain.
-            child_groups[r.name] ||= { 'type' => 'array', 'items' => { 'oneOf' => [] } }
-            child_groups[r.name]['items']['oneOf'] << ref_for(tgt)
-            required << r.name unless r.is_optional? || has_rel_default?(r)
+            child_groups[attr_name] ||= { 'type' => 'array', 'items' => { 'oneOf' => [] } }
+            child_groups[attr_name]['items']['oneOf'] << ref_for(tgt)
+            required << attr_name unless r.is_optional? || has_rel_default?(r)
           end
         else
           schema =
@@ -333,12 +369,23 @@ class JsonSchemaType < Type
             else
               build_attr_schema(r, tgt)
             end
+          # For 3-D sample types in allOf schemas (e.g. PathPosition), the value
+          # is a numeric array regardless of the SysML attribute type.
+          schema = { 'type' => 'array', 'items' => { 'type' => 'number' } } if attr_name == 'value' && is_3d_sample?
+          # Event subtypes: UNAVAILABLE is always a valid sentinel in addition to
+          # the specific enum values (e.g. ExecutionEnum).  Skip the base Event
+          # class whose value override is already {} (fully permissive).
+          if attr_name == 'value' && is_a_type?('Event') && @name != 'Event' && !schema.empty?
+            schema = { 'oneOf' => [schema, { 'type' => 'string', 'enum' => ['UNAVAILABLE'] }] }
+          end
           doc = rel_doc(r)
           schema['description'] = doc if doc
           schema['default']     = r.default if r.respond_to?(:default) && r.default
-          own_props[r.name]     = schema
-          required << r.name unless r.is_optional? || has_rel_default?(r) ||
-                                    WIRE_FORMAT_OPTIONAL.include?("#{@name}.#{r.name}")
+          own_props[attr_name]  = schema
+          wire_key = "#{@name}.#{attr_name}"
+          forced   = WIRE_FORMAT_REQUIRED.include?(wire_key)
+          required << attr_name unless (!forced && r.is_optional?) || has_rel_default?(r) ||
+                                      WIRE_FORMAT_OPTIONAL.include?(wire_key)
         end
       end
     end
@@ -491,6 +538,13 @@ class JsonSchemaType < Type
     'CuttingItem.ItemLife',            # upperValue='3' in SysML; wire format is array
   ].freeze
 
+  # Properties that the SysML marks optional but that are always required in
+  # the JSON wire format.  Keyed as the emitted "TypeName.propName" (i.e. after
+  # the result → value rename has been applied).  This overrides is_optional?.
+  WIRE_FORMAT_REQUIRED = Set[
+    'Sample.value',   # 'result' renamed to 'value'; always present (UNAVAILABLE when indeterminate)
+  ].freeze
+
   # Properties that the SysML marks required but that are absent (or implicit
   # from context) in the JSON wire format.  Keyed as "TypeName.propName".
   # In streaming observations, "type" is encoded as the wrapper-object key and
@@ -539,6 +593,11 @@ class JsonSchemaType < Type
     'Measurements'  => 'ToolingMeasurement',
     'Errors'        => 'Error',
   }.freeze
+
+  # Vendor-extension namespace pattern for wrapper keys (e.g. "x:ExtendedEventType").
+  # Single-letter prefix (excluding 'm'/'M' reserved for MTConnect), colon, then
+  # a PascalCase or UPPER_CASE identifier.
+  EXTENSION_KEY_PATTERN = '^[a-ln-zA-LN-Z]:[A-Za-z_][A-Za-z0-9_]*$'.freeze
 
   # Build a wrapper object schema from a container → {key → array-schema} map.
   def build_wrapper_schema(container, keys_map)
@@ -602,7 +661,11 @@ class JsonSchemaType < Type
                                      'items' => { '$ref' => "#{JsonSchemaModel.ref_prefix}#{sn}TimeSeries" } }
           end
         end
-        { 'type' => 'object', 'properties' => props, 'additionalProperties' => false }
+        ext_items = { 'type' => 'array', 'items' => { '$ref' => "#{JsonSchemaModel.ref_prefix}#{base_name}" } }
+        { 'type'              => 'object',
+          'properties'        => props,
+          'patternProperties' => { EXTENSION_KEY_PATTERN => ext_items },
+          'additionalProperties' => false }
       end
 
     else
@@ -619,7 +682,7 @@ class JsonSchemaType < Type
   def self.all_subtype_objects_of(base_name)
     @subtype_obj_cache ||= {}
     return @subtype_obj_cache[base_name] if @subtype_obj_cache.key?(base_name)
-    base = Type.type_for_name(base_name)
+    base = type_instance_with_children(base_name)
     unless base
       @subtype_obj_cache[base_name] = []
       return []
@@ -648,7 +711,7 @@ class JsonSchemaType < Type
   def self.all_subtypes_of(base_name)
     @subtype_cache ||= {}
     return @subtype_cache[base_name] if @subtype_cache.key?(base_name)
-    base = Type.type_for_name(base_name)
+    base = type_instance_with_children(base_name)
     unless base
       @subtype_cache[base_name] = []
       return []
@@ -671,6 +734,20 @@ class JsonSchemaType < Type
     # can appear as wire-format wrapper keys (e.g. "Device" in the Devices object).
     result.unshift(base_name) unless base.respond_to?(:abstract?) && base.abstract?
     @subtype_cache[base_name] = result.uniq
+  end
+
+  # When a SysML package exports a class with the same name as one in another
+  # package, Ruby's @@types_by_name only retains the last registration.  That
+  # stale entry may not have any children populated (connect_children wires
+  # children to the type object that owns the actual UML generalizations).
+  # Scan @@types_by_id (shared class variable) to find the instance that has
+  # the most children, which is the canonical model type.
+  def self.type_instance_with_children(name)
+    candidates = @@types_by_id.values.select do |t|
+      t.name == name && t.model.root.name != 'Glossary'
+    end
+    return Type.type_for_name(name) if candidates.empty?
+    candidates.max_by { |t| (t.children rescue []).size }
   end
 
   # ---------- Extra / dynamic wire-format properties -------------------
@@ -821,6 +898,19 @@ class JsonSchemaType < Type
 
   def has_rel_default?(r)
     r.respond_to?(:default) && r.default && !r.default.to_s.strip.empty?
+  end
+
+  # True when this type is a Sample subtype whose units default ends in "3D"
+  # (e.g. MILLIMETER_3D, DEGREE_3D).  These types report their value as a
+  # [x, y, z] numeric array rather than a scalar number.
+  def is_3d_sample?
+    return false unless is_a_type?('Sample')
+    @relations.each do |r|
+      next unless r.is_a?(Relation::Attribute) && r.name.to_s == 'units'
+      default = r.respond_to?(:default) && r.default
+      return true if default && default.to_s =~ /3D$/
+    end
+    false
   end
 
 end

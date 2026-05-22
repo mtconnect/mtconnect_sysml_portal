@@ -1,0 +1,3 @@
+{
+  "$schema": "file:/Users/will/projects/MTConnect/Documentation/mtconnect_sysml_portal/json_schema/MTConnectError_2.7.schema.json",  
+  "MTConnectError":{"jsonVersion":2,"Header":{"version":"2.7.0.9","creationTime":"2026-05-15T17:49:08Z","testIndicator":false,"instanceId":1778611355,"sender":"2f5d0ee2dc2f","schemaVersion":"2.7","deviceModelChangeTime":"2026-05-12T18:42:35.756535Z","bufferSize":131072},"Errors":{"AssetNotFound":[{"AssetId":"XXX","ErrorMessage":"Cannot find asset: XXX","Request":"MTConnectAssets","URI":"/assets/XXX?format=json&pretty=true","errorCode":"ASSET_NOT_FOUND"}]}}}

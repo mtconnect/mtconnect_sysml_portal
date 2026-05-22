@@ -1,0 +1,73 @@
+{
+  "$schema": "file:/Users/will/projects/MTConnect/Documentation/mtconnect_sysml_portal/json_schema/MTConnectStreams_2.8.schema.json",
+  "MTConnectStreams": {
+    "jsonVersion": 2,
+    "schemaVersion": "2.7",
+    "Header": {
+      "version": "2.7.0.9",
+      "creationTime": "2026-05-15T17:27:12Z",
+      "testIndicator": false,
+      "instanceId": 1778611355,
+      "sender": "2f5d0ee2dc2f",
+      "schemaVersion": "2.7",
+      "deviceModelChangeTime": "2026-05-12T18:42:35.756535Z",
+      "bufferSize": 131072,
+      "nextSequence": 11713270,
+      "lastSequence": 11713269,
+      "firstSequence": 11582198
+    },
+    "Streams": {
+      "DeviceStream": [
+        {
+          "name": "OKUMA",
+          "uuid": "OKUMA.123456",
+          "ComponentStream": [
+            {
+              "component": "Linear",
+              "componentId": "LYI1",
+              "name": "Y",
+              "Samples": {
+                "Position": [
+                  {
+                    "value": [0.0, 1.1, 2.2],
+                    "dataItemId": "LYI1actw",
+                    "name": "YI1actw",
+                    "sequence": 11711779,
+                    "subType": "ACTUAL",
+                    "timestamp": "2026-05-15T17:26:37.644221Z"
+                  }
+                ]
+              },
+              "Events": {
+                "Execution": [
+                  {
+                    "dataItemId": "exec",
+                    "sequence": 122,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": "N/A"
+                  }
+                ],
+                "WorkOffsetsTable": [
+                  {
+                    "dataItemId": "wot1",
+                    "sequence": 123,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": 1234.0
+                  }
+                ],
+                "BadValueEvent": [
+                  {
+                    "dataItemId": "bad1",
+                    "sequence": 124,
+                    "timestamp": "2026-05-15T17:26:37.644221Z",
+                    "value": { "unexpected": "object" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

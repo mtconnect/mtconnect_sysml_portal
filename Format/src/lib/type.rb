@@ -58,6 +58,13 @@ class Type
     @@types_by_name[name]
   end
 
+  # Returns every Type instance registered under the given name.
+  # Unlike type_for_name (which returns the last-registered instance),
+  # this searches @@types_by_id so all registrations are visible.
+  def self.all_for_name(name)
+    @@types_by_id.values.select { |t| t.name == name }
+  end
+
   def self.term_for_name(name)
     @@terms_by_name[name]
   end

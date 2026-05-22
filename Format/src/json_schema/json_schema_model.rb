@@ -7,6 +7,7 @@ class JsonSchemaModel < Model
   @@output_dir = nil
   @@generator  = nil
   @@draft_spec = nil
+  @@root_xmi   = nil
 
   def self.output_dir=(dir);    @@output_dir = dir;    end
   def self.output_dir;          @@output_dir;          end
@@ -15,6 +16,12 @@ class JsonSchemaModel < Model
   def self.draft_spec;          @@draft_spec;          end
   def self.type_class;          JsonSchemaType;        end
   def self.diagram_class;       Diagram;               end
+  def self.root_xmi=(xmi);      @@root_xmi = xmi;      end
+
+  # DataSet/Table representation is indicated by a uml:TemplateBinding that
+  # references these template-signature XMI IDs (stable across model versions).
+  DATASET_TEMPLATE_SIG = '_19_0_3_68e0225_1634040001139_645314_47'.freeze
+  TABLE_TEMPLATE_SIG   = '_19_0_3_68e0225_1634039408198_849137_33'.freeze
 
   # All keyword-level decisions read from the active draft spec.
   def self.defs_key;        @@draft_spec[:defs_key];        end
@@ -37,15 +44,37 @@ class JsonSchemaModel < Model
 
     if (props = schema['properties'])
       to_remove = props.select do |_key, v|
-        v.is_a?(Hash) && v.size == 1 &&
-          (ref = v['$ref']) &&
-          ref.start_with?(prefix) &&
+        next false unless v.is_a?(Hash)
+        # { '$ref': '...' } — simple scalar ref to missing type
+        if v.size == 1 && (ref = v['$ref']) && ref.start_with?(prefix)
           !defs.key?(ref[prefix.length..])
+        # { 'type': 'array', 'items': { '$ref': '...' } } — array of missing type
+        elsif v['type'] == 'array' && (items = v['items'])&.is_a?(Hash) &&
+              items.size == 1 && (ref = items['$ref']) && ref.start_with?(prefix)
+          !defs.key?(ref[prefix.length..])
+        else
+          false
+        end
       end.keys
       to_remove.each do |key|
         props.delete(key)
         schema['required']&.delete(key)
         $logger.debug "  Pruned missing-ref property: #{key}"
+      end
+      schema.delete('required') if schema['required']&.empty?
+
+      # Recurse into nested object schemas (e.g. Assets/Components wrapper objects).
+      props.each_value { |v| prune_schema(v, defs, prefix) if v.is_a?(Hash) }
+
+      # Remove wrapper properties that became empty closed objects after pruning.
+      empty_wrappers = props.select do |_key, v|
+        v.is_a?(Hash) && v['type'] == 'object' &&
+          v['properties']&.empty? && v['additionalProperties'] == false
+      end.keys
+      empty_wrappers.each do |key|
+        props.delete(key)
+        schema['required']&.delete(key)
+        $logger.debug "  Pruned empty wrapper: #{key}"
       end
       schema.delete('required') if schema['required']&.empty?
     end
@@ -106,38 +135,120 @@ class JsonSchemaModel < Model
     end
   end
 
+  # Scans the full XMI (including skipped packages such as Simulation) for
+  # uml:TemplateBinding elements whose signature matches the known DataSet or
+  # Table template.  Each parameterSubstitution.actual attribute names the
+  # concrete event-type class.  Returns a Hash of { type_name => :dataset | :table }.
+  #
+  # This catches types like Variable whose DataSet binding lives only inside
+  # the Simulation sub-package and is never registered through the normal
+  # model-loading path.
+  def self.xmi_template_bindings
+    return {} unless @@root_xmi
+    bindings = {}
+    @@root_xmi.xpath('.//templateBinding').each do |tb|
+      sig = tb['signature']
+      next unless sig == DATASET_TEMPLATE_SIG || sig == TABLE_TEMPLATE_SIG
+      kind = sig == DATASET_TEMPLATE_SIG ? :dataset : :table
+      tb.xpath('./parameterSubstitution').each do |ps|
+        t = Type.type_for_id(ps['actual'])
+        next unless t
+        bindings[t.name] = kind
+        $logger.debug "  XMI template binding: #{t.name} → #{kind}"
+      end
+    end
+    bindings
+  end
+
+  # When multiple Type instances share a name (e.g. the structural AlarmLimits
+  # data-type class and the AlarmLimits Event observation subtype), pick the
+  # Event-subtype instance so the result-type and description checks work correctly.
+  def self.event_subtype_instance(name)
+    return Type.type_for_name(name) if name == 'Event'
+    all = Type.all_for_name(name)
+    return all.first if all.size <= 1
+    all.find { |t| t.respond_to?(:is_a_type?) && (t.is_a_type?('Event') rescue false) } ||
+      Type.type_for_name(name)
+  end
+
   def self.add_datasets_and_tables(defs)
-    # The SysML model has no Dataset or Table types; these must be injected
-    # based on the presence of Dataset/Table stereotypes on any type.
+    # The SysML model has no Dataset or Table types; these must be injected.
+    # Detection:
+    #   1. "tabular" in class description → Table variant
+    #   2. result type whose first parent is DataSet → DataSet variant
+    #   3. XMI templateBinding to the DataSet/Table template → DataSet/Table variant
+    #      (catches Variable, whose binding lives inside the skipped Simulation package)
+    xmi_bindings = xmi_template_bindings
+
     ds_entries = {}
-    enum = Type.type_for_name('EventEnum')
-    literals = enum.literals
     defs.each do |name, schema|
-      t = Type.type_for_name(name)
-      next unless name == 'Event' or (t && t.respond_to?(:is_a_type?) && t.is_a_type?('Event'))
-      table = t.documentation.definition.include?('tabular')
+      t = event_subtype_instance(name)
+      next unless t
+      next unless name == 'Event' || (t.respond_to?(:is_a_type?) && t.is_a_type?('Event'))
 
-      result = t.relation('result')
-      if result and result.target and result.target.type and result.target.type.type == 'uml:Class'
-        target = result.target.type
-        dataSet = target.parents.first.name == 'DataSet'
+      defn  = t.documentation&.definition || ''
+      table = defn.include?('tabular')
+      dataSet = false
+
+      unless table
+        result = t.relation('result')
+        if result && result.target && result.target.type && result.target.type.type == 'uml:Class'
+          target = result.target.type
+          dataSet = (target.parents.first&.name == 'DataSet') rescue false
+        end
+
+        unless dataSet
+          case xmi_bindings[name]
+          when :dataset then dataSet = true
+          when :table   then table   = true
+          end
+        end
       end
 
-      if table or dataSet
-        ds_name = table ? "#{name}Table" : "#{name}DataSet"
-        next if defs.key?(ds_name) || ds_entries.key?(ds_name)
-        ds = JSON.parse(JSON.generate(schema))
-        props = ds['properties'] ||= {}
-        props['value'] = { 'type' => 'object' }
-        props['count'] = { 'type' => 'integer' }
-        ds['title'] = ds_name
-        ds_entries[ds_name] = ds
-        $logger.debug "  DataSet/Table variant: #{ds_name}"
-      end
+      next unless table || dataSet
+
+      ds_name = table ? "#{name}Table" : "#{name}DataSet"
+      next if defs.key?(ds_name) || ds_entries.key?(ds_name)
+      ds = JSON.parse(JSON.generate(schema))
+      props = ds['properties'] ||= {}
+      props['value'] = { 'type' => 'object' }
+      props['count'] = { 'type' => 'integer' }
+      ds['title'] = ds_name
+      ds_entries[ds_name] = ds
+      $logger.debug "  DataSet/Table variant: #{ds_name}"
     end
     unless ds_entries.empty?
       defs.merge!(ds_entries)
       $logger.info "  Added #{ds_entries.size} DataSet/Table variants"
+    end
+  end
+
+  # After Events wrappers are built as closed schemas (additionalProperties: false),
+  # inject synthesized DataSet/Table variant names as additional allowed properties.
+  def self.patch_events_wrappers(defs)
+    event_extras = defs.keys.select do |name|
+      next false unless name.end_with?('DataSet') || name.end_with?('Table')
+      base = name.sub(/(?:DataSet|Table)$/, '')
+      t = event_subtype_instance(base)
+      t && t.respond_to?(:is_a_type?) && (t.is_a_type?('Event') rescue false)
+    end
+    return if event_extras.empty?
+    $logger.debug "  Patching Events wrappers with #{event_extras.size} extra variants"
+    defs.each_value { |s| add_extras_to_events_wrapper(s, event_extras) }
+  end
+
+  def self.add_extras_to_events_wrapper(schema, extras)
+    return unless schema.is_a?(Hash)
+    events = schema.dig('properties', 'Events')
+    if events.is_a?(Hash) && events['additionalProperties'] == false && (props = events['properties'])
+      extras.each do |name|
+        props[name] ||= { 'type' => 'array', 'items' => { '$ref' => "#{ref_prefix}#{name}" } }
+      end
+      $logger.debug "  Patched Events wrapper with #{extras.size} DataSet/Table variants"
+    end
+    (schema['properties'] || {}).each_value { |v| add_extras_to_events_wrapper(v, extras) }
+    %w[allOf anyOf oneOf].each do |combiner|
+      (schema[combiner] || []).each { |s| add_extras_to_events_wrapper(s, extras) }
     end
   end
 
@@ -165,8 +276,19 @@ class JsonSchemaModel < Model
         end
       end
 
+      # Remove envelope classes that belong to other documents.  Shared packages
+      # (e.g. Fundamentals > MTConnect Protocol) contain response-document sub-
+      # packages for all four envelopes; only the current document's own envelope
+      # class should appear in its $defs.
+      own_envelope = spec[:envelope]
+      (docs.map { |d| d[:envelope] } - [own_envelope]).each do |foreign|
+        defs.delete(foreign)
+        defs.delete("#{foreign}ExceptionsReport")
+      end
+
       add_timeseries_variants(defs)
       add_datasets_and_tables(defs)
+      patch_events_wrappers(defs)
       prune_missing_refs(defs)
 
       schema = {

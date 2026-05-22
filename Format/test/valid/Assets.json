@@ -1,0 +1,4640 @@
+{
+  "MTConnectAssets": {
+  "$schema": "file:/Users/will/projects/MTConnect/Documentation/mtconnect_sysml_portal/json_schema/MTConnectAssets_2.7.schema.json",
+    "jsonVersion": 2,
+    "schemaVersion": "2.7",
+    "Header": {
+      "version": "2.7.0.9",
+      "creationTime": "2026-05-15T17:46:19Z",
+      "testIndicator": false,
+      "instanceId": 1778611355,
+      "sender": "2f5d0ee2dc2f",
+      "schemaVersion": "2.7",
+      "deviceModelChangeTime": "2026-05-12T18:42:35.756535Z",
+      "assetBufferSize": 1024,
+      "assetCount": 66
+    },
+    "Assets": {
+      "CuttingTool": [
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "0",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2202",
+            "ProgramToolNumber": "2207",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 159.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2207",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "0SH/7F4oopvyuVlCAjcC4kT8MAk=",
+          "serialNumber": "2207",
+          "timestamp": "2026-05-15T17:45:18.012495Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 136.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 25.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 5.9944,
+                        "nominal": 6.096
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 133.5054
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "44",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.44",
+          "deviceUuid": "Mazak",
+          "hash": "tO4brG2imBpZ3nMx/FzCyqgFKmk=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T17:44:35.197543Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 88.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 32.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 11.9888,
+                        "nominal": 11.938
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 182.0995
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "45",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.45",
+          "deviceUuid": "Mazak",
+          "hash": "vxkhfPMsykTXXoOJHQ1X1kBHl2M=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T17:44:05.610593Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "5",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "8003",
+            "ProgramToolNumber": "8003",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 60.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.8003",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "kbd3yMQp56eOlCBFUwyyv77b5Bw=",
+          "serialNumber": "8003",
+          "timestamp": "2026-05-15T17:41:55.537813Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "BALL END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 717.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 139.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 11.9888,
+                        "nominal": 11.938
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 151.4264
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "47",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.47",
+          "deviceUuid": "Mazak",
+          "hash": "dJzMePmTVVUejbieid4IhUCLBYA=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T17:41:35.011571Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "58",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "33",
+            "ProgramToolNumber": "33",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.33",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "yFjJWeN+wAGsRaE91fvf2Pfu6Jc=",
+          "serialNumber": "33",
+          "timestamp": "2026-05-15T17:41:34.639946Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "39",
+              "negativeOverlap": 0,
+              "positiveOverlap": 1,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "0",
+            "ProgramToolNumber": "9000",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 206.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.9000",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "G5aQj430Kko0movnGEbSWtkSr/Y=",
+          "serialNumber": "9000",
+          "timestamp": "2026-05-15T17:41:34.639881Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "38",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2205",
+            "ProgramToolNumber": "2205",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 4.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2205",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "UIIcwGBEq4c6JMxz8rH/4K1UsHg=",
+          "serialNumber": "2205",
+          "timestamp": "2026-05-15T17:41:34.639812Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "EXPIRED"
+                }
+              ]
+            },
+            "Location": {
+              "value": "17",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "99",
+            "ProgramToolNumber": "19",
+            "ToolLife": [
+              {
+                "value": 3.0,
+                "countDirection": "UP",
+                "initial": 3.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 10.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.19",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "DxWMcr0t7TWAVIWlGTyCEPwEFmg=",
+          "serialNumber": "19",
+          "timestamp": "2026-05-15T17:41:34.639743Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "16",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "3001",
+            "ProgramToolNumber": "8001",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 16.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.8001",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "Q4xbaziPy1rGRJflvBmkC8rqDlI=",
+          "serialNumber": "8001",
+          "timestamp": "2026-05-15T17:41:34.639656Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "15",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2211",
+            "ProgramToolNumber": "2211",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 12.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2211",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "qou2NBV8ruBIpYcM+w1o4mxQULw=",
+          "serialNumber": "2211",
+          "timestamp": "2026-05-15T17:41:34.639594Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "14",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "3",
+            "ProgramToolNumber": "3",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 20.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.3",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "UEzvwjK6wX94PtS5BwlWL03z03c=",
+          "serialNumber": "3",
+          "timestamp": "2026-05-15T17:41:34.639506Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "13",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2203",
+            "ProgramToolNumber": "2203",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 19.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2203",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "Dn8zpSZRGJ2tLmRPN1OGBwpQVXQ=",
+          "serialNumber": "2203",
+          "timestamp": "2026-05-15T17:41:34.639445Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "12",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2204",
+            "ProgramToolNumber": "2204",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 15.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2204",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "pVjn9OgBTeTmtA2Rag9GkUYNPBA=",
+          "serialNumber": "2204",
+          "timestamp": "2026-05-15T17:41:34.639367Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "10",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "9001",
+            "ProgramToolNumber": "9001",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.9001",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "OxG5pcBg5ogamJxlPCPsjxMK+4U=",
+          "serialNumber": "9001",
+          "timestamp": "2026-05-15T17:41:34.639228Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "9",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2208",
+            "ProgramToolNumber": "2208",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 9.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2208",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "K8zZQUCvEmQJevaYvrAC8I5PRio=",
+          "serialNumber": "2208",
+          "timestamp": "2026-05-15T17:41:34.639165Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "6",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2203",
+            "ProgramToolNumber": "2206",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 3.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2206",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "5Ha8T1VXKBPGFy8PEFQifywsyP4=",
+          "serialNumber": "2206",
+          "timestamp": "2026-05-15T17:41:34.639028Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "EXPIRED"
+                }
+              ]
+            },
+            "Location": {
+              "value": "4",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "99",
+            "ProgramToolNumber": "20",
+            "ToolLife": [
+              {
+                "value": 3.0,
+                "countDirection": "UP",
+                "initial": 3.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 11.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.20",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "H6qA3PfUjJ+Uft0NbloCR0H+PT0=",
+          "serialNumber": "20",
+          "timestamp": "2026-05-15T17:41:34.638889Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "AVAILABLE"
+                }
+              ]
+            },
+            "Location": {
+              "value": "8",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            },
+            "ProgramToolGroup": "2202",
+            "ProgramToolNumber": "2202",
+            "ToolLife": [
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "PART_COUNT"
+              },
+              {
+                "value": 76.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "MINUTES"
+              },
+              {
+                "value": 0.0,
+                "countDirection": "UP",
+                "initial": 0.0,
+                "limit": 0.0,
+                "type": "WEAR"
+              }
+            ]
+          },
+          "assetId": "123456.2202",
+          "deviceUuid": "OKUMA.123456",
+          "hash": "lHSrMIaVOvx11j91b5Zu38HnPNo=",
+          "serialNumber": "2202",
+          "timestamp": "2026-05-15T17:41:34.638808Z",
+          "toolId": "123456"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "BALL END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 344.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 63.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 3.999992,
+                        "nominal": 4.064
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 162.6281
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "46",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.46",
+          "deviceUuid": "Mazak",
+          "hash": "97jiT16H+Z5ugAWVf1Zna8QE/kI=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T17:40:35.662249Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 2.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 224.3442
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "42",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.42",
+          "deviceUuid": "Mazak",
+          "hash": "W5XLTlnyuOuJsPlFdYa0OOYlgLo=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T17:02:29.498924Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "FACE MILL",
+                  "ItemLife": [
+                    {
+                      "value": 161.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 24.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 50.038,
+                        "nominal": 50.8
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 149.0741
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "40",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.40",
+          "deviceUuid": "Mazak",
+          "hash": "/YmT6aa2IsZ7XfvAaU6acf6l3Js=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:48:04.585316Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 232.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 25.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 16.002,
+                        "nominal": 16.002
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 155.2082
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "43",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.43",
+          "deviceUuid": "Mazak",
+          "hash": "OA1eUMOOOKa1MZkntf/y9RcHrtA=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:42:03.863888Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 118.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 18.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 6.35,
+                        "nominal": 6.35
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 191.1746
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "48",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.48",
+          "deviceUuid": "Mazak",
+          "hash": "sa2fU5MK341fbkUzNoHbuBFhsGc=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:41:04.040571Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "TOUCH SENSOR",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 161.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 6.096
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 214.8916
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "90",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.90",
+          "deviceUuid": "Mazak",
+          "hash": "WOhxWGX2ySTry5Z1kgy1OgeHu5U=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.889087Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 90.57157
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "89",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.89",
+          "deviceUuid": "Mazak",
+          "hash": "DCL8GtjxKaeGH5gDK8vutC8h8mU=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888989Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 850.3333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 2.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 6.604
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 154.7967
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "88",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.88",
+          "deviceUuid": "Mazak",
+          "hash": "ipBOtjQpUrJqcQvKbbrIpAfIOhs=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888928Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "TAP M",
+                  "ItemLife": [
+                    {
+                      "value": 0.3,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 1.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 7.999984,
+                        "nominal": 7.999984
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 131.7351
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "87",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.87",
+          "deviceUuid": "Mazak",
+          "hash": "+C4ZNbFzyPkQsvCW1CItP6qp4As=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888848Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.5666667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 10.668
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 142.6083
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "78",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.78",
+          "deviceUuid": "Mazak",
+          "hash": "JZQ4kgPh4D29TjmEz74211sioRY=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888765Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "FACE MILL",
+                  "ItemLife": [
+                    {
+                      "value": 6164.917,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 15.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 49.9999,
+                        "nominal": 50.038
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 148.0612
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "77",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.77",
+          "deviceUuid": "Mazak",
+          "hash": "oHmd+B1qfMngBCbYl8yEM/u/DeY=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888701Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "FACE MILL",
+                  "ItemLife": [
+                    {
+                      "value": 15.5,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 14.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 125.001,
+                        "nominal": 124.968
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 201.0219
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "75",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.75",
+          "deviceUuid": "Mazak",
+          "hash": "h4xlNaca7levjXxHFiXybYoN6PI=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888619Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 60.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 5.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 12.7,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 381.0
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "70",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.70",
+          "deviceUuid": "Mazak",
+          "hash": "ggELtiD6p9LpxOn90cilhry5CdE=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888537Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 26.16667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 9.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 19.05,
+                        "nominal": 19.05
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 119.7902
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "66",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.66",
+          "deviceUuid": "Mazak",
+          "hash": "sfcEAzky8x5jDY1sP81AjAMP+ds=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888473Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 6.95,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 17.272
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 238.3894
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "65",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.65",
+          "deviceUuid": "Mazak",
+          "hash": "Tpv3axRwGzd8l2bWbrWSqJPtGuQ=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888417Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 29.21667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 33.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 9.4488,
+                        "nominal": 9.651999
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 105.5141
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "64",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.64",
+          "deviceUuid": "Mazak",
+          "hash": "mJu80HOyRbMFaTKpwPNqDsbcgZA=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.88836Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 100.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 10.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 19.05,
+                        "nominal": 19.05
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 304.8
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "60",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.60",
+          "deviceUuid": "Mazak",
+          "hash": "2WaagYnIF/uy5t+16ndFbpgOo5o=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888304Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 254.0
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "50",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.50",
+          "deviceUuid": "Mazak",
+          "hash": "ewrZD7tYX4u6LiY7gyP0Fi/00Bc=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.888232Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 30.226
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 262.8039
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "41",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.41",
+          "deviceUuid": "Mazak",
+          "hash": "jK4+pkawOx0VJ7WoMMRLJ3GX5+Y=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887682Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 84.5,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 36.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 12.7,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 151.1343
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "37",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.37",
+          "deviceUuid": "Mazak",
+          "hash": "IufxHa5+icXjfP5THcRA5+k4CGc=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887539Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 110.6667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 32.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 13.462
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 179.6067
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "36",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.36",
+          "deviceUuid": "Mazak",
+          "hash": "1j4rP9wJLKwBHTFN/ZnEneyS2Fc=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887465Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "CHAMFER",
+                  "ItemLife": [
+                    {
+                      "value": 22.76667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 9.651999
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 111.8598
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "29",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.29",
+          "deviceUuid": "Mazak",
+          "hash": "tWv/Zca9Ay6ETcphtlBQ5iH3axg=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887382Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 5.334
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 228.6
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "26",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.26",
+          "deviceUuid": "Mazak",
+          "hash": "ktPAy0kzxFwFKDjYfd5Y8xfbZfg=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.88732Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 61.55,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 11.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 12.7,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 133.7775
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "25",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.25",
+          "deviceUuid": "Mazak",
+          "hash": "nFX9wCOtfcwqVhMMip/lvafvyQQ=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887259Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.9166667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 9.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 163.9621
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "24",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.24",
+          "deviceUuid": "Mazak",
+          "hash": "VNCAeynQIT/Tv17e6vkN444FzYE=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887177Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 144.9833,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 31.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 45.212,
+                        "nominal": 45.212
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 126.364
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "23",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.23",
+          "deviceUuid": "Mazak",
+          "hash": "0uzEYwi28jMtlw55pDQBgFaH7Qo=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887114Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.4,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 5.08
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 227.4616
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "22",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.22",
+          "deviceUuid": "Mazak",
+          "hash": "z/K5Tvbas7jjfmuRpCyENIY/J7s=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.887057Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 5.08
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 173.8808
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "21",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.21",
+          "deviceUuid": "Mazak",
+          "hash": "v1u8zvwyx/T14e2Kj+XFMPzWAY0=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886993Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "TAP U",
+                  "ItemLife": [
+                    {
+                      "value": 31.81667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 9.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 4.826,
+                        "nominal": 4.826
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 193.708
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "20",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.20",
+          "deviceUuid": "Mazak",
+          "hash": "Cba3p1STGXMnguTMJdxn944cRZY=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.88693Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 12.78333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 9.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 3.81
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 155.2224
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "19",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.19",
+          "deviceUuid": "Mazak",
+          "hash": "8XWYQSKlN4YV1dJGF2d3fOP95lk=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886867Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 11.08333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 17.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 6.35
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 205.377
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "18",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.18",
+          "deviceUuid": "Mazak",
+          "hash": "E+h1KLPV3CmpJm2zJKzRBeR5uVA=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886792Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 9.906
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 228.7438
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "17",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.17",
+          "deviceUuid": "Mazak",
+          "hash": "LO8FwoygtpqZy+NOyJef8TztvG0=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886719Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 11.03333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 6.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 21.336
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 198.8731
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "16",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.16",
+          "deviceUuid": "Mazak",
+          "hash": "dFvEY9e1byYRXexi4rQ4ZV2dB70=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886661Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 25.03333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 53.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 19.05
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 187.8439
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "15",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.15",
+          "deviceUuid": "Mazak",
+          "hash": "Lrl3cHBXoaa/JXRoP0uKhAUTKto=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886579Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 2.166667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 5.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 19.812
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 232.2794
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "14",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.14",
+          "deviceUuid": "Mazak",
+          "hash": "RbhOq8rE97GuwBs4qkOWec4dXHU=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886501Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "MILL OTHER",
+                  "ItemLife": [
+                    {
+                      "value": 24.5,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 7.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 8.509,
+                        "nominal": 8.382
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 201.1581
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "13",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.13",
+          "deviceUuid": "Mazak",
+          "hash": "DbhFdpGsCQUsrmbEA2Ns7yFs31Q=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.88643Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 216.3,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 27.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 12.6238,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 198.1174
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "12",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.12",
+          "deviceUuid": "Mazak",
+          "hash": "KUkjGAON7+aUB6wE/XTDL0w3MNo=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886327Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 31.38333,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 5.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 19.05,
+                        "nominal": 19.05
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 184.4258
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "11",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.11",
+          "deviceUuid": "Mazak",
+          "hash": "0FneRRtLUhIBQv7WzvU9LelauoI=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886245Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "FACE MILL",
+                  "ItemLife": [
+                    {
+                      "value": 369.6,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 55.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 63.5,
+                        "nominal": 63.5
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 145.0228
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "10",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.10",
+          "deviceUuid": "Mazak",
+          "hash": "Y/ntdvWG5XfwaY5KPMqAOkH+98A=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886185Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "TAP U",
+                  "ItemLife": [
+                    {
+                      "value": 0.75,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 4.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 12.7,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 142.5105
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "9",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.9",
+          "deviceUuid": "Mazak",
+          "hash": "YS22P1NkbDp3vGOuVkbaTFC0ZO0=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886126Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "CHAMFER",
+                  "ItemLife": [
+                    {
+                      "value": 77.51667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 37.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 12.7
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 159.0446
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "7",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.7",
+          "deviceUuid": "Mazak",
+          "hash": "oVM/HfD5mqMCfd3MIDeDEwcvMN8=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.886046Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "TAP M",
+                  "ItemLife": [
+                    {
+                      "value": 1.766667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 4.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 15.99997,
+                        "nominal": 15.99997
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 170.2158
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "6",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.6",
+          "deviceUuid": "Mazak",
+          "hash": "EDWjfp9zxxiAbRhQeRHBnwfOixQ=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885946Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 1.866667,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 13.97
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 150.9784
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "5",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.5",
+          "deviceUuid": "Mazak",
+          "hash": "noXsE0xeem7bsm5uq39cHCFaZ50=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885839Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "CTR-DRL / SPOT",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 20.32
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 228.6
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "4",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.4",
+          "deviceUuid": "Mazak",
+          "hash": "AdPuugiF/LhA18vOPsz+3/1wQKI=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885716Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "USED"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "USED"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 3.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 38.1
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 63.5
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "3",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.3",
+          "deviceUuid": "Mazak",
+          "hash": "bxw4EfXxXxFkCYJQKti/pWY+ovI=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885602Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "DRILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 0.0,
+                        "nominal": 38.1
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 63.5
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "2",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.2",
+          "deviceUuid": "Mazak",
+          "hash": "pRiz8PT1vTQEb9AuLozuGpkdGOk=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885488Z",
+          "toolId": "0"
+        },
+        {
+          "CuttingToolLifeCycle": {
+            "CutterStatus": {
+              "Status": [
+                {
+                  "value": "NEW"
+                }
+              ]
+            },
+            "CuttingItems": {
+              "CuttingItem": [
+                {
+                  "CutterStatus": {
+                    "Status": [
+                      {
+                        "value": "NEW"
+                      },
+                      {
+                        "value": "AVAILABLE"
+                      },
+                      {
+                        "value": "ALLOCATED"
+                      }
+                    ]
+                  },
+                  "Description": "END MILL",
+                  "ItemLife": [
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "MINUTES",
+                      "warning": 80.0
+                    },
+                    {
+                      "value": 0.0,
+                      "countDirection": "UP",
+                      "initial": 0.0,
+                      "limit": 0.0,
+                      "type": "PART_COUNT",
+                      "warning": 80.0
+                    }
+                  ],
+                  "Measurements": {
+                    "CuttingDiameter": [
+                      {
+                        "value": 50.8,
+                        "nominal": 50.8
+                      }
+                    ],
+                    "FunctionalLength": [
+                      {
+                        "value": 127.0
+                      }
+                    ]
+                  },
+                  "ProgramToolGroup": "0",
+                  "indices": "1"
+                }
+              ],
+              "count": 1
+            },
+            "Location": {
+              "value": "1",
+              "negativeOverlap": 0,
+              "positiveOverlap": 0,
+              "type": "POT"
+            }
+          },
+          "assetId": "M8015P520ZN1.1",
+          "deviceUuid": "Mazak",
+          "hash": "XG1MaU4hWR07eMHWxuJys4/SQpw=",
+          "serialNumber": "0",
+          "timestamp": "2026-05-15T16:16:45.885362Z",
+          "toolId": "0"
+        }
+      ]
+    }
+  }
+}

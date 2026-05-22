@@ -77,6 +77,7 @@ class JsonSchemaGenerator
     Stereotype.collect_stereotypes(@xmi)
 
     @top = JsonSchemaModel.new(nil, @xmi)
+    JsonSchemaModel.root_xmi = @xmi
     @top.find_data_types
     @top.find_definitions
 
