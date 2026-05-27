@@ -299,9 +299,11 @@ class JsonSchemaModel < Model
       patch_events_wrappers(defs)
       prune_missing_refs(defs)
 
+      suffix = @@draft_spec[:suffix]
+      file = "#{spec[:envelope]}_#{$mtconnect_version}#{suffix}.schema.json"
       schema = {
         '$schema'     => schema_uri,
-        id_key        => "https://schemas.mtconnect.org/v#{$mtconnect_version}/#{spec[:envelope]}.schema.json",
+        id_key        => "https://schemas.mtconnect.org/schemas/#{file}",
         'title'       => spec[:envelope],
         'description' => "MTConnect #{spec[:envelope]} response, v2 JSON, " \
                          "from SysML model v#{$mtconnect_version}.",
@@ -315,9 +317,7 @@ class JsonSchemaModel < Model
       }
       schema[defs_key] = defs
 
-      suffix = @@draft_spec[:suffix]
-      out = File.join(@@output_dir,
-                      "#{spec[:envelope]}_#{$mtconnect_version}#{suffix}.schema.json")
+      out = File.join(@@output_dir, file)
       File.open(out, 'w') { |f| f.write(JSON.pretty_generate(schema)) }
       $logger.info "  Wrote #{out} (#{defs.size} definitions)"
     end
