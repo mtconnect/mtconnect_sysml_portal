@@ -1,10 +1,6 @@
 $: << File.dirname(__FILE__)
 
 require 'json'
-require 'portal/mtconnect_html'
-require 'portal/portal_model'
-require 'portal/helpers'
-require 'portal/web_report'
 
 class ValidationModel < Model
   def self.generator_class=(generator_class)
