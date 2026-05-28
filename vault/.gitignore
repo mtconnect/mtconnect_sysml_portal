@@ -1,0 +1,14 @@
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor state
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local notes (uncommitted scratch)
+.scratch/
+TODO.local.md

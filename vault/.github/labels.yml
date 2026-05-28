@@ -1,0 +1,68 @@
+# Structured label set for the TASKS.md task-graph + GitHub Issues sync pattern.
+# Run scripts/setup-labels.sh <owner/repo> to create these in a target repo.
+#
+# Three axes (every issue carries one from each that applies):
+#   type:*   — what kind of work this is
+#   status:* — where it is in its lifecycle
+#   owner:*  — who can act on it
+#   scope:*  — which version it belongs to (optional)
+#
+# This file is the declarative source of truth. The setup script is kept in
+# sync by hand. If you adopt a label-sync GitHub Action later (e.g.
+# crazy-max/ghaction-github-labeler), it can consume this file directly.
+
+# What kind of work
+- name: type:decision
+  color: '5319e7'
+  description: A decision a human needs to make
+
+- name: type:research
+  color: '7057ff'
+  description: Read-only investigation; produces a report
+
+- name: type:task
+  color: '1d76db'
+  description: Concrete agent-actionable work
+
+- name: type:question
+  color: 'd4c5f9'
+  description: An open question pending clarification
+
+# Where it is in its lifecycle
+- name: status:active
+  color: '0e8a16'
+  description: Someone is doing this now
+
+- name: status:queued
+  color: 'c5def5'
+  description: Will pick up next; dependencies clear
+
+- name: status:blocked
+  color: 'fbca04'
+  description: Waiting on a dependency
+
+- name: status:backlog
+  color: 'c2e0c6'
+  description: Not yet prioritized; carry-forward
+
+# Who can act on it
+- name: owner:human
+  color: 'd93f0b'
+  description: A human must act; agent cannot decide
+
+- name: owner:agent
+  color: '006b75'
+  description: An agent can act autonomously
+
+# Which version (optional; rename to match your project's milestone names)
+- name: scope:current-version
+  color: '0052cc'
+  description: In scope for the version currently being built
+
+- name: scope:next-version
+  color: 'bfd4f2'
+  description: Deferred to the next version
+
+- name: scope:carry-forward
+  color: 'e99695'
+  description: Surfaced from prior work; not in current plan
