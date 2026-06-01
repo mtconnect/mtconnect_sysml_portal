@@ -21,8 +21,8 @@ begin
   puts "Removing the old content and deploying the new"
   command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
       "rm -rf #{files.join(' ')} latest development && " + 
-      "tar -xzf ~/deploy.tgz && " + 
-      "rm ~/deploy.tgz'"
+      "tar -xzf ~/deploy.tgz " # && " +
+      # "rm ~/deploy.tgz'"
   puts command
   system(command) || raise(command)
 
@@ -37,5 +37,5 @@ rescue => e
   puts "Deployment failed: #{e.message}"
   exit(1)
 ensure
-  #FileUtils.rm_f('deploy.tgz')
+  FileUtils.rm_f('deploy.tgz')
 end
