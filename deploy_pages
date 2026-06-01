@@ -4,7 +4,8 @@ require 'yaml'
 require 'fileutils'
 
 config = YAML.load_file(File.join('build.yml'))
-files = ['404.html', 'index.html', 'assets', 'figures', 'robots.txt', 'sitemap.xml']
+files = ['404.html', 'index.html', 'assets', 'figures', 'robots.txt', 'sitemap.xml',
+         'latest', 'development']
 files += config['build'].map { |v| "Version#{v}" }
 
 begin
@@ -37,5 +38,5 @@ rescue => e
   puts "Deployment failed: #{e.message}"
   exit(1)
 ensure
-  FileUtils.rm_f('deploy.tgz')
+  #FileUtils.rm_f('deploy.tgz')
 end
