@@ -4,8 +4,7 @@ require 'yaml'
 require 'fileutils'
 
 config = YAML.load_file(File.join('build.yml'))
-files = ['404.html', 'index.html', 'assets', 'figures', 'robots.txt', 'sitemap.xml',
-         'latest', 'development']
+files = ['404.html', 'index.html', 'assets', 'figures', 'robots.txt', 'sitemap.xml']
 files += config['build'].map { |v| "Version#{v}" }
 
 begin
@@ -21,7 +20,7 @@ begin
 
   puts "Removing the old content and deploying the new"
   command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
-      "rm -rf #{files.join(' ')} && " + 
+      "rm -rf #{files.join(' ')} latest development && " + 
       "tar -xzf ~/deploy.tgz && " + 
       "rm ~/deploy.tgz'"
   puts command
