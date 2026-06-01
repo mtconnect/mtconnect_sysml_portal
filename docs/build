@@ -60,14 +60,14 @@ def build_version(base, src, dest, version = nil)
     FileUtils.mkdir_p source
     FileUtils.rm_r destination if File.exist?(destination)
   
-    FileUtils.ln_s(File.join(base, "Version#{version}", "MTConnectSysMLModel.xml"), File.join(source, "MTConnectSysMLModel_V#{version}.xml"))
+    FileUtils.cp(File.join(base, "Version#{version}", "MTConnectSysMLModel.xml"), File.join(source, "MTConnectSysMLModel_V#{version}.xml"))
     Dir[File.join(base, 'build', "Version#{version}", '*')].each do |d|
-      FileUtils.ln_s(d, File.join(source, File.basename(d)))
+      FileUtils.cp_r(d, File.join(source, File.basename(d)))
     end
   end
 
   %w{_config.yml _includes _layouts _sass 404.html assets}.each do |d|
-    FileUtils.ln_s(d, File.join(source, d), relative: true)
+    FileUtils.cp_r(d, File.join(source, d))
   end
 
   dest = '.' if dest.empty?
