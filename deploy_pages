@@ -9,10 +9,10 @@ files += config['build'].map { |v| "Version#{v}" }
 
 begin
   puts "Archiving the deploy directory"
-  command = "tar -czf deploy.tgz -C deploy #{files.join(' ')}"
+  command = "tar -chzf deploy.tgz -C deploy #{files.join(' ')}"
   puts command
   system(command) || raise(command)
-
+  
   puts "Copying the deploy archives to the mtconnect projects site"
   command = "scp deploy.tgz deploy@projects.mtconnect.org:~/"
   puts command
