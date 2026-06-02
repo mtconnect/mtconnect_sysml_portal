@@ -53534,7 +53534,7 @@ self.oclAsType(DataItems::&quot;DataItem Types&quot;::Condition).category =  Dat
 						</ownedAttribute>
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='EAID_2D0A9D8F_2538_4f46_8B83_6B1988818511' name='ComponentRelationship'>
-						<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_91b028d_1589572905431_495685_89' body='{{block(ConfigurationRelationship)}} that describes the association between a {{block(Component)}} or an {{block(Asset)}} and another {{block(Component).'>
+						<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_91b028d_1589572905431_495685_89' body='{{block(ConfigurationRelationship)}} that describes the association between a {{block(Component)}} or an {{block(Asset)}} and another {{block(Component)}}.'>
 							<annotatedElement xmi:idref='EAID_2D0A9D8F_2538_4f46_8B83_6B1988818511'/>
 						</ownedComment>
 						<generalization xmi:type='uml:Generalization' xmi:id='EAID_FC6693FA_4418_48f8_B0CD_99FD19357610' isSubstitutable='false' general='EAID_28132294_DF39_4e8e_8AE5_B79565F991A2'/>
@@ -53555,7 +53555,7 @@ self.oclAsType(DataItems::&quot;DataItem Types&quot;::Condition).category =  Dat
 						</ownedAttribute>
 					</packagedElement>
 					<packagedElement xmi:type='uml:Class' xmi:id='EAID_E20AAF35_BE17_40e8_8701_D2D7676EDC69' name='DeviceRelationship'>
-						<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_91b028d_1589572896594_187991_87' body='{{block(ConfigurationRelationship)}} that describes the association between a {{block(Component)}} or an {{block(Asset)}} and a {{block(Device).'>
+						<ownedComment xmi:type='uml:Comment' xmi:id='_19_0_3_91b028d_1589572896594_187991_87' body='{{block(ConfigurationRelationship)}} that describes the association between a {{block(Component)}} or an {{block(Asset)}} and a {{block(Device)}}.'>
 							<annotatedElement xmi:idref='EAID_E20AAF35_BE17_40e8_8701_D2D7676EDC69'/>
 						</ownedComment>
 						<generalization xmi:type='uml:Generalization' xmi:id='EAID_6CA182A9_3E56_401a_BDD5_19CE3CB557E5' isSubstitutable='false' general='EAID_28132294_DF39_4e8e_8AE5_B79565F991A2'/>
