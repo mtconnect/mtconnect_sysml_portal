@@ -5,7 +5,7 @@ This vault is the project knowledge base for the [MTConnect SysML Portal](../). 
 The vault itself does not get published; it is a Markdown reference for contributors (human and AI) working on the portal codebase.
 
 ---
-
+#MTConnect 
 ## What's in here
 
 | File / folder | What it's for |
