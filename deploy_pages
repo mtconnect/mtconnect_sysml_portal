@@ -19,7 +19,8 @@ begin
   system(command) || raise(command)
 
   puts "Removing the old content and deploying the new"
-  command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
+  command = "ssh deploy@projects.mtconnect.org '" +
+      "cd /opt/redmine/model/ && " + 
       "rm -rf #{files.join(' ')} latest development && " + 
       "tar -xzf ~/deploy.tgz && " +
       "rm ~/deploy.tgz'"
@@ -27,9 +28,9 @@ begin
   system(command) || raise(command)
 
   puts("Creating symbolic links to new latest directories")
-  command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/root && " + 
-      "ln -fs /opt/redmine/model/root/Version#{config['production']} latest && " +
-      "ln -fs /opt/redmine/model/root/Version#{config['development']} development'"
+  command = "ssh deploy@projects.mtconnect.org 'cd /opt/redmine/model/ && " + 
+      "ln -fs /opt/redmine/model/Version#{config['production']} latest && " +
+      "ln -fs /opt/redmine/model/Version#{config['development']} development'"
   puts command
   system(command) || raise(command)
 
