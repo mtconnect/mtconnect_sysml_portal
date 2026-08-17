@@ -27,7 +27,12 @@ def write_root_page(dir, versions, latest, development)
       ## Latest Versions
 
       * [Latest Version (#{latest})](/Version#{latest}/)
-      * [Development Version (#{development})](/Version#{development}/)
+EOT
+    if development
+      f.puts "* [Development Version (#{development})](/Version#{development}/)"
+    end
+    
+    f.puts <<~EOT
 
       ## All Versions
 
