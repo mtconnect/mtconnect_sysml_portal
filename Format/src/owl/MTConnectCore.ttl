@@ -12,7 +12,7 @@
 <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/>
     a owl:Ontology ;
     rdfs:label "mtconnect core" ;
-    owl:imports <https://spec.industrialontologies.org/ontology/core/Core/> ;
+    owl:imports <https://spec.industrialontologies.org/ontology/AboutIOFDev/> ;
     owl:versionIRI <https://model.mtconnect.org/ontology/v$mtconnect_version/machinetool/MTConnectCore/> ;
     owl:versionInfo "$mtconnect_version" .
 
@@ -22,3 +22,8 @@ mtc-cnstr:DataItemType
     iof-av:naturalLanguageDefinition "classifier that classifies MTConnect data items"@en ;
     iof-av:explanatoryNote "Abstract: has no direct instances; every data item type is an instance of a subclass, such as Event, Sample, or Condition."@en ;
     rdfs:subClassOf iof-cnstr:Classifier .
+
+mtc-cnstr:iofParentCandidate
+    a owl:AnnotationProperty ;
+    rdfs:label "iof parent candidate" ;
+    iof-av:naturalLanguageDefinition "IOF class suggested by the classifier as the best parent of an MTConnect class whose superclass is its MTConnect parent; for review"@en .

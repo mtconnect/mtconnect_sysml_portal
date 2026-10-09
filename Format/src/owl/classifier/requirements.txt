@@ -1,0 +1,2 @@
+rdflib>=7
+typesafe-sdk>=0.7

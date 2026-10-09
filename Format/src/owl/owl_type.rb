@@ -1,3 +1,4 @@
+require 'csv'
 require 'type'
 require 'owl/helpers'
 
@@ -32,10 +33,29 @@ OWL_COMPONENT_RELATIONS = {
 # Packages whose root classes are design specifications
 OWL_DESIGN_SPECIFICATION_PACKAGES = Set['Configurations']
 
+# Best IOF parents suggested by classifier/iof_classifier.py. The information view gives the superclass of
+# MTConnect root classes, and the realist view gives what the class is about (iof:isAbout).
+OWL_IOF_PARENTS_FILE = File.join(File.dirname(__FILE__), 'classifier', 'out', 'iof_parents.csv')
+
+OWL_IRI_PREFIXES = {
+  'iof' => 'https://spec.industrialontologies.org/ontology/construct/',
+  'obo' => 'http://purl.obolibrary.org/obo/',
+  'cmns' => 'https://www.omg.org/spec/Commons/'
+}
+
+# Classes from imported ontologies that duplicate an IOF class
+OWL_IRI_ALIASES = {
+  'http://purl.obolibrary.org/obo/IAO_0000030' => 'https://spec.industrialontologies.org/ontology/construct/InformationContentEntity'
+}
+
+OWL_BFO_ENTITY = 'http://purl.obolibrary.org/obo/BFO_0000001'
+OWL_IS_ABOUT = 'iof-cnstr:isAbout'
+
 class OwlType < Type
   include OwlHelpers
 
   @@owl_names = nil
+  @@iof_parents = nil
 
   def initialize(model, e)
     super
@@ -70,6 +90,32 @@ class OwlType < Type
 
       names
     end
+  end
+
+  # The classifier's best IOF parent IRI for each view, keyed by OWL class name
+  def self.iof_parents
+    @@iof_parents ||= begin
+      parents = Hash.new { |h, k| h[k] = {} }
+      if File.exist?(OWL_IOF_PARENTS_FILE)
+        CSV.foreach(OWL_IOF_PARENTS_FILE, headers: true) do |row|
+          iri = row['iof_parent_iri'] || expand_curie(row['iof_parent'])
+          parents[row['view']][row['mtconnect_class']] = OWL_IRI_ALIASES.fetch(iri, iri)
+        end
+        $logger.info "Loaded IOF parents for #{parents.values.sum(&:size)} classes from #{OWL_IOF_PARENTS_FILE}"
+      else
+        $logger.warn "No IOF parents file #{OWL_IOF_PARENTS_FILE}, run classifier/iof_classifier.py"
+      end
+      parents
+    end
+  end
+
+  def self.expand_curie(curie)
+    prefix, local = curie.split(':', 2)
+    OWL_IRI_PREFIXES.include?(prefix) ? OWL_IRI_PREFIXES[prefix] + local : curie
+  end
+
+  def iof_parent(view)
+    OwlType.iof_parents[view][owl_name]
   end
 
   def owl_class?
@@ -118,12 +164,18 @@ class OwlType < Type
   # value expressions), configuration is a design specification, and everything else, including
   # component types, is descriptive.
   def owl_superclasses
+    @owl_superclasses ||= compute_owl_superclasses
+  end
+
+  def compute_owl_superclasses
     parents = owl_parents
     if OWL_IOF_SUPERCLASSES.include?(owl_name)
       [OWL_IOF_SUPERCLASSES[owl_name]]
     elsif parents.empty?
       if in_package?(OWL_DESIGN_SPECIFICATION_PACKAGES)
         ['iof-cnstr:DesignSpecification']
+      elsif (iri = iof_parent('information'))
+        ["<#{iri}>"]
       else
         ['iof-cnstr:DescriptiveInformationContentEntity']
       end
@@ -136,6 +188,28 @@ class OwlType < Type
         end
       end.uniq
     end
+  end
+
+  # The MTConnect parent this class is a subclass of in the generated ontology
+  def owl_mtc_parent
+    owl_parents.find { |parent| owl_superclasses.include?("mtc-cnstr:#{parent.owl_name}") }
+  end
+
+  # The ontology is a monohierarchy, so only root classes take the classifier's information parent. Other classes
+  # keep their MTConnect parent and record a different IOF match as a candidate for review.
+  def iof_parent_candidate
+    candidate = iof_parent('information')
+    return nil if candidate.nil? or owl_superclasses.include?("<#{candidate}>")
+    parent = owl_mtc_parent
+    candidate unless parent and parent.iof_parent('information') == candidate
+  end
+
+  # What the class is about from the realist view, unless inherited from the MTConnect parent
+  def iof_about
+    about = iof_parent('realist')
+    return nil if about.nil? or about == OWL_BFO_ENTITY
+    parent = owl_mtc_parent
+    about unless parent and parent.iof_parent('realist') == about
   end
 
   def write_class(f, local)
@@ -151,6 +225,17 @@ class OwlType < Type
 
     doc = plain_documentation
     f.puts "    skos:definition #{turtle_string(doc)} ;" if doc && !doc.empty?
+
+    candidate = iof_parent_candidate
+    f.puts "    mtc-cnstr:iofParentCandidate <#{candidate}> ;" if candidate
+
+    if (about = iof_about)
+      f.puts <<TTL
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty #{OWL_IS_ABOUT} ;
+                      owl:someValuesFrom <#{about}> ] ;
+TTL
+    end
 
     # Object/data properties from relations
     props = owl_properties
