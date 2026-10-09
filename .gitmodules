@@ -1,0 +1,3 @@
+[submodule "cache/ontology"]
+	path = cache/ontology
+	url = https://github.com/iofoundry/ontology.git

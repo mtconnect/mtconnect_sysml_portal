@@ -43,7 +43,7 @@ class OwlModel < Model
   end
 
   def generate_ontology
-    return if @name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
+    return nil if @name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
       root.name == 'Glossary'
 
     output_file = File.join(@@output_dir, "#{@domain}.ttl")
@@ -59,6 +59,7 @@ class OwlModel < Model
     end
 
     $logger.info "Written #{output_file}"
+    @domain
   end
 
   def write_prefixes(f)
@@ -67,6 +68,7 @@ class OwlModel < Model
       @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
       @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
       @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+      @prefix bfo:  <http://purl.obolibrary.org/obo/> .
       @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
       @prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
       @prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .

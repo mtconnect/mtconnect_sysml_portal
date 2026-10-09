@@ -1,14 +1,41 @@
 require 'type'
 require 'owl/helpers'
 
-MTCONNECT_CLASS_NAME_MAP = {
-  'Axis' => 'MotionSystem',
-  'Rotary' => 'RotaryMotionSystem',
-  'Linear' => 'LinearMotionSystem'
+# Root SysML classes whose subclasses are classifiers rather than descriptive information
+OWL_CLASSIFIER_ROOTS = {
+  'DataItem' => 'mtc-cnstr:DataItemType'
 }
+
+# Classes placed directly in a specific IOF branch, replacing their SysML superclasses.
+# TODO: The ontology is a monohierarchy, so SampleObservation no longer inherits from Observation
+# and loses the Observation properties (timestamp, sequence, dataItemId, ...). This needs to be resolved.
+OWL_IOF_SUPERCLASSES = {
+  'Observation' => 'iof-cnstr:ValueExpression',
+  'SampleObservation' => 'iof-cnstr:MeasuredValueExpression'
+}
+
+# Component to component relations are mereological and use the BFO parthood relations
+# ('has continuant part at all times' and 'continuant part of at all times') instead of minting new properties
+OWL_HAS_PART = 'bfo:BFO_0000110'
+OWL_PART_OF = 'bfo:BFO_0000177'
+
+# Component to component relations that are not parthood. A nil value keeps the minted property.
+OWL_COMPONENT_RELATIONS = {
+  'isExecutedOn' => 'bfo:BFO_0000167', # the process has the device as a participant at all times
+  'isWorkedOn' => nil, # TODO: the part participates in the process the device is executing
+  # TODO: a process is information about a process specification in the asset model, not a part of the device.
+  # It needs a relation stating it is information about the device's process.
+  'hasProcess' => nil,
+  'isProcessOf' => nil
+}
+
+# Packages whose root classes are design specifications
+OWL_DESIGN_SPECIFICATION_PACKAGES = Set['Configurations']
 
 class OwlType < Type
   include OwlHelpers
+
+  @@owl_names = nil
 
   def initialize(model, e)
     super
@@ -24,16 +51,50 @@ class OwlType < Type
     end
   end
 
+  # Unique local names for all classes. SysML names are reused across packages, so colliding
+  # names are suffixed with the parent class name, or the package name if there is no parent.
+  def self.owl_names
+    @@owl_names ||= begin
+      classes = @@types_by_id.values.select { |t| OwlType === t && t.owl_class? }
+      clean = ->(name) { name.gsub(/[^a-zA-Z0-9]/, '') }
+      names = classes.to_h { |t| [t, clean.(t.name)] }
+
+      [->(t) { t.owl_parents.first&.name || t.model.name }, ->(t) { t.model.name }].each do |suffix|
+        dups = names.values.tally.select { |_, n| n > 1 }.keys
+        names = names.to_h { |t, n| [t, dups.include?(n) ? n + clean.(suffix.(t)) : n] }
+      end
+
+      names.values.tally.each do |n, count|
+        $logger.warn "OWL class name #{n} is defined #{count} times" if count > 1
+      end
+
+      names
+    end
+  end
+
+  def owl_class?
+    (@type == 'uml:Class' or @type == 'uml:AssociationClass') and
+      not (@name.nil? or @name.empty?) and @model.root.name != 'Glossary'
+  end
+
+  def owl_name
+    OwlType.owl_names.fetch(self) { turtle_name(@name) }
+  end
+
+  def owl_parents
+    get_parents.select { |parent| parent.model.root.name != 'Glossary' }
+  end
+
+  def component?
+    @name == 'Component' && owl_parents.empty? || owl_parents.any?(&:component?)
+  end
 
   def write_turtle(f)
     return if @name.nil? || @name.empty?
 
-    local = turtle_name(MTCONNECT_CLASS_NAME_MAP.fetch(@name, @name))
-
     case @type
     when 'uml:Class', 'uml:AssociationClass'
-      write_class(f, local)
-      write_type(f, local)
+      write_class(f, owl_name)
     when 'uml:Enumeration'
       #write_enumeration(f, local)
     when 'uml:DataType', 'uml:PrimitiveType'
@@ -43,57 +104,49 @@ class OwlType < Type
 
   private
 
-  def write_type(f, local)
-    # Categorize using the MTConnect component structure. Not all components are types, some are physcal things
-    # or systems and some are types. 
-
-    if @leaf
-      # Pun the class as an instance of an MTConnect Kind and make it organized by a composition type
-      f.puts <<~TTL
-        mtc-cnstr:#{local}
-            a owl:NamedIndividual, mtc-cnstr:MTConnectKind ;
-            mtc-cnstr:organizedBy mtc-cnstr:CompositionType .
-        
-      TTL
-    elsif @stereotypes.map(&:name).include?('organizer')
-      f.puts <<~TTL
-        mtc-cnstr:#{local}
-            a owl:NamedIndividual, mtc-cnstr:OrganizerType .
-        
-      TTL
+  def in_package?(names)
+    m = @model
+    while m
+      return true if names.include?(m.name)
+      m = m.parent
     end
+    false
+  end
 
-
+  # The MTConnect information is placed in the information content entity branch of IOF:
+  # data item types are classifiers, observations are value expressions (samples are measured
+  # value expressions), configuration is a design specification, and everything else, including
+  # component types, is descriptive.
+  def owl_superclasses
+    parents = owl_parents
+    if OWL_IOF_SUPERCLASSES.include?(owl_name)
+      [OWL_IOF_SUPERCLASSES[owl_name]]
+    elsif parents.empty?
+      if in_package?(OWL_DESIGN_SPECIFICATION_PACKAGES)
+        ['iof-cnstr:DesignSpecification']
+      else
+        ['iof-cnstr:DescriptiveInformationContentEntity']
+      end
+    else
+      parents.map do |parent|
+        if parent.owl_parents.empty? and OWL_CLASSIFIER_ROOTS.include?(parent.name)
+          OWL_CLASSIFIER_ROOTS[parent.name]
+        else
+          "mtc-cnstr:#{parent.owl_name}"
+        end
+      end.uniq
+    end
   end
 
   def write_class(f, local)
     $logger.debug "Writing class #{local}"
 
-    # Create the physcal class definition
     f.puts "mtc-cnstr:#{local}"
     f.puts "    a owl:Class ;"
     f.puts "    rdfs:label #{turtle_string(label)} ;"
 
-    # Determine the parent based on the Kind of thing it represents
-    parent_names = get_parents.map(&:name).select do |parent_name|
-      parent_name != 'Glossary' && parent_name != 'MTConnect'
-    end
-
-    if @leaf
-      owl_parent = "iof-cnstr:MaterialArtifact"
-    elsif parent_names.include?('System')
-      owl_parent = 'iof-cnstr:MaterialComponent'
-    elsif parent_names.include?('Axis')
-      owl_parent = 'mtc-cnstr:MotionSystem'
-    elsif @name =~ /Process/
-      owl_parent = 'iof-cnstr:ManufacturingProcess'
-    end
-
-    # Parent classes (rdfs:subClassOf)
-    get_parents.each do |parent|
-      if parent.model.root.name != 'Glossary'
-        f.puts "    rdfs:subClassOf mtc-cnstr:#{turtle_name(parent.name)} ;"
-      end
+    owl_superclasses.each do |parent|
+      f.puts "    rdfs:subClassOf #{parent} ;"
     end
 
     doc = plain_documentation
@@ -159,6 +212,7 @@ TTL
   def write_property_declarations(f, local)
     owl_properties.each do |rel, rel_name, type_name, is_object, target|
       next if rel.name =~ /^observes.+/ # Skip "observes" properties since they are not explicitly defined in the model
+      next if rel_name.start_with?('bfo:') # BFO relations are imported
 
       $logger.debug "-- Writing property #{rel_name} for #{local} (object property: #{is_object} - #{type_name})"
 
@@ -180,15 +234,37 @@ TTL
     end
   end
 
+  # The types of the classes an association class connects
+  def association_participants
+    @association_participants ||= @xmi.xpath('./memberEnd').map do |m|
+      @xmi.document.at("//*[@xmi:id='#{m['xmi:idref']}']")&.[]('type')
+    end.compact.to_set
+  end
+
+  # An association class repeats its member ends as an ownedEnd and as private attributes typed by
+  # the participants (e.g. Axes::device and Axes::axis). These duplicate the relation between the
+  # participants (Device::hasAxis and Axis::isAxisOf) and are not properties of the association class.
+  def association_participant?(rel)
+    @type == 'uml:AssociationClass' and rel.owner.equal?(self) and
+      (rel.xmi.name == 'ownedEnd' or
+       (rel.xmi['association'].nil? and association_participants.include?(rel.xmi['type'])))
+  end
+
   def owl_properties
     @relations.select do |rel|
       not (@name.nil? or @name.empty?) and rel.target and
-        (rel.is_a?(Relation::Attribute) or rel.is_a?(Relation::Association))
+        (rel.is_a?(Relation::Attribute) or rel.is_a?(Relation::Association)) and
+        not association_participant?(rel)
     end.map do |rel|
-      target = LazyPointer === rel.target.type ? rel.target.type.resolve && rel.target.type.obj : rel.target.type
+      # Relations through an association class target the association class; use the participant
+      end_ = rel.is_a?(Relation::Association) ? rel.final_target : rel.target
+      target = LazyPointer === end_.type ? end_.type.resolve && end_.type.obj : end_.type
       if target
         case target.type
-        when 'uml:Class', 'uml:Enumeration'
+        when 'uml:Class', 'uml:AssociationClass'
+          type_name = "mtc-cnstr:#{target.owl_name}"
+          is_object = true
+        when 'uml:Enumeration'
           type_name = "mtc-cnstr:#{turtle_name(target.name)}"
           is_object = true
         when 'uml:DataType', 'uml:PrimitiveType'
@@ -200,13 +276,18 @@ TTL
           is_object = false
         end
       else
-        $logger.warn "#{@name}::#{rel.name}: No target"
-        type_name = 'xsd:string'
-        is_object = false
+        # The target is in a model that is not generated
+        $logger.warn "#{@name}::#{rel.name}: No target, skipping"
+        next
       end
-      rel_name = "mtc-cnstr:#{turtle_name(rel.name =~ /^observes.+/ ? "observes" : rel.name)}"
+      rel_name = if component? && OwlType === target && target.component? &&
+                    (bfo = OWL_COMPONENT_RELATIONS.fetch(rel.name) { rel.name =~ /^is/ ? OWL_PART_OF : OWL_HAS_PART })
+                   bfo
+                 else
+                   "mtc-cnstr:#{turtle_name(rel.name =~ /^observes.+/ ? "observes" : rel.name)}"
+                 end
       [rel, rel_name, type_name, is_object, target]
-    end
+    end.compact.uniq { |_, rel_name, type_name| [rel_name, type_name] }
   end
 
   def plain_documentation
