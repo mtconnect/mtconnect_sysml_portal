@@ -63,6 +63,17 @@ VIEWS = {
     },
 }
 
+# Names shown to the model in place of the MTConnect names, per view, where the MTConnect name is misleading.
+# A renamed class's definition that starts with the old genus ('axis that ...') starts with the new one instead.
+# Results are still keyed by the MTConnect name.
+VIEW_NAMES = {
+    'realist': {
+        'AxisComponent': ('MotionSystem', 'motion system'),
+        'Linear': ('LinearMotionSystem', 'linear motion system'),
+        'Rotary': ('RotaryMotionSystem', 'rotary motion system'),
+    },
+}
+
 INSTRUCTIONS = (
     'Choose the ontology class that is the best superclass for the MTConnect class described in the state, '
     'following the classification described in `view`. A correct superclass is one where every instance of the '
@@ -215,14 +226,22 @@ class MTConnectClass:
     ancestors: list[dict]
 
     def state(self, view: str) -> dict:
+        names = VIEW_NAMES.get(view, {})
+        name, label = names.get(self.name, (self.name, self.label))
+        definition = self.definition or '(no definition)'
+        if self.name in names and self.ancestors:
+            old = names.get(self.ancestors[0]['name'])
+            if old and definition.startswith('axis '):
+                definition = old[1] + definition[len('axis'):]
+        ancestors = [{**a, 'name': names.get(a['name'], (a['name'],))[0]} for a in self.ancestors]
         return {
             'view': VIEWS[view]['framing'],
             'mtconnect class': {
-                'name': self.name,
-                'label': self.label,
-                'definition': self.definition or '(no definition)',
+                'name': name,
+                'label': label,
+                'definition': definition,
                 'package': self.package,
-                'mtconnect superclasses, nearest first': self.ancestors or 'none',
+                'mtconnect superclasses, nearest first': ancestors or 'none',
             },
         }
 
@@ -447,13 +466,20 @@ async def run(args: argparse.Namespace) -> None:
         chooser.save()
         await chooser.close()
 
-    rows.sort(key=lambda r: (r['view'], r['package'], r['mtconnect_class']))
     suffix = '-dry-run' if args.dry_run else ''
-    with open(args.out / f'iof_parents{suffix}.csv', 'w', newline='') as f:
+    csv_path, json_path = args.out / f'iof_parents{suffix}.csv', args.out / f'iof_parents{suffix}.json'
+    if (args.classes or args.limit) and csv_path.exists() and json_path.exists():
+        # A partial run replaces its classes in the existing results instead of overwriting them
+        done = {(r['view'], r['mtconnect_class']) for r in rows}
+        with open(csv_path, newline='') as f:
+            rows += [r for r in csv.DictReader(f) if (r['view'], r['mtconnect_class']) not in done]
+        details += [d for d in json.loads(json_path.read_text()) if (d['view'], d['mtconnect_class']) not in done]
+    rows.sort(key=lambda r: (r['view'], r['package'], r['mtconnect_class']))
+    with open(csv_path, 'w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()) if rows else ['mtconnect_class'])
         writer.writeheader()
         writer.writerows(rows)
-    (args.out / f'iof_parents{suffix}.json').write_text(json.dumps(
+    json_path.write_text(json.dumps(
         sorted(details, key=lambda d: (d['view'], d['mtconnect_class'])), indent=1))
     verb = 'would send' if args.dry_run else 'sent'
     print(f'{verb} {chooser.requests} requests (~{chooser.tokens} input tokens), {chooser.cached} from cache; '

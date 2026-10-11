@@ -29,7 +29,12 @@ python3 iof_classifier.py              # all classes, both views
 python3 iof_classifier.py --view information --classes ComponentTypes Temperature
 ```
 
-`--classes` accepts MTConnect class names or package names (for example `SampleTypes`).
+`--classes` accepts MTConnect class names or package names (for example `SampleTypes`). A run limited with
+`--classes` or `--limit` replaces only those classes in the existing results.
+
+`VIEW_NAMES` in `iof_classifier.py` shows the model a different name for a class in one view, where the MTConnect
+name is misleading. In the realist view, Axis, Linear, and Rotary are presented as motion system, linear motion system,
+and rotary motion system. The results are still keyed by the MTConnect name.
 
 The merged IOF graph and every answer are cached in `out/cache/`, so reruns only send questions that changed.
 
