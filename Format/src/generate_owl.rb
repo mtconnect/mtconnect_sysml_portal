@@ -1,6 +1,7 @@
 $: << File.dirname(__FILE__)
 
 require 'fileutils'
+require 'json'
 require 'owl/owl_model'
 require 'owl/helpers'
 
@@ -51,9 +52,20 @@ class OwlGenerator
     @top.find_data_types
     @top.find_definitions
 
-    domains = OwlModel.models.each_value.map(&:generate_ontology).compact.sort
+    models = OwlModel.models.each_value.select(&:generate_ontology)
+    domains = models.map(&:domain).sort
     generate_about(dir, domains)
     generate_catalog(dir, ['MTConnectCore', *domains, 'AboutMTConnect'])
+    generate_classifier_input(models)
+  end
+
+  # The SysML classes, superclasses, and definitions for classifier/iof_classifier.py
+  def generate_classifier_input(models)
+    output_file = File.join(File.dirname(__FILE__), 'owl', 'classifier', 'out', 'mtconnect_classes.json')
+    FileUtils.mkdir_p(File.dirname(output_file))
+    classes = models.flat_map(&:owl_classes).map(&:classifier_record).sort_by { |c| c['name'] }
+    File.write(output_file, JSON.pretty_generate({ 'version' => $mtconnect_version, 'classes' => classes }))
+    $logger.info "Generated #{output_file} with #{classes.size} classes"
   end
 
   def generate_about(dir, domains)

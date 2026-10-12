@@ -62,6 +62,10 @@ class OwlModel < Model
     @domain
   end
 
+  def owl_classes
+    @types.select(&:owl_class?)
+  end
+
   def write_prefixes(f)
     f.puts <<~TTL
       @prefix owl:  <http://www.w3.org/2002/07/owl#> .

@@ -3,8 +3,9 @@
 
 The IOF development closure (AboutIOFDev.rdf: core, biopharma, production planning, maintenance,
 supply chain, product service system, certification, and the provisional ontologies) is loaded
-from a local checkout, resolving imports through its XML catalogs. Each MTConnect class generated
-by generate_owl.rb is classified by walking the IOF class hierarchy top-down: at every node a
+from a local checkout, resolving imports through its XML catalogs. Each MTConnect SysML class, as
+exported from the XMI by generate_owl.rb (out/mtconnect_classes.json, with its SysML superclasses and
+definition), is classified by walking the IOF class hierarchy top-down: at every node a
 TypeSafe Choice question picks the best direct subclass, or stops at the node when no subclass
 fits. A beam search keeps the K most probable paths, scored by the geometric mean of the edge
 probabilities, so an ambiguous early decision can be repaired deeper in the tree.
@@ -154,11 +155,20 @@ def literal(graph: rdflib.Graph, subject: URIRef, *predicates: URIRef) -> str | 
     return None
 
 
+def literals(graph: rdflib.Graph, subject: URIRef, predicate: URIRef) -> str | None:
+    """All English (or untagged) literals for the predicate, joined, or None if there are none."""
+    values = sorted(str(v) for v in graph.objects(subject, predicate)
+                    if getattr(v, 'language', None) in (None, 'en', 'en-US'))
+    return '; '.join(values) or None
+
+
 @dataclass(eq=False)
 class Taxonomy:
     labels: dict[str, str]
     definitions: dict[str, str]
     children: dict[str, list[str]]
+    notes: dict[str, str] = field(default_factory=dict)
+    examples: dict[str, str] = field(default_factory=dict)
     descendants: dict[str, int] = field(default_factory=dict)
 
     @classmethod
@@ -184,11 +194,13 @@ class Taxonomy:
                     children[str(p)].append(str(s))
 
         labels = {str(s): literal(graph, s, RDFS.label, SKOS.prefLabel) or str(s).rsplit('/', 1)[-1] for s in classes}
-        definitions = {str(s): clean(literal(graph, s, URIRef(IOF_AV + 'naturalLanguageDefinition'),
-                                             SKOS.definition, IAO_DEFINITION)) for s in classes}
+        definitions = {str(s): clean(literal(graph, s, URIRef(IOF_AV + 'naturalLanguageDefinition'), SKOS.definition,
+                                             IAO_DEFINITION)) for s in classes}
         for key in children:
             children[key] = sorted(set(children[key]), key=lambda c: labels[c].lower())
-        taxonomy = cls(labels, definitions, dict(children))
+        notes = {str(s): clean(n, 1000) for s in classes if (n := literals(graph, s, URIRef(IOF_AV + 'explanatoryNote')))}
+        examples = {str(s): clean(e, 300) for s in classes if (e := literals(graph, s, SKOS.example))}
+        taxonomy = cls(labels, definitions, dict(children), notes, examples)
         taxonomy.descendants = {c: len(taxonomy.below(c)) for c in labels}
         return taxonomy
 
@@ -203,8 +215,13 @@ class Taxonomy:
 
     @functools.cache
     def option(self, iri: str) -> dict:
-        """The description of a class as a Choice option: label, definition, and example subclasses."""
+        """The description of a class as a Choice option: label, definition, explanatory note, examples, and
+        example subclasses."""
         description = {'class': self.labels[iri], 'definition': self.definitions[iri] or '(no definition)'}
+        if iri in self.notes:
+            description['explanatory note'] = self.notes[iri]
+        if iri in self.examples:
+            description['examples'] = self.examples[iri]
         below = {c for c in self.below(iri) if self.labels[c].lower() != self.labels[iri].lower()}
         examples = sorted(below, key=lambda c: (-self.descendants.get(c, 0), self.labels[c]))[:8]
         if examples:
@@ -246,27 +263,30 @@ class MTConnectClass:
         }
 
 
-def load_mtconnect(owl_dir: Path) -> list[MTConnectClass]:
-    graph = rdflib.Graph()
-    for path in sorted(owl_dir.glob('*.ttl')):
-        if path.stem not in ('MTConnectCore', 'AboutMTConnect'):
-            graph.parse(path, format='turtle')
+def load_mtconnect(classes_file: Path) -> list[MTConnectClass]:
+    """Load the SysML classes exported from the XMI by generate_owl.rb (classifier/out/mtconnect_classes.json).
 
-    def mtc_parent(s: URIRef) -> URIRef | None:
-        return next((o for o in graph.objects(s, RDFS.subClassOf) if isinstance(o, URIRef) and str(o).startswith(MTC)), None)
+    The superclasses are the SysML generalizations, not the superclasses in the generated ontology, which are
+    what this classifier is meant to correct.
+    """
+    if not classes_file.exists():
+        sys.exit(f'{classes_file} does not exist; run `ruby src/generate.rb -v <version> owl` from Format/ first')
+    records = {c['name']: c for c in json.loads(classes_file.read_text())['classes']}
 
-    out = []
-    for s in sorted({s for s in graph.subjects(RDF.type, OWL.Class) if isinstance(s, URIRef) and str(s).startswith(MTC)}):
-        ancestors, parent, seen = [], mtc_parent(s), {s}
-        while parent is not None and parent not in seen:
-            seen.add(parent)
-            ancestors.append({'name': str(parent)[len(MTC):],
-                              'definition': clean(literal(graph, parent, SKOS.definition), 200) or '(no definition)'})
-            parent = mtc_parent(parent)
-        package = str(graph.value(s, RDFS.isDefinedBy) or '').rstrip('/').rsplit('/', 1)[-1]
-        out.append(MTConnectClass(str(s), str(s)[len(MTC):], str(graph.value(s, RDFS.label) or ''),
-                                  clean(literal(graph, s, SKOS.definition)), package, ancestors))
-    return out
+    def ancestors(record: dict) -> list[dict]:
+        out, queue, seen = [], list(record['parents']), {record['name']}
+        while queue:
+            name = queue.pop(0)
+            if name in seen:
+                continue
+            seen.add(name)
+            parent = records.get(name)
+            out.append({'name': name, 'definition': clean(parent and parent['definition'], 200) or '(no definition)'})
+            queue += parent['parents'] if parent else []
+        return out
+
+    return [MTConnectClass(MTC + r['name'], r['name'], r['label'], clean(r['definition']), r['package'], ancestors(r))
+            for r in sorted(records.values(), key=lambda r: r['name'])]
 
 
 # ---------------------------------------------------------------------------------------------
@@ -435,7 +455,7 @@ def summarize(taxonomy: Taxonomy, mtc: MTConnectClass, view: str, result: dict) 
 async def run(args: argparse.Namespace) -> None:
     args.out.mkdir(parents=True, exist_ok=True)
     taxonomy = Taxonomy.from_graph(load_iof_graph(args.ontology_dir, args.out / 'cache'))
-    classes = load_mtconnect(args.owl_dir)
+    classes = load_mtconnect(args.classes_file)
     if args.classes:
         wanted = set(args.classes)
         classes = [c for c in classes if c.name in wanted or c.package in wanted]
@@ -490,7 +510,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--ontology-dir', type=Path, default=PORTAL / 'cache' / 'ontology',
                         help='IOF ontology checkout containing AboutIOFDev.rdf')
-    parser.add_argument('--owl-dir', type=Path, default=PORTAL / 'owl', help='Generated MTConnect Turtle files')
+    parser.add_argument('--classes-file', type=Path, default=HERE / 'out' / 'mtconnect_classes.json',
+                        help='SysML classes exported from the XMI by generate_owl.rb')
     parser.add_argument('--out', type=Path, default=HERE / 'out', help='Output and cache directory')
     parser.add_argument('--view', nargs='+', choices=sorted(VIEWS), default=['information', 'realist'])
     parser.add_argument('--classes', nargs='+', help='Only these MTConnect class names or packages')

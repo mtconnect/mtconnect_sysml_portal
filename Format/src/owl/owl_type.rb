@@ -131,6 +131,12 @@ class OwlType < Type
     get_parents.select { |parent| parent.model.root.name != 'Glossary' }
   end
 
+  # The class as the IOF classifier sees it: the SysML generalizations from the XMI, not the generated superclasses
+  def classifier_record
+    { 'name' => owl_name, 'sysml_name' => @name, 'label' => label, 'definition' => plain_documentation || '',
+      'package' => model.domain, 'abstract' => abstract? ? true : false, 'parents' => owl_parents.map(&:owl_name) }
+  end
+
   def component?
     @name == 'Component' && owl_parents.empty? || owl_parents.any?(&:component?)
   end

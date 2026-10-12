@@ -1,13 +1,20 @@
 # IOF parent classifier
 
-Suggests the best IOF parent class for every MTConnect class in the generated ontology (`owl/*.ttl`).
+Suggests the best IOF parent class for every MTConnect class.
+
+The MTConnect classes come from the SysML model, not the generated Turtle files. `generate_owl.rb` exports each class it
+generates from the XMI to `out/mtconnect_classes.json`, with its OWL name, label, definition, package, and SysML
+superclasses. The superclasses in the generated ontology are what the classifier is meant to correct, so they are not
+used as input.
 
 The candidate classes are the full IOF development closure, `cache/ontology/AboutIOFDev.rdf`. It includes the
 core, biopharma, production planning, maintenance, supply chain, product service system, and certification ontologies,
 including the provisional ones, plus BFO, Commons, and STATO. Imports are resolved locally through the catalogs.
 
 Each MTConnect class is classified top-down with a TypeSafe `Choice` question per IOF class. The question picks the
-best direct subclass, or stops at the current class when none of the subclasses fits. The candidates come from
+best direct subclass, or stops at the current class when none of the subclasses fits. Each subclass option is described
+by its label, definition, `iof-av:explanatoryNote` and `skos:example` (when present), and a few of its own subclasses.
+The candidates come from
 `rdfs:subClassOf` and from the named classes in `owl:equivalentClass` intersections. A beam search (default width 3)
 keeps the most probable paths, scored by the geometric mean of the edge probabilities.
 
@@ -23,7 +30,7 @@ There are two views:
 ```bash
 pip install -r requirements.txt
 export TYPESAFE_API_KEY=...            # https://console.typesafe.ai/
-ruby ../../generate.rb -v 2.8 owl      # from Format/: regenerate owl/*.ttl first
+ruby src/generate.rb -v 2.8 owl        # from Format/: exports out/mtconnect_classes.json from the XMI
 python3 iof_classifier.py --dry-run    # check the setup and the request count without API calls
 python3 iof_classifier.py              # all classes, both views
 python3 iof_classifier.py --view information --classes ComponentTypes Temperature
