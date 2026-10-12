@@ -952,9 +952,8 @@ mtc-cnstr:DepositionRateVolumetricCommandedCharacteristic
     a owl:Class ;
     rdfs:label """deposition rate volumetric commanded characteristic""" ;
     iof-av:directSource """MTConnect Sample DepositionRateVolumetric.Commanded""" ;
-    rdfs:subClassOf mtc-cnstr:DepositionRateVolumetricCharacteristic ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
 mtc-cnstr:DepositionVolume
@@ -2879,9 +2878,8 @@ mtc-cnstr:VolumeFluidActualQuality
     a owl:Class ;
     rdfs:label """volume fluid actual quality""" ;
     iof-av:directSource """MTConnect Sample VolumeFluid.Actual""" ;
-    rdfs:subClassOf mtc-cnstr:VolumeFluidQuality ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/WorkingVolume> ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/WorkingVolume> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
 mtc-cnstr:VolumeFluidConsumed
@@ -4172,9 +4170,8 @@ mtc-cnstr:PressurizationRateCommandedCharacteristic
     a owl:Class ;
     rdfs:label """pressurization rate commanded characteristic""" ;
     iof-av:directSource """MTConnect Sample PressurizationRate.Commanded""" ;
-    rdfs:subClassOf mtc-cnstr:PressurizationRateCharacteristic ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
 mtc-cnstr:AccelerationProgrammed
@@ -4426,9 +4423,8 @@ mtc-cnstr:PressurizationRateProgrammedCharacteristic
     a owl:Class ;
     rdfs:label """pressurization rate programmed characteristic""" ;
     iof-av:directSource """MTConnect Sample PressurizationRate.Programmed""" ;
-    rdfs:subClassOf mtc-cnstr:PressurizationRateCharacteristic ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     iof-av:naturalLanguageDefinition """directive value without offsets and adjustments.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
 mtc-cnstr:VolumeSpatialStart

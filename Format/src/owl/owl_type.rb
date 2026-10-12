@@ -34,8 +34,10 @@ OWL_COMPONENT_RELATIONS = {
 # Subclasses of these MTConnect classes are defined classes: equivalent to their MTConnect parent intersected with
 # the enumeration values they fix (type value SampleEnum TEMPERATURE), what they are about, and their data
 # requirements. Their primary (asserted) parent can then be their IOF classification, and the reasoner infers the
-# MTConnect parent back. The data requirements are only stated in the equivalence.
-OWL_EQUIVALENCE_ROOTS = Set['SampleObservation', 'EventObservation', 'ConditionObservation']
+# MTConnect parent back. The data requirements are only stated in the equivalence. Components have no fixed values;
+# what they are about (isAbout some <their realist class>) tells them apart, so the information side can be placed
+# where it makes sense in the IOF information taxonomy while the aboutness says what it really is.
+OWL_EQUIVALENCE_ROOTS = Set['SampleObservation', 'EventObservation', 'ConditionObservation', 'Component']
 
 # MTConnect roots whose classes are cited by the category below the root, e.g. 'MTConnect Sample Temperature'
 OWL_SOURCE_CATEGORY_ROOTS = Set['Observation']
@@ -258,15 +260,16 @@ class OwlType < Type
     owl_parents.find(&:realist?)
   end
 
-  # Subsumption-aware monohierarchy: keep the MTConnect parent's realist class when this class's IOF match and the
-  # parent's are on one chain (either is at or below the other), so both classifications still hold. When they are in
-  # different branches, place the class directly under its own IOF match.
+  # Subsumption-aware monohierarchy: keep the MTConnect parent's realist class only when the parent's IOF match is at
+  # least as specific as this class's (this class's match is at or above it), so nothing is lost. When this class's
+  # match is more specific, or in a different branch, the classification wins and the class is placed directly under
+  # its own IOF match; e.g. motion system goes under equipment module rather than component entity (independent
+  # continuant), and linear motion system (engineered system) stays under motion system.
   def realist_superclass
     @realist_superclass ||= begin
       parent, iof = realist_mtc_parent, iof_parent('realist')
       parent_iof = parent&.iof_parent('realist')
-      if parent and (iof.nil? or parent_iof.nil? or iof_path('realist').include?(parent_iof) or
-                     parent.iof_path('realist').include?(iof))
+      if parent and (iof.nil? or parent_iof.nil? or iof == parent_iof or parent.iof_path('realist').include?(iof))
         "mtc-cnstr:#{parent.realist_name}"
       elsif iof
         "<#{iof}>"
@@ -483,10 +486,10 @@ class OwlType < Type
     end
   end
 
-  # Only a class with a value that tells it apart from its siblings can be defined; without one, every sibling with
-  # the same data requirements would be inferred equivalent.
+  # Only a class with something that tells it apart from its siblings can be defined: a fixed value, or its own realist
+  # class to be about. Without one, every sibling with the same data requirements would be inferred equivalent.
   def defined_by_equivalence?
-    !equivalence_genus.nil? and value_restrictions.any?
+    !equivalence_genus.nil? and (value_restrictions.any? or realist?)
   end
 
   # The IOF class this class is placed under, or the classifier's match, for checking its subclasses
@@ -500,14 +503,15 @@ class OwlType < Type
     end
   end
 
-  # Subsumption-aware monohierarchy: a class stays under its MTConnect parent when its IOF match and the parent's are
-  # on one chain (either is at or below the other). When they are in different branches, the classification wins
-  # and the class is placed directly under its own IOF match.
+  # Subsumption-aware monohierarchy: a class stays under its MTConnect parent only when the parent's IOF match is at
+  # least as specific as its own (its match is at or above the parent's), so nothing is lost. When its match is more
+  # specific, or in a different branch, the classification wins and the class is placed directly under its own IOF
+  # match. Only classes defined by equivalence move; the reasoner infers their MTConnect parent back.
   def iof_consistent_with?(parent)
     own, theirs = iof_parent('information'), parent.iof_information
     # A parent placed explicitly (OWL_IOF_SUPERCLASSES or a package rule) is not on its classifier path
     parent_path = theirs == parent.iof_parent('information') ? parent.iof_path('information') : [theirs]
-    own.nil? or theirs.nil? or own == theirs or iof_path('information').include?(theirs) or parent_path.include?(own)
+    own.nil? or theirs.nil? or own == theirs or parent_path.include?(own)
   end
 
   # The MTConnect parent this class is a subclass of in the generated ontology
