@@ -1,0 +1,365 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/>
+    a owl:Ontology ;
+    rdfs:label "properties of data item" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/PropertiesofDataItem/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:ResetTrigger
+    a owl:Class ;
+    rdfs:label """reset trigger""" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001930> ;
+    skos:definition """type of event that may cause a reset to occur.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom mtc-cnstr:ResetTriggerEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isResetTriggerOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:value
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:ResetTrigger ;
+    rdfs:range mtc-cnstr:ResetTriggerEnum ;
+    skos:definition """type of {{block(ResetTrigger)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isResetTriggerOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isResetTriggerOf""" ;
+    rdfs:domain mtc-cnstr:ResetTrigger ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Source
+    a owl:Class ;
+    rdfs:label """source""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/Identifier> ;
+    skos:definition """identifies the component, data item, or composition from which a measured value originates.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:componentId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:compositionId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:dataItemId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isSourceOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:componentId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:componentId""" ;
+    rdfs:domain mtc-cnstr:Source ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of the {{block(Component)}} that represents the physical part of a piece of equipment where the data represented by the {{block(DataItem)}} originated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:compositionId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:compositionId""" ;
+    rdfs:domain mtc-cnstr:Source ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of the {{block(Composition)}} that represents the physical part of a piece of equipment where the data represented by the {{block(DataItem)}} originated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:dataItemId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:dataItemId""" ;
+    rdfs:domain mtc-cnstr:Source ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of the {{block(DataItem)}} that represents the originally measured value of the data referenced by this {{block(DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:Source ;
+    rdfs:range xsd:string ;
+    skos:definition """identifier of the source entity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isSourceOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isSourceOf""" ;
+    rdfs:domain mtc-cnstr:Source ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:InitialValue
+    a owl:Class ;
+    rdfs:label """initial value""" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001931> ;
+    skos:definition """starting value for a data item as well as the value to be set for the data item after a reset event.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isInitialValueOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:InitialValue ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isInitialValueOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isInitialValueOf""" ;
+    rdfs:domain mtc-cnstr:InitialValue ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:FilterPropertiesofDataItem
+    a owl:Class ;
+    rdfs:label """filter""" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000055> ;
+    skos:definition """provides a means to control when an agent records updated information for a data item. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000017> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:FilterEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isFilterOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isFilterOf ;
+                      owl:someValuesFrom mtc-cnstr:Constraints ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:FilterPropertiesofDataItem ;
+    rdfs:range mtc-cnstr:FilterEnum ;
+    skos:definition """type of {{block(Filter)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:FilterPropertiesofDataItem ;
+    rdfs:range xsd:float ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isFilterOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isFilterOf""" ;
+    rdfs:domain mtc-cnstr:FilterPropertiesofDataItem ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isFilterOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isFilterOf""" ;
+    rdfs:domain mtc-cnstr:FilterPropertiesofDataItem ;
+    rdfs:range mtc-cnstr:Constraints ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Constraints
+    a owl:Class ;
+    rdfs:label """constraints""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/AcceptanceCriteria> ;
+    skos:definition """organizes a set of expected values that can be reported for a data item.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Maximum ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Minimum ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Nominal ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Value ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasFilter ;
+                      owl:someValuesFrom mtc-cnstr:FilterPropertiesofDataItem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isConstraintOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Maximum
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Maximum""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range xsd:float ;
+    skos:definition """numeric upper constraint.\n\nIf the data reported for a data item is a range of numeric values, the expected value reported **MAY** be described with an upper limit defined by this constraint.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Minimum
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Minimum""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range xsd:float ;
+    skos:definition """numeric lower constraint.\n\nIf the data reported for a data item is a range of numeric values, the expected value reported **MAY** be described with a lower limit defined by this constraint.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Nominal
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Nominal""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range xsd:float ;
+    skos:definition """numeric target or expected value.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Value""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range xsd:string ;
+    skos:definition """single data value that is expected to be reported for a {{block(DataItem)}}.\n\n{{property(Constraints::Value)}} **MUST NOT** be used in conjunction with any other {{block(Constraint)}} elements.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:hasFilter
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasFilter""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range mtc-cnstr:FilterPropertiesofDataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isConstraintOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isConstraintOf""" ;
+    rdfs:domain mtc-cnstr:Constraints ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Definition
+    a owl:Class ;
+    rdfs:label """definition""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    skos:definition """defines the meaning of entry and cell entities when the associated data item::representation is either `DATA_SET` or `TABLE`.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasCellDefinition ;
+                      owl:someValuesFrom mtc-cnstr:CellDefinition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasEntryDefinition ;
+                      owl:someValuesFrom mtc-cnstr:EntryDefinition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Description ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isDefinitionOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:hasCellDefinition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasCellDefinition""" ;
+    rdfs:domain mtc-cnstr:Definition ;
+    rdfs:range mtc-cnstr:CellDefinition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:hasEntryDefinition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasEntryDefinition""" ;
+    rdfs:domain mtc-cnstr:Definition ;
+    rdfs:range mtc-cnstr:EntryDefinition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:Description
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Description""" ;
+    rdfs:domain mtc-cnstr:Definition ;
+    rdfs:range xsd:string ;
+    skos:definition """textual description for {{block(Definition)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:isDefinitionOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isDefinitionOf""" ;
+    rdfs:domain mtc-cnstr:Definition ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:MinimumDeltaFilter
+    a owl:Class ;
+    rdfs:label """minimum delta filter""" ;
+    rdfs:subClassOf mtc-cnstr:FilterPropertiesofDataItem ;
+    skos:definition """new value **MUST NOT** be reported for a data item unless the measured value has changed from the last reported value by at least the delta given as the value of this element.\n\nThe value of filter **MUST** be an absolute value using the same units as the reported data.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:FilterEnum ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:MinimumDeltaFilter ;
+    rdfs:range mtc-cnstr:FilterEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:PeriodFilter
+    a owl:Class ;
+    rdfs:label """period filter""" ;
+    rdfs:subClassOf mtc-cnstr:FilterPropertiesofDataItem ;
+    skos:definition """data reported for a data item is provided on a periodic basis. The `PERIOD` for reporting data is defined in the value of the filter.\n\nThe value of filter **MUST** be an absolute value reported in seconds representing the time between reported samples of the value of the data item.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001931> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:FilterEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:SECOND ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:PeriodFilter ;
+    rdfs:range mtc-cnstr:FilterEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:PeriodFilter ;
+    rdfs:range xsd:SECOND ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> .
+

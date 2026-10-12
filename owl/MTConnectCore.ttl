@@ -1,0 +1,29 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/MTConnectCore/>
+    a owl:Ontology ;
+    rdfs:label "mtconnect core" ;
+    owl:imports <https://spec.industrialontologies.org/ontology/AboutIOFDev/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/MTConnectCore/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:DataItemType
+    a owl:Class ;
+    rdfs:label "data item type" ;
+    iof-av:naturalLanguageDefinition "classifier that classifies MTConnect data items"@en ;
+    iof-av:explanatoryNote "Abstract: has no direct instances; every data item type is an instance of a subclass, such as Event, Sample, or Condition."@en ;
+    rdfs:subClassOf iof-cnstr:Classifier .
+
+mtc-cnstr:iofParentCandidate
+    a owl:AnnotationProperty ;
+    rdfs:label "iof parent candidate" ;
+    iof-av:naturalLanguageDefinition "IOF class suggested by the classifier as the best parent of an MTConnect class whose superclass is its MTConnect parent; for review"@en .

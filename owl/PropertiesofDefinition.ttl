@@ -1,0 +1,211 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/>
+    a owl:Ontology ;
+    rdfs:label "properties of definition" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/PropertiesofDefinition/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:CellDefinition
+    a owl:Class ;
+    rdfs:label """cell definition""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    skos:definition """semantic definition of a cell.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:key ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:subType ;
+                      owl:someValuesFrom mtc-cnstr:DataItemSubTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:keyType ;
+                      owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Description ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isCellDefinitionOf ;
+                      owl:someValuesFrom mtc-cnstr:Definition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isCellDefinitionOf ;
+                      owl:someValuesFrom mtc-cnstr:EntryDefinition ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:units""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    skos:definition """same as {{property(DataItem::units)}}. See {{sect(Value Properties of DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:key
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:key""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range xsd:string ;
+    skos:definition """unique identification of the {{block(Cell)}} in the {{block(Definition)}}. \n\nThe description applies to all {{block(Cell)}} {{termplural(observation)}} having this {{property(CellDefinition::key)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:DataItemTypeEnum ;
+    skos:definition """same as {{property(DataItem::type)}}. See {{package(DataItem Types)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:subType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:subType""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:DataItemSubTypeEnum ;
+    skos:definition """same as {{property(DataItem::subType)}}. See {{sect(DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:keyType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:keyType""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:DataItemTypeEnum ;
+    skos:definition """{{property(DataItem::type)}} that defines the meaning of {{property(CellDefinition::key)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:Description
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Description""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range xsd:string ;
+    skos:definition """textual description for {{block(CellDefinition)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:isCellDefinitionOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isCellDefinitionOf""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:Definition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:isCellDefinitionOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isCellDefinitionOf""" ;
+    rdfs:domain mtc-cnstr:CellDefinition ;
+    rdfs:range mtc-cnstr:EntryDefinition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:EntryDefinition
+    a owl:Class ;
+    rdfs:label """entry definition""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    skos:definition """semantic definition of an entry.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:key ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasCellDefinition ;
+                      owl:someValuesFrom mtc-cnstr:CellDefinition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:subType ;
+                      owl:someValuesFrom mtc-cnstr:DataItemSubTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:keyType ;
+                      owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Description ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isEntryDefinitionOf ;
+                      owl:someValuesFrom mtc-cnstr:Definition ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:key
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:key""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range xsd:string ;
+    skos:definition """unique identification of the {{block(Entry)}} in the {{block(Definition)}}. \n\nThe description applies to all {{block(Entry)}} {{termplural(observation)}} having this {{property(EntryDefinition::key)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:units""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    skos:definition """same as {{property(DataItem::units)}}. See {{sect(Value Properties of DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:hasCellDefinition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasCellDefinition""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:CellDefinition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:DataItemTypeEnum ;
+    skos:definition """same as {{property(DataItem::type)}}. See {{package(DataItem Types)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:subType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:subType""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:DataItemSubTypeEnum ;
+    skos:definition """same as {{property(DataItem::subType)}}. See {{sect(DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:keyType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:keyType""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:DataItemTypeEnum ;
+    skos:definition """{{property(DataItem::type)}} that defines the meaning of {{property(EntryDefinition::key)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:Description
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Description""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range xsd:string ;
+    skos:definition """textual description for {{block(EntryDefinition)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:isEntryDefinitionOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isEntryDefinitionOf""" ;
+    rdfs:domain mtc-cnstr:EntryDefinition ;
+    rdfs:range mtc-cnstr:Definition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+

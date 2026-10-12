@@ -1,0 +1,37 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://model.mtconnect.org/ontology/machinetool/AboutMTConnect/>
+    a owl:Ontology ;
+    rdfs:label "about mtconnect" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Components/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Compositions/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Configurations/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/DataItems/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/DataTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Devices/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/EventTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Motion/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/PowerSources/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/PropertiesofDataItem/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/References/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Relationships/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Representations/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Sensor/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/SolidModel/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Specifications/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Stereotypes/> ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/Table/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/AboutMTConnect/> ;
+    owl:versionInfo "2.8" .

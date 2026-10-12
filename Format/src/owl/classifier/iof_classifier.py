@@ -47,6 +47,9 @@ IOF_AV = 'https://spec.industrialontologies.org/ontology/annotation/'
 OBO = 'http://purl.obolibrary.org/obo/'
 MTC = 'https://model.mtconnect.org/ontology/construct/'
 IAO_DEFINITION = URIRef(OBO + 'IAO_0000115')
+BFO_ROLE = URIRef(OBO + 'BFO_0000023')
+# Properties relating a bearer to its role: iof:hasRole and bfo:'bearer of'
+ROLE_PROPERTIES = {URIRef(IOF + 'hasRole'), URIRef(OBO + 'BFO_0000196')}
 CATALOG_NS = '{urn:oasis:names:tc:entity:xmlns:xml:catalog}'
 
 VIEWS = {
@@ -155,6 +158,33 @@ def literal(graph: rdflib.Graph, subject: URIRef, *predicates: URIRef) -> str | 
     return None
 
 
+def role_defined_classes(graph: rdflib.Graph, classes: set[URIRef]) -> set[URIRef]:
+    """Classes whose equivalent class requires bearing a role, such as piece of equipment, defined as
+    (engineered system or material artifact) and (has role some equipment role)."""
+    roles, stack = {BFO_ROLE}, [BFO_ROLE]
+    while stack:
+        for sub in graph.subjects(RDFS.subClassOf, stack.pop()):
+            if isinstance(sub, URIRef) and sub not in roles:
+                roles.add(sub)
+                stack.append(sub)
+
+    def is_role(filler) -> bool:
+        if isinstance(filler, URIRef):
+            # Some role classes reach bfo:role only through equivalences, so also accept the role naming convention
+            label = str(graph.value(filler, RDFS.label) or '')
+            return filler in roles or label.lower().endswith(' role') or str(filler).endswith('Role')
+        union = graph.value(filler, OWL.unionOf)
+        return union is not None and all(is_role(m) for m in Collection(graph, union))
+
+    def requires_role(expression) -> bool:
+        if graph.value(expression, OWL.onProperty) in ROLE_PROPERTIES:
+            return is_role(graph.value(expression, OWL.someValuesFrom))
+        members = graph.value(expression, OWL.intersectionOf)
+        return members is not None and any(requires_role(m) for m in Collection(graph, members))
+
+    return {s for s in classes if any(requires_role(e) for e in graph.objects(s, OWL.equivalentClass))}
+
+
 def literals(graph: rdflib.Graph, subject: URIRef, predicate: URIRef) -> str | None:
     """All English (or untagged) literals for the predicate, joined, or None if there are none."""
     values = sorted(str(v) for v in graph.objects(subject, predicate)
@@ -170,9 +200,10 @@ class Taxonomy:
     notes: dict[str, str] = field(default_factory=dict)
     examples: dict[str, str] = field(default_factory=dict)
     descendants: dict[str, int] = field(default_factory=dict)
+    roles: set[str] = field(default_factory=set)
 
     @classmethod
-    def from_graph(cls, graph: rdflib.Graph) -> 'Taxonomy':
+    def from_graph(cls, graph: rdflib.Graph, exclude_roles: bool = True) -> 'Taxonomy':
         classes = {s for s in graph.subjects(RDF.type, OWL.Class) if isinstance(s, URIRef)}
         deprecated = {s for s in classes if str(graph.value(s, OWL.deprecated) or '').lower() == 'true'}
         classes -= deprecated
@@ -196,11 +227,26 @@ class Taxonomy:
         labels = {str(s): literal(graph, s, RDFS.label, SKOS.prefLabel) or str(s).rsplit('/', 1)[-1] for s in classes}
         definitions = {str(s): clean(literal(graph, s, URIRef(IOF_AV + 'naturalLanguageDefinition'), SKOS.definition,
                                              IAO_DEFINITION)) for s in classes}
+        roles = {str(s) for s in role_defined_classes(graph, classes)} if exclude_roles else set()
+        if roles:
+            # Role-defined classes (UFO roles) are not asserted as a primary classification; membership is inferred
+            # from bearing the role. Their subclasses that are not role-defined take their place.
+            def lift(nodes: list[str], seen: frozenset = frozenset()) -> list[str]:
+                out = []
+                for node in nodes:
+                    if node not in roles:
+                        out.append(node)
+                    elif node not in seen:
+                        out += lift(children.get(node, []), seen | {node})
+                return out
+
+            children = defaultdict(list, {p: lift(cs) for p, cs in children.items() if p not in roles})
         for key in children:
             children[key] = sorted(set(children[key]), key=lambda c: labels[c].lower())
         notes = {str(s): clean(n, 1000) for s in classes if (n := literals(graph, s, URIRef(IOF_AV + 'explanatoryNote')))}
         examples = {str(s): clean(e, 300) for s in classes if (e := literals(graph, s, SKOS.example))}
         taxonomy = cls(labels, definitions, dict(children), notes, examples)
+        taxonomy.roles = roles
         taxonomy.descendants = {c: len(taxonomy.below(c)) for c in labels}
         return taxonomy
 
@@ -454,7 +500,9 @@ def summarize(taxonomy: Taxonomy, mtc: MTConnectClass, view: str, result: dict) 
 
 async def run(args: argparse.Namespace) -> None:
     args.out.mkdir(parents=True, exist_ok=True)
-    taxonomy = Taxonomy.from_graph(load_iof_graph(args.ontology_dir, args.out / 'cache'))
+    taxonomy = Taxonomy.from_graph(load_iof_graph(args.ontology_dir, args.out / 'cache'), not args.include_roles)
+    if taxonomy.roles:
+        print(f'Excluded {len(taxonomy.roles)} role-defined IOF classes as parents', file=sys.stderr)
     classes = load_mtconnect(args.classes_file)
     if args.classes:
         wanted = set(args.classes)
@@ -516,6 +564,8 @@ def main() -> None:
     parser.add_argument('--view', nargs='+', choices=sorted(VIEWS), default=['information', 'realist'])
     parser.add_argument('--classes', nargs='+', help='Only these MTConnect class names or packages')
     parser.add_argument('--limit', type=int, help='Only the first N classes')
+    parser.add_argument('--include-roles', action='store_true',
+                        help='Offer role-defined classes (such as piece of equipment) as parents; excluded by default')
     parser.add_argument('--beam', type=int, default=3, help='Beam width')
     parser.add_argument('--model', default=os.environ.get('TYPESAFE_DEFAULT_MODEL', 'jev-1.13.0'))
     parser.add_argument('--concurrency', type=int, default=32)

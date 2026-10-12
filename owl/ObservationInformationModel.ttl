@@ -1,0 +1,625 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/>
+    a owl:Ontology ;
+    rdfs:label "observation information model" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/ObservationInformationModel/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:DeviceStream
+    a owl:Class ;
+    rdfs:label """device stream""" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Collections/Arrangement> ;
+    skos:definition """organizes data reported from a device.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:uuid ;
+                      owl:someValuesFrom xsd:UUID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComponentStream ;
+                      owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:DeviceStream ;
+    rdfs:range xsd:string ;
+    skos:definition """name of the {{block(Device)}}.\n\nThe value reported for {{property(DeviceStream::name)}} **MUST** be the same as the value defined for the {{property(Device::name)}} in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:uuid
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:uuid""" ;
+    rdfs:domain mtc-cnstr:DeviceStream ;
+    rdfs:range xsd:UUID ;
+    skos:definition """uuid of the {{block(Device)}}.  The value reported for {{property(DeviceStream::uuid)}} **MUST** be the same as the value defined for the {{property(Device::uuid)}} of the same {{block(Device)}} in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:hasComponentStream
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComponentStream""" ;
+    rdfs:domain mtc-cnstr:DeviceStream ;
+    rdfs:range mtc-cnstr:ComponentStream ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:ComponentStream
+    a owl:Class ;
+    rdfs:label """component stream""" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Collections/Arrangement> ;
+    skos:definition """organizes the data associated with each component entity defined for a device in the associated MTConnectDevices Response Document.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:component ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:componentId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:nativeName ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:uuid ;
+                      owl:someValuesFrom xsd:UUID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizesEvent ;
+                      owl:someValuesFrom mtc-cnstr:EventObservation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizesSample ;
+                      owl:someValuesFrom mtc-cnstr:SampleObservation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizesCondition ;
+                      owl:someValuesFrom mtc-cnstr:ConditionObservation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isOrganizerFor ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isComponentStreamOf ;
+                      owl:someValuesFrom mtc-cnstr:DeviceStream ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isComponentStreamOf ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:component
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:component""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range xsd:string ;
+    skos:definition """identifies the {{block(Component)}} type associated with the {{block(ComponentStream)}}.\n\nExamples of {{property(ComponentStream::component)}} are {{block(Device)}}, {{block(Controller)}}, {{block(Linear)}} and {{block(Loader)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:componentId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:componentId""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of the {{block(Component)}} as defined by the {{property(Component::id)}} in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range xsd:string ;
+    skos:definition """name of the {{block(Component)}} associated with the {{block(ComponentStream)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:nativeName
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:nativeName""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range xsd:string ;
+    skos:definition """common name of the {{block(Component)}} associated with the {{block(ComponentStream)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:uuid
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:uuid""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range xsd:UUID ;
+    skos:definition """uuid of the {{block(Component)}} associated with the {{block(ComponentStream)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizesEvent
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizesEvent""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:EventObservation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizesSample
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizesSample""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:SampleObservation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizesCondition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizesCondition""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:ConditionObservation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isOrganizerFor
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isOrganizerFor""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isComponentStreamOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isComponentStreamOf""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:DeviceStream ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isComponentStreamOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isComponentStreamOf""" ;
+    rdfs:domain mtc-cnstr:ComponentStream ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:Observation
+    a owl:Class ;
+    rdfs:label """observation""" ;
+    rdfs:subClassOf iof-cnstr:ValueExpression ;
+    skos:definition """abstract entity that provides telemetry data for a data item at a point in time.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000148> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:compositionId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:dataItemId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:sequence ;
+                      owl:someValuesFrom xsd:integer ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:subType ;
+                      owl:someValuesFrom mtc-cnstr:DataItemSubTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:timestamp ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:madeByComponent ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isUnavailable ;
+                      owl:someValuesFrom xsd:boolean ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:result ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:madeForDataItem ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:quality ;
+                      owl:someValuesFrom mtc-cnstr:QualityEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:deprecated ;
+                      owl:someValuesFrom xsd:boolean ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:extended ;
+                      owl:someValuesFrom xsd:boolean ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isObservationOf ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isObservationOf ;
+                      owl:someValuesFrom mtc-cnstr:DataItem ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:compositionId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:compositionId""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of the {{block(Composition)}} entity defined in the {{term(MTConnectDevices Response Document)}} associated with the data reported for the {{block(Observation)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:dataItemId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:dataItemId""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:ID ;
+    skos:definition """unique identifier of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::dataItemId)}} **MUST** match the associated {{property(DataItem::id)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:string ;
+    skos:definition """name of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::name)}} **MUST** match the associated {{property(DataItem::name)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:sequence
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:sequence""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:integer ;
+    skos:definition """number representing the sequential position of an occurrence of an {{term(observation)}} in the data buffer of an {{term(agent)}}.\n\n{{property(Observation::sequence)}} **MUST** have a value represented as an unsigned 64-bit value from 1 to $$ 2^{64}-1 $$.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:subType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:subType""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:DataItemSubTypeEnum ;
+    skos:definition """subtype of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::subType)}} **MUST** match the associated {{property(DataItem::subType)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:timestamp
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:timestamp""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:datetime ;
+    skos:definition """most accurate time available to a piece of equipment that represents the point in time that the data reported was measured.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:madeByComponent
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:madeByComponent""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:DataItemTypeEnum ;
+    skos:definition """type of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::type)}} **MUST** match the associated {{property(DataItem::type)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:units""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    skos:definition """units of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::units)}} **MUST** match the associated {{property(DataItem::units)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isUnavailable
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:isUnavailable""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:boolean ;
+    skos:definition """when `true`, {{property(Observation::result)}} is indeterminate.\n\n> Note 1 to entry: In {{term(XML)}}, when `isUnavailable` is `true`, the {{term(XML)}} `CDATA` of the `Observation` **MUST** be `UNAVAILABLE`.\n ```xml\n<Execution dataItemId=\"...\" ...>UNAVAILABLE</Execution>\n```\n\n> Note 2 to entry: In {{term(JSON)}}, when `isUnavailable` is `true`, the {{term(JSON)}} `value` of the `Observation` **MUST** be `UNAVAILABLE`.\n```json\n  \"Execution\" : [ { \"dataItemId\": \"...\" ..., \"value\": \"UNAVAILABLE\" } ]\n```""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:result
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:result""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:string ;
+    skos:definition """{{term(observation)}} of the {{block(Observation)}} entity.\n\nThe default value type for {{property(Observation::result)}} is `string`.\n\n> Note 1 to entry: in {{term(XML)}} the {{property(Observation::result)}} is the `CDATA` of the Observation {{term(element)}}.\n\n~~~~xml\n<Execution dataItemId=\"...\" ...>READY</Execution>\n~~~~\n\n> Note 2 to entry: in {{term(JSON)}} the {{property(Observation::result)}} is the member `value` of the Observation object.\n\n~~~~json\n\"Execution\" : [ { \"dataItemId\": \"...\" ..., \"value\": \"READY\" } ]\n~~~~""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:madeForDataItem
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:madeForDataItem""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:quality
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:quality""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:QualityEnum ;
+    skos:definition """indicates if the {{block(Observation)}} is verifiable and is in accordance with the normative definitions within the MTConnect Standard.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:deprecated
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:deprecated""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:boolean ;
+    skos:definition """indicates if the {{block(Observation)}} has any property or controlled vocabulary that has been deprecated in the MTConnect Standard.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:extended
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:extended""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range xsd:boolean ;
+    skos:definition """indicates if the {{block(Observation)}} has any property or controlled vocabulary that has been extended and cannot be validated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isObservationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isObservationOf""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:isObservationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isObservationOf""" ;
+    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:SampleObservation
+    a owl:Class ;
+    rdfs:label """sample""" ;
+    rdfs:subClassOf iof-cnstr:MeasuredValueExpression ;
+    skos:definition """observation that is continuously changing or analog data value.\n""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:duration ;
+                      owl:someValuesFrom xsd:SECOND ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:resetTriggered ;
+                      owl:someValuesFrom mtc-cnstr:ResetTriggeredEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:sampleRate ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:statistic ;
+                      owl:someValuesFrom mtc-cnstr:StatisticEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizedByComponentStream ;
+                      owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:result ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:SampleEnum ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:duration
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:duration""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range xsd:SECOND ;
+    skos:definition """time-period over which the data was collected.\n\n{{property(Sample::duration)}} **MUST** be provided when the {{property(DataItem::statistic)}} is defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:resetTriggered
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:resetTriggered""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range mtc-cnstr:ResetTriggeredEnum ;
+    skos:definition """identifies when a reported value has been reset and what has caused that reset to occur for those {{block(DataItem)}} entities that may be periodically reset to an initial value.\n\n`resetTriggered` **MUST** only be provided for the specific occurrence of a {{block(DataItem)}} reported in the {{term(MTConnectStreams Response Document)}} when the reset occurred.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:sampleRate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:sampleRate""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range xsd:float ;
+    skos:definition """rate at which successive samples of the value are recorded.\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:statistic
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:statistic""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range mtc-cnstr:StatisticEnum ;
+    skos:definition """type of statistical calculation defined by the {{property(DataItem::statistic)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizedByComponentStream
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizedByComponentStream""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range mtc-cnstr:ComponentStream ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:result
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:result""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range xsd:float ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:units""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:SampleObservation ;
+    rdfs:range mtc-cnstr:SampleEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:EventObservation
+    a owl:Class ;
+    rdfs:label """event""" ;
+    rdfs:subClassOf mtc-cnstr:Observation ;
+    skos:definition """observation that is a discrete piece of information from a piece of equipment.\n""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:resetTriggered ;
+                      owl:someValuesFrom mtc-cnstr:ResetTriggeredEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizedByComponentStream ;
+                      owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:EventEnum ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:resetTriggered
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:resetTriggered""" ;
+    rdfs:domain mtc-cnstr:EventObservation ;
+    rdfs:range mtc-cnstr:ResetTriggeredEnum ;
+    skos:definition """identifies when a reported value has been reset and what has caused that reset to occur for those {{block(DataItem)}} entities that may be periodically reset to an initial value.\n\n`resetTriggered` **MUST** only be provided for the specific occurrence of a {{block(DataItem)}} reported in the {{term(MTConnectStreams Response Document)}} when the reset occurred.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizedByComponentStream
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizedByComponentStream""" ;
+    rdfs:domain mtc-cnstr:EventObservation ;
+    rdfs:range mtc-cnstr:ComponentStream ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:EventObservation ;
+    rdfs:range mtc-cnstr:EventEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:ConditionObservation
+    a owl:Class ;
+    rdfs:label """condition""" ;
+    rdfs:subClassOf mtc-cnstr:Observation ;
+    skos:definition """observation that provides the condition of a piece of equipment or a Component.\n\n""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:nativeCode ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:nativeSeverity ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:qualifier ;
+                      owl:someValuesFrom mtc-cnstr:QualifierEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:statistic ;
+                      owl:someValuesFrom mtc-cnstr:StatisticEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:xslang ;
+                      owl:someValuesFrom xsd:xslang ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:organizedByComponentStream ;
+                      owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:state ;
+                      owl:someValuesFrom mtc-cnstr:ConditionStateEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:conditionId ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:nativeCode
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:nativeCode""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range xsd:string ;
+    skos:definition """native code is the proprietary identifier designating a specific alarm, fault or warning code provided by the piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:nativeSeverity
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:nativeSeverity""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range xsd:string ;
+    skos:definition """severity information to a client software application if the piece of equipment designates a severity level to a fault.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:qualifier
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:qualifier""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:QualifierEnum ;
+    skos:definition """additional information regarding a {{term(condition state)}} associated with the measured value of a process variable.\n\n{{property(Condition::qualifier)}} defines whether the {{term(condition state)}} represented indicates a measured value that is above or below an expected value of a process variable.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:statistic
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:statistic""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:StatisticEnum ;
+    skos:definition """{{property(Condition::statistic)}} provides additional information describing the meaning of the {{block(Condition)}} entity.\n\n{{property(Condition::statistic)}} **MUST** match the {{property(DataItem::statistic)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:xslang
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:xslang""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range xsd:xslang ;
+    skos:definition """specifies the language of the {{property(Observation::result)}} returned for the {{block(Condition)}}. \n\nSee {{cite(IETF RFC 4646)}} (http://www.ietf.org/rfc/rfc4646.txt).""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:organizedByComponentStream
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:organizedByComponentStream""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:ComponentStream ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:state
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:state""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:ConditionStateEnum ;
+    skos:definition """{{term(condition state)}} of the piece of equipment or {{block(Component)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:ConditionEnum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+
+mtc-cnstr:conditionId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:conditionId""" ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range xsd:string ;
+    skos:definition """identifier of an individual {{term(condition activation)}} provided by a piece of equipment.\n\n{{property(Condition::conditionId)}} **MUST** be unique for all concurrent {{termpl(condition activation)}}.\n\n{{property(Condition::conditionId)}} **MUST** be maintained for all state transitions related to the same {{term(condition activation)}}.\n\nMultiple {{property(Condition::conditionId)}}s **MAY** exist for the same {{property(nativeCode)}}.\n\nIf {{property(Condition::conditionId)}} is not given, the value is the {{property(Condition::nativeCode)}}. If {{property(Condition::nativeCode)}} and {{property(Condition::conditionId)}} are not given, {{property(Condition::conditionId)}} **MUST** be generated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
+

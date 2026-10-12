@@ -18,6 +18,12 @@ The candidates come from
 `rdfs:subClassOf` and from the named classes in `owl:equivalentClass` intersections. A beam search (default width 3)
 keeps the most probable paths, scored by the geometric mean of the edge probabilities.
 
+Role-defined classes are not offered as parents. These are classes whose equivalent class requires bearing a role,
+such as piece of equipment ((engineered system or material artifact) and has role some equipment role), material
+component, sensor, or operator. In UFO terms they are anti-rigid roles, not the kind that carries the identity, so they
+should not be an individual's primary classification. Membership can be asserted later or inferred from bearing the
+role. Their subclasses that are not role-defined are offered in their place. Use `--include-roles` to offer them.
+
 There are two views:
 
 | View | Root | Question |

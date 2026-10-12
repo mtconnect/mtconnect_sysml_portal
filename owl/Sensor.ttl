@@ -1,0 +1,181 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/Sensor/>
+    a owl:Ontology ;
+    rdfs:label "sensor" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/Sensor/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:SensorConfiguration
+    a owl:Class ;
+    rdfs:label """sensor configuration""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """configuration for a sensor.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SensorSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000017> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CalibrationDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CalibrationInitials ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:FirmwareVersion ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:NextCalibrationDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasChannel ;
+                      owl:someValuesFrom mtc-cnstr:Channel ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isSensorConfigurationOf ;
+                      owl:someValuesFrom mtc-cnstr:Configuration ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:CalibrationDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CalibrationDate""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range xsd:datetime ;
+    skos:definition """Date upon which the {{term(sensor unit)}} was last calibrated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:CalibrationInitials
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CalibrationInitials""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range xsd:string ;
+    skos:definition """The initials of the person verifying the validity of the calibration data.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:FirmwareVersion
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:FirmwareVersion""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range xsd:string ;
+    skos:definition """Version number for the sensor unit as specified by the manufacturer.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:NextCalibrationDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:NextCalibrationDate""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range xsd:datetime ;
+    skos:definition """Date upon which the {{term(sensor unit)}} is next scheduled to be calibrated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:hasChannel
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasChannel""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range mtc-cnstr:Channel ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:isSensorConfigurationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isSensorConfigurationOf""" ;
+    rdfs:domain mtc-cnstr:SensorConfiguration ;
+    rdfs:range mtc-cnstr:Configuration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:Channel
+    a owl:Class ;
+    rdfs:label """channel""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """sensing element of a sensor.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/Constituent> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CalibrationDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CalibrationInitials ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:NextCalibrationDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:number ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isChannelOf ;
+                      owl:someValuesFrom mtc-cnstr:SensorConfiguration ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Description ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:CalibrationDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CalibrationDate""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:datetime ;
+    skos:definition """Date upon which the {{term(sensor unit)}} was last calibrated to the {{term(sensor element)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:CalibrationInitials
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CalibrationInitials""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:string ;
+    skos:definition """The initials of the person verifying the validity of the calibration data.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:string ;
+    skos:definition """name of the specific {{term(sensing element)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:NextCalibrationDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:NextCalibrationDate""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:datetime ;
+    skos:definition """Date upon which the {{term(sensor element)}} is next scheduled to be calibrated with the {{term(sensor unit)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:number
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:number""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:string ;
+    skos:definition """unique identifier that will only refer to a specific {{term(sensing element)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:isChannelOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isChannelOf""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range mtc-cnstr:SensorConfiguration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+
+mtc-cnstr:Description
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Description""" ;
+    rdfs:domain mtc-cnstr:Channel ;
+    rdfs:range xsd:string ;
+    skos:definition """textual description for {{block(Channel)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Sensor/> .
+

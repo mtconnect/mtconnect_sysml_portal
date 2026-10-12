@@ -1,0 +1,150 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/Configurations/>
+    a owl:Ontology ;
+    rdfs:label "configurations" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/Configurations/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:Configuration
+    a owl:Class ;
+    rdfs:label """configuration""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """technical information about an entity describing its physical layout, functional characteristics, and relationships with other entities.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000020> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isConfigurationFor ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasSolidModel ;
+                      owl:someValuesFrom mtc-cnstr:SolidModel ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasSensorConfiguration ;
+                      owl:someValuesFrom mtc-cnstr:SensorConfiguration ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasMotion ;
+                      owl:someValuesFrom mtc-cnstr:Motion ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasRelationship ;
+                      owl:someValuesFrom mtc-cnstr:ConfigurationRelationship ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystem ;
+                      owl:someValuesFrom mtc-cnstr:CoordinateSystem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasSpecification ;
+                      owl:someValuesFrom mtc-cnstr:Specification ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isConfigurationFor ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasImageFile ;
+                      owl:someValuesFrom mtc-cnstr:ImageFile ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasPowerSource ;
+                      owl:someValuesFrom mtc-cnstr:PowerSource ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isConfigurationOf ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isConfigurationOf ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:isConfigurationFor
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isConfigurationFor""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasSolidModel
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasSolidModel""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:SolidModel ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasSensorConfiguration
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasSensorConfiguration""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:SensorConfiguration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasMotion
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasMotion""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Motion ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasRelationship
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasRelationship""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:ConfigurationRelationship ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasCoordinateSystem
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasCoordinateSystem""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:CoordinateSystem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasSpecification
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasSpecification""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Specification ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:isConfigurationFor
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isConfigurationFor""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasImageFile
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasImageFile""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:ImageFile ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasPowerSource
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasPowerSource""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:PowerSource ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:isConfigurationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isConfigurationOf""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:isConfigurationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isConfigurationOf""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+

@@ -1,0 +1,231 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/SolidModel/>
+    a owl:Ontology ;
+    rdfs:label "solid model" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/SolidModel/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:SolidModel
+    a owl:Class ;
+    rdfs:label """solid model""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """references to a file with the three-dimensional geometry of the component or composition.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/ProductDesignSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductDesignSpecification> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:id ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasTransformation ;
+                      owl:someValuesFrom mtc-cnstr:Transformation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasScale ;
+                      owl:someValuesFrom mtc-cnstr:AbstractScale ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:solidModelIdRef ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:href ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:itemRef ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:mediaType ;
+                      owl:someValuesFrom mtc-cnstr:MediaTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:coordinateSystemIdRef ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:nativeUnits ;
+                      owl:someValuesFrom mtc-cnstr:NativeUnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isSolidModelOf ;
+                      owl:someValuesFrom mtc-cnstr:Configuration ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:id
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:id""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range xsd:ID ;
+    skos:definition """unique identifier for this element.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:hasTransformation
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasTransformation""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:Transformation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:hasScale
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasScale""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:AbstractScale ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:solidModelIdRef
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:solidModelIdRef""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range xsd:ID ;
+    skos:definition """associated model file if an item reference is used.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:href
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:href""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range xsd:string ;
+    skos:definition """{{term(URL)}} giving the location of the {{block(SolidModel)}}. \n\nIf not present, the model referenced in the {{property(SolidModel::solidModelIdRef)}} is used.\n\n{{property(SolidModel::href)}} is of type `xlink:href` from the W3C XLink specification.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:itemRef
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:itemRef""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range xsd:string ;
+    skos:definition """reference to the item within the model within the related geometry. A {{property(SolidModel::solidModelIdRef)}} **MUST** be given. \n\n> Note: `Item` defined in ASME Y14.100 - A nonspecific term used to denote any unit or product, including materials, parts, assemblies, equipment, accessories, and computer software.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:mediaType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:mediaType""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:MediaTypeEnum ;
+    skos:definition """format of the referenced document.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:coordinateSystemIdRef
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:coordinateSystemIdRef""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range xsd:ID ;
+    skos:definition """reference to the coordinate system for this {{block(SolidModel)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:nativeUnits
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:nativeUnits""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:NativeUnitEnum ;
+    skos:definition """same as {{property(DataItem::nativeUnits)}}. See {{sect(DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:units""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    skos:definition """same as {{property(DataItem::units)}}. See {{sect(DataItem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:isSolidModelOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isSolidModelOf""" ;
+    rdfs:domain mtc-cnstr:SolidModel ;
+    rdfs:range mtc-cnstr:Configuration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:AbstractScale
+    a owl:Class ;
+    rdfs:label """abstract scale""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """either a single multiplier applied to all three dimensions or a three space multiplier given in the X, Y, and Z dimensions in the coordinate system used for the solid model.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isScaleOf ;
+                      owl:someValuesFrom mtc-cnstr:SolidModel ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:isScaleOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isScaleOf""" ;
+    rdfs:domain mtc-cnstr:AbstractScale ;
+    rdfs:range mtc-cnstr:SolidModel ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:ScaleDataSet
+    a owl:Class ;
+    rdfs:label """scale data set""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf mtc-cnstr:AbstractScale ;
+    skos:definition """either a single multiplier applied to all three dimensions or a three space multiplier given in the X, Y, and Z dimensions in the coordinate system used for the solid model represented as a dataset.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:X ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Y ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Z ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:X
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:X""" ;
+    rdfs:domain mtc-cnstr:ScaleDataSet ;
+    rdfs:range xsd:float ;
+    skos:definition """multiplier for X axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:Y
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Y""" ;
+    rdfs:domain mtc-cnstr:ScaleDataSet ;
+    rdfs:range xsd:float ;
+    skos:definition """multiplier for Y axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:Z
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Z""" ;
+    rdfs:domain mtc-cnstr:ScaleDataSet ;
+    rdfs:range xsd:float ;
+    skos:definition """multiplier for Z axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:Scale
+    a owl:Class ;
+    rdfs:label """scale""" ;
+    rdfs:subClassOf mtc-cnstr:AbstractScale ;
+    skos:definition """either a single multiplier applied to all three dimensions or a three space multiplier given in the X, Y, and Z dimensions in the coordinate system used for the solid model.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:float3d ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:Scale ;
+    rdfs:range xsd:float3d ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SolidModel/> .
+

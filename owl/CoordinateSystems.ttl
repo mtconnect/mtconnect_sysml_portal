@@ -1,0 +1,454 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/>
+    a owl:Ontology ;
+    rdfs:label "coordinate systems" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/CoordinateSystems/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:CoordinateSystem
+    a owl:Class ;
+    rdfs:label """coordinate system""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """reference system that associates a unique set of n parameters with each point in an n-dimensional space. <em>ISO 10303-218:2004</em>""" ;
+    mtc-cnstr:iofParentCandidate <https://www.omg.org/spec/Commons/Collections/Arrangement> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000141> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:id ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:nativeName ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:parentIdRef ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasOrigin ;
+                      owl:someValuesFrom mtc-cnstr:AbstractOrigin ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasTransformation ;
+                      owl:someValuesFrom mtc-cnstr:Transformation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:type ;
+                      owl:someValuesFrom mtc-cnstr:CoordinateSystemTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:uuid ;
+                      owl:someValuesFrom xsd:UUID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Description ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isCoordinateSystemOf ;
+                      owl:someValuesFrom mtc-cnstr:Configuration ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:id
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:id""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:ID ;
+    skos:definition """unique identifier for the coordinate system.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:string ;
+    skos:definition """name of the coordinate system.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:nativeName
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:nativeName""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:string ;
+    skos:definition """manufacturer's name or users name for the coordinate system.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:parentIdRef
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:parentIdRef""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:ID ;
+    skos:definition """pointer to the {{property(CoordinateSystem::id)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:hasOrigin
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasOrigin""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range mtc-cnstr:AbstractOrigin ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:hasTransformation
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasTransformation""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range mtc-cnstr:Transformation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:type
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:type""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range mtc-cnstr:CoordinateSystemTypeEnum ;
+    skos:definition """type of coordinate system.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:uuid
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:uuid""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:UUID ;
+    skos:definition """{{term(UUID)}} for the coordinate system.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Description
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Description""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range xsd:string ;
+    skos:definition """natural language description of the {{block(CoordinateSystem)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isCoordinateSystemOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isCoordinateSystemOf""" ;
+    rdfs:domain mtc-cnstr:CoordinateSystem ;
+    rdfs:range mtc-cnstr:Configuration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Origin
+    a owl:Class ;
+    rdfs:label """origin""" ;
+    rdfs:subClassOf mtc-cnstr:AbstractOrigin ;
+    skos:definition """coordinates of the origin position of a coordinate system.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:float3d ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:Origin ;
+    rdfs:range xsd:float3d ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Transformation
+    a owl:Class ;
+    rdfs:label """transformation""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """process of transforming to the origin position of the coordinate system from a parent coordinate system using translation and rotation.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000033> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FunctioningProcess> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasTranslation ;
+                      owl:someValuesFrom mtc-cnstr:AbstractTranslation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasRotation ;
+                      owl:someValuesFrom mtc-cnstr:AbstractRotation ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isTransformationOf ;
+                      owl:someValuesFrom mtc-cnstr:CoordinateSystem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isTransformationOf ;
+                      owl:someValuesFrom mtc-cnstr:Motion ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isTransformationOf ;
+                      owl:someValuesFrom mtc-cnstr:SolidModel ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:hasTranslation
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasTranslation""" ;
+    rdfs:domain mtc-cnstr:Transformation ;
+    rdfs:range mtc-cnstr:AbstractTranslation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:hasRotation
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasRotation""" ;
+    rdfs:domain mtc-cnstr:Transformation ;
+    rdfs:range mtc-cnstr:AbstractRotation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isTransformationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isTransformationOf""" ;
+    rdfs:domain mtc-cnstr:Transformation ;
+    rdfs:range mtc-cnstr:CoordinateSystem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isTransformationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isTransformationOf""" ;
+    rdfs:domain mtc-cnstr:Transformation ;
+    rdfs:range mtc-cnstr:Motion ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isTransformationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isTransformationOf""" ;
+    rdfs:domain mtc-cnstr:Transformation ;
+    rdfs:range mtc-cnstr:SolidModel ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:AbstractRotation
+    a owl:Class ;
+    rdfs:label """abstract rotation""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """rotations about X, Y, and Z axes are expressed in A, B, and C respectively within a 3-dimensional vector. \n""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isRotationOf ;
+                      owl:someValuesFrom mtc-cnstr:Transformation ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isRotationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isRotationOf""" ;
+    rdfs:domain mtc-cnstr:AbstractRotation ;
+    rdfs:range mtc-cnstr:Transformation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:AbstractTranslation
+    a owl:Class ;
+    rdfs:label """abstract translation""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """translations along X, Y, and Z axes are expressed as x,y, and z respectively within a 3-dimensional vector. """ ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000033> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isTranslationOf ;
+                      owl:someValuesFrom mtc-cnstr:Transformation ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isTranslationOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isTranslationOf""" ;
+    rdfs:domain mtc-cnstr:AbstractTranslation ;
+    rdfs:range mtc-cnstr:Transformation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:AbstractOrigin
+    a owl:Class ;
+    rdfs:label """abstract origin""" ;
+    rdfs:subClassOf iof-cnstr:DesignSpecification ;
+    skos:definition """coordinates of the origin position of a coordinate system.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000147> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isOriginOf ;
+                      owl:someValuesFrom mtc-cnstr:CoordinateSystem ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isOriginOf ;
+                      owl:someValuesFrom mtc-cnstr:Motion ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isOriginOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isOriginOf""" ;
+    rdfs:domain mtc-cnstr:AbstractOrigin ;
+    rdfs:range mtc-cnstr:CoordinateSystem ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:isOriginOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isOriginOf""" ;
+    rdfs:domain mtc-cnstr:AbstractOrigin ;
+    rdfs:range mtc-cnstr:Motion ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:OriginDataSet
+    a owl:Class ;
+    rdfs:label """origin data set""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf mtc-cnstr:AbstractOrigin ;
+    skos:definition """coordinates of the origin position of a coordinate system represented as a dataset.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000147> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:X ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Y ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Z ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:X
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:X""" ;
+    rdfs:domain mtc-cnstr:OriginDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """x-coordinate.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Y
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Y""" ;
+    rdfs:domain mtc-cnstr:OriginDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """y-coordinate.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Z
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Z""" ;
+    rdfs:domain mtc-cnstr:OriginDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """x-coordinate.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:TranslationAbstractTranslation
+    a owl:Class ;
+    rdfs:label """translation""" ;
+    rdfs:subClassOf mtc-cnstr:AbstractTranslation ;
+    skos:definition """translations along X, Y, and Z axes are expressed as x,y, and z respectively within a 3-dimensional vector. """ ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MorphologicalQuality> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:float3d ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:TranslationAbstractTranslation ;
+    rdfs:range xsd:float3d ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:TranslationDataSet
+    a owl:Class ;
+    rdfs:label """translation data set""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf mtc-cnstr:AbstractTranslation ;
+    skos:definition """translations along X, Y, and Z axes are expressed as x,y, and z respectively within a 3-dimensional vector represented as a dataset.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:X ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Y ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Z ;
+                      owl:someValuesFrom xsd:MILLIMETER ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:X
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:X""" ;
+    rdfs:domain mtc-cnstr:TranslationDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """translation along X axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Y
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Y""" ;
+    rdfs:domain mtc-cnstr:TranslationDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """translation along Y axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:Z
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Z""" ;
+    rdfs:domain mtc-cnstr:TranslationDataSet ;
+    rdfs:range xsd:MILLIMETER ;
+    skos:definition """translation along Z axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:RotationDataSet
+    a owl:Class ;
+    rdfs:label """rotation data set""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf mtc-cnstr:AbstractRotation ;
+    skos:definition """rotations about X, Y, and Z axes are expressed in A, B, and C respectively within a 3-dimensional vector represented as a dataset.\n""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:A ;
+                      owl:someValuesFrom xsd:DEGREE ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:B ;
+                      owl:someValuesFrom xsd:DEGREE ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:C ;
+                      owl:someValuesFrom xsd:DEGREE ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:A
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:A""" ;
+    rdfs:domain mtc-cnstr:RotationDataSet ;
+    rdfs:range xsd:DEGREE ;
+    skos:definition """rotation about X axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:B
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:B""" ;
+    rdfs:domain mtc-cnstr:RotationDataSet ;
+    rdfs:range xsd:DEGREE ;
+    skos:definition """rotation about Y axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:C
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:C""" ;
+    rdfs:domain mtc-cnstr:RotationDataSet ;
+    rdfs:range xsd:DEGREE ;
+    skos:definition """rotation about Z axis.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:RotationAbstractRotation
+    a owl:Class ;
+    rdfs:label """rotation""" ;
+    rdfs:subClassOf mtc-cnstr:AbstractRotation ;
+    skos:definition """rotations about X, Y, and Z axes are expressed in A, B, and C respectively within a 3-dimensional vector. \n""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:value ;
+                      owl:someValuesFrom xsd:float3d ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+
+mtc-cnstr:value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:domain mtc-cnstr:RotationAbstractRotation ;
+    rdfs:range xsd:float3d ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/CoordinateSystems/> .
+

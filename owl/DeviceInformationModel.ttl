@@ -1,0 +1,130 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/>
+    a owl:Ontology ;
+    rdfs:label "device information model" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/DeviceInformationModel/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:Device
+    a owl:Class ;
+    rdfs:label """device""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component composed of a piece of equipment that produces observations about itself.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Auxiliary ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Controller ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Resource ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Structure ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:iso841Class ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:uuid ;
+                      owl:someValuesFrom xsd:UUID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:mtconnectVersion ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:SystemComponent ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Part ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasProcess ;
+                      owl:someValuesFrom mtc-cnstr:Process ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:AxisComponent ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Adapter ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Availability ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:AssetChanged ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:AssetRemoved ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hash ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:AssetAdded ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:iso841Class
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:iso841Class""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range xsd:string ;
+    skos:definition """**DEPRECATED** in *MTConnect Version 1.2*.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:uuid
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:uuid""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range xsd:UUID ;
+    skos:definition """universally unique identifier for the element.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:mtconnectVersion
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:mtconnectVersion""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range xsd:string ;
+    skos:definition """MTConnect version of the {{term(Device Information Model)}} used to configure the information to be published for a piece of equipment in an {{term(MTConnect Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:name""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range xsd:string ;
+    skos:definition """name of an element or a piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:hasProcess
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasProcess""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range mtc-cnstr:Process ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+
+mtc-cnstr:hash
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:hash""" ;
+    rdfs:domain mtc-cnstr:Device ;
+    rdfs:range xsd:string ;
+    skos:definition """condensed message digest from a secure one-way hash function. {{cite(FIPS PUB 180-4)}}""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DeviceInformationModel/> .
+

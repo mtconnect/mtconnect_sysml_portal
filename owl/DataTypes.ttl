@@ -1,0 +1,677 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/DataTypes/>
+    a owl:Ontology ;
+    rdfs:label "data types" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/DataTypes/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:ControlLimitResult
+    a owl:Class ;
+    rdfs:label """control limit result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialTestAssessment> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/PerformanceIndicator> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UpperLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UpperWarning ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Nominal ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LowerWarning ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LowerLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UpperLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:UpperLimit""" ;
+    rdfs:domain mtc-cnstr:ControlLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UpperWarning
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:UpperWarning""" ;
+    rdfs:domain mtc-cnstr:ControlLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """upper boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Nominal
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Nominal""" ;
+    rdfs:domain mtc-cnstr:ControlLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """ideal or desired value for a variable.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LowerWarning
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LowerWarning""" ;
+    rdfs:domain mtc-cnstr:ControlLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """lower boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LowerLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LowerLimit""" ;
+    rdfs:domain mtc-cnstr:ControlLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:SpecificationLimitResult
+    a owl:Class ;
+    rdfs:label """specification limit result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialTestAssessment> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/PerformanceIndicator> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UpperLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Nominal ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LowerLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UpperLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:UpperLimit""" ;
+    rdfs:domain mtc-cnstr:SpecificationLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Nominal
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Nominal""" ;
+    rdfs:domain mtc-cnstr:SpecificationLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """ideal or desired value for a variable.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LowerLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LowerLimit""" ;
+    rdfs:domain mtc-cnstr:SpecificationLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:AlarmLimitResult
+    a owl:Class ;
+    rdfs:label """alarm limit result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialTestAssessment> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessExcursion> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UpperLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UpperWarning ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LowerWarning ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LowerLimit ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UpperLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:UpperLimit""" ;
+    rdfs:domain mtc-cnstr:AlarmLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UpperWarning
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:UpperWarning""" ;
+    rdfs:domain mtc-cnstr:AlarmLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """upper boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LowerWarning
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LowerWarning""" ;
+    rdfs:domain mtc-cnstr:AlarmLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """lower boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LowerLimit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LowerLimit""" ;
+    rdfs:domain mtc-cnstr:AlarmLimitResult ;
+    rdfs:range xsd:float ;
+    skos:definition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:SensorAttachmentResult
+    a owl:Class ;
+    rdfs:label """sensor attachment result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:SensorId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:SensorId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:SensorId""" ;
+    rdfs:domain mtc-cnstr:SensorAttachmentResult ;
+    rdfs:range xsd:ID ;
+    skos:definition """identity of a sensor used to observe some measurement of an item.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:MaintenanceListResult
+    a owl:Class ;
+    rdfs:label """maintenance list result""" ;
+    rdfs:subClassOf mtc-cnstr:TableRepresentation ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Value ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Interval ;
+                      owl:someValuesFrom mtc-cnstr:MaintenanceListIntervalEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:NextServiceDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Reset ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Severity ;
+                      owl:someValuesFrom xsd:integer ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Direction ;
+                      owl:someValuesFrom mtc-cnstr:MaintenanceListDirectionEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Name ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LastServiceDate ;
+                      owl:someValuesFrom xsd:datetime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Units ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Target ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Value
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Value""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:float ;
+    skos:definition """current interval value of the activity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Interval
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:Interval""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range mtc-cnstr:MaintenanceListIntervalEnum ;
+    skos:definition """interval of the value observed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:NextServiceDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:NextServiceDate""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:datetime ;
+    skos:definition """next date/time stamp that maintenance should be performed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Reset
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Reset""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:datetime ;
+    skos:definition """last date/time stamp of the {{term(observation)}} was reset.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Severity
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Severity""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:integer ;
+    skos:definition """level of severity on a scale of 1-10.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Direction
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:Direction""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range mtc-cnstr:MaintenanceListDirectionEnum ;
+    skos:definition """direction of the value observed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Name
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Name""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:string ;
+    skos:definition """identifier of the maintenance activity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LastServiceDate
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LastServiceDate""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:datetime ;
+    skos:definition """last date/time stamp that maintenance was performed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Units
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:Units""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    skos:definition """same as {{property(DataItem::units)}}. See {{package(Device Information Model)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Target
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Target""" ;
+    rdfs:domain mtc-cnstr:MaintenanceListResult ;
+    rdfs:range xsd:float ;
+    skos:definition """target value of the next maintenance.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:FeatureMeasurementResult
+    a owl:Class ;
+    rdfs:label """feature measurement result""" ;
+    rdfs:subClassOf mtc-cnstr:TableRepresentation ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:MeasurementId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:FeaturePersistentId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CharacteristicPersistentId ;
+                      owl:someValuesFrom xsd:ID ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:MeasurementType ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:MeasurementValue ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:MeasurementUnits ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CharacteristicStatus ;
+                      owl:someValuesFrom mtc-cnstr:CharacteristicStatusEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:UncertaintyType ;
+                      owl:someValuesFrom mtc-cnstr:UncertaintyTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Uncertainty ;
+                      owl:someValuesFrom xsd:float ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:MeasurementId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:MeasurementId""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:ID ;
+    skos:definition """identifier of this measurement.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:FeaturePersistentId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:FeaturePersistentId""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:ID ;
+    skos:definition """{{term(UUID)}} of the feature.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:CharacteristicPersistentId
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CharacteristicPersistentId""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:ID ;
+    skos:definition """{{term(UUID)}} of the characteristic.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:MeasurementType
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:MeasurementType""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:string ;
+    skos:definition """class of measurement being performed. {{cite(QIF 3:2018 Section 6.3)}}\n\nExamples: `POINT`, `RADIUS`, `ANGLE`, `LENGTH`, etc.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:MeasurementValue
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:MeasurementValue""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:float ;
+    skos:definition """measurement based on the measurement type.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:MeasurementUnits
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:MeasurementUnits""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:string ;
+    skos:definition """engineering units of the measurement.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:CharacteristicStatus
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:CharacteristicStatus""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range mtc-cnstr:CharacteristicStatusEnum ;
+    skos:definition """pass/fail result of the measurement.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:UncertaintyType
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:UncertaintyType""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range mtc-cnstr:UncertaintyTypeEnum ;
+    skos:definition """method used to compute {{term(standard uncertainty)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Uncertainty
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Uncertainty""" ;
+    rdfs:domain mtc-cnstr:FeatureMeasurementResult ;
+    rdfs:range xsd:float ;
+    skos:definition """{{term(uncertainty)}} specified by `UNCERTAINTY_TYPE`.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LocationAddressResult
+    a owl:Class ;
+    rdfs:label """location address result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:GivenName ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Surname ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Qualification ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:NameQualifier ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:OrganizationName ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:LegalStatus ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:OrganizationUnit ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Building ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Floor ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Door ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Thoroughfare ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:PremiseIdentifier ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Town ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Region ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:District ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CountryName ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:CountryCode ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:PostCode ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:GivenName
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:GivenName""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element specifying the name used to distinguish between persons having the same surname(s) and who may have access to a particular delivery point.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Surname
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Surname""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element which identifies the family or parentage of an individual.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Qualification
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Qualification""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating an individual’s professional or academic qualification or rank in a professional group or society (e.g. PhD, Fellow of the Royal Society, FRS, Barrister at Law).""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:NameQualifier
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:NameQualifier""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element used in some countries to distinguish between persons with the same surname(s) who have similar given names or initials (e.g.III, Senior, the Third.).""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:OrganizationName
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:OrganizationName""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element giving the official name, the registered business name or other official designation of an organization.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LegalStatus
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:LegalStatus""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating the formal registration of an organization (e.g. GmbH, Inc., Ltd.).""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:OrganizationUnit
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:OrganizationUnit""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element identifying a subdivision of an organization.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Building
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Building""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element identifying the number or name and type of the edifice or construction in or adjacent to which a delivery point is located.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Floor
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Floor""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating the floor or level on which a delivery point is located in a multi-story building.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Door
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Door""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating the apartment, room or office in, at or adjacent to which a delivery point, situated within a building, is located.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Thoroughfare
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Thoroughfare""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element which identifies the road or part of a road or other access route along which a delivery point can be accessed, either directly or via a secondary or tertiary road or access route.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:PremiseIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:PremiseIdentifier""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element designating the area or the object on an area, adjacent to thoroughfare, in which the delivery point or delivery point access is located.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Town
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Town""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating the name of the populated place in which a delivery point is located, or the populated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Region
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Region""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element specifying the geographic or administrative area of the country in which the town is situated.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:District
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:District""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element indicating the name of the area within or adjacent to the town in which a delivery point is located, or via which it is accessed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:CountryName
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CountryName""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element designating the country, dependency or area of geopolitical interest, in which a delivery point is located or via which the delivery point is accessed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:CountryCode
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:CountryCode""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """interest, in which a delivery point is located or via which the delivery point is accessed.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:PostCode
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:PostCode""" ;
+    rdfs:domain mtc-cnstr:LocationAddressResult ;
+    rdfs:range xsd:string ;
+    skos:definition """element designating the code used for the sorting of mail.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:LocationSpatialGeographicResult
+    a owl:Class ;
+    rdfs:label """location spatial geographic result""" ;
+    rdfs:subClassOf mtc-cnstr:DataSet ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Longitude ;
+                      owl:someValuesFrom xsd:DEGREE ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Latitude ;
+                      owl:someValuesFrom xsd:DEGREE ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:Altitude ;
+                      owl:someValuesFrom xsd:METER ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Longitude
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Longitude""" ;
+    rdfs:domain mtc-cnstr:LocationSpatialGeographicResult ;
+    rdfs:range xsd:DEGREE ;
+    skos:definition """geographic longitude.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Latitude
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Latitude""" ;
+    rdfs:domain mtc-cnstr:LocationSpatialGeographicResult ;
+    rdfs:range xsd:DEGREE ;
+    skos:definition """geographic latitude.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+
+mtc-cnstr:Altitude
+    a owl:DatatypeProperty ;
+    rdfs:label """mtc-cnstr:Altitude""" ;
+    rdfs:domain mtc-cnstr:LocationSpatialGeographicResult ;
+    rdfs:range xsd:METER ;
+    skos:definition """height relative to a reference.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataTypes/> .
+

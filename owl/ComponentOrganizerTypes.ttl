@@ -1,0 +1,132 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/>
+    a owl:Ontology ;
+    rdfs:label "component organizer types" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/ComponentOrganizerTypes/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:Structures
+    a owl:Class ;
+    rdfs:label """structures""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes structure types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Interfaces
+    a owl:Class ;
+    rdfs:label """interfaces""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes Interface types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Auxiliaries
+    a owl:Class ;
+    rdfs:label """auxiliaries""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes auxiliary types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Systems
+    a owl:Class ;
+    rdfs:label """systems""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes system types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Adapters
+    a owl:Class ;
+    rdfs:label """adapters""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes adapter types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Resources
+    a owl:Class ;
+    rdfs:label """resources""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes resource types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:MaterialResource ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Axes
+    a owl:Class ;
+    rdfs:label """axes""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes axis types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Processes
+    a owl:Class ;
+    rdfs:label """processes""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes process types. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000015> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Parts
+    a owl:Class ;
+    rdfs:label """parts""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes part types.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Materials
+    a owl:Class ;
+    rdfs:label """materials""" ;
+    rdfs:subClassOf mtc-cnstr:Resources ;
+    skos:definition """resources that organizes material types.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:Controllers
+    a owl:Class ;
+    rdfs:label """controllers""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    skos:definition """component that organizes controller entities.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+

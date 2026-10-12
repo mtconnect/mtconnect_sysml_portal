@@ -1,0 +1,1933 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo:  <http://purl.obolibrary.org/obo/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix iof-cnstr: <https://spec.industrialontologies.org/ontology/construct/> .
+@prefix iof-ind: <https://spec.industrialontologies.org/ontology/individual/> .
+@prefix iof-av: <https://spec.industrialontologies.org/ontology/annotation/> .
+@prefix mtc-cnstr:  <https://model.mtconnect.org/ontology/construct/> .
+@prefix mtc-indv:  <https://model.mtconnect.org/ontology/individual/> .
+
+<https://model.mtconnect.org/ontology/machinetool/ComponentTypes/>
+    a owl:Ontology ;
+    rdfs:label "component types" ;
+    owl:imports <https://model.mtconnect.org/ontology/machinetool/MTConnectCore/> ;
+    owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/ComponentTypes/> ;
+    owl:versionInfo "2.8" .
+
+mtc-cnstr:ActuatorSystem
+    a owl:Class ;
+    rdfs:label """actuator""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """component composed of a physical apparatus that moves or controls a mechanism or system. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Auxiliary
+    a owl:Class ;
+    rdfs:label """auxiliary""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component composed of removable part(s) of a piece of equipment that provides supplementary or extended functionality.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Tool> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:AxisComponent
+    a owl:Class ;
+    rdfs:label """axis""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component composed of a motion system that provides linear or rotational motion for a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:BarFeeder
+    a owl:Class ;
+    rdfs:label """bar feeder""" ;
+    rdfs:subClassOf mtc-cnstr:Loader ;
+    skos:definition """loader that delivers bar stock to a piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Controller
+    a owl:Class ;
+    rdfs:label """controller""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that provides regulation or management of a system or component. <em>ISO 16484-5:2017</em>""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Path ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:EmergencyStop ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:SystemCondition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ControllerMode ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Communications ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:LogicProgram ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Coolant
+    a owl:Class ;
+    rdfs:label """coolant""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that provides distribution and management of fluids that remove heat from a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Concentration ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Deposition
+    a owl:Class ;
+    rdfs:label """deposition""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that manages the addition of material or state change of material being performed in an additive manufacturing process.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Dielectric
+    a owl:Class ;
+    rdfs:label """dielectric""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that manages a chemical mixture used in a manufacturing process being performed at that piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Door
+    a owl:Class ;
+    rdfs:label """door""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component composed of a mechanical mechanism or closure that can cover a physical access portal into a piece of equipment allowing or restricting access to other parts of the equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Assembly> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:DoorState ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Electric
+    a owl:Class ;
+    rdfs:label """electric""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of the main power supply for the piece of equipment that provides distribution of that power throughout the equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Wattage ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Enclosure
+    a owl:Class ;
+    rdfs:label """enclosure""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of a structure that is used to contain or isolate a piece of equipment or area.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:EndEffector
+    a owl:Class ;
+    rdfs:label """end effector""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of functions that form the last link segment of a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Environmental
+    a owl:Class ;
+    rdfs:label """environmental""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that observes the surroundings of another component.\n\n> Note: environmental **SHOULD** be organized by Auxillaries, systems or parts depending on the relationship to the component.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DetectingDevice> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Feeder
+    a owl:Class ;
+    rdfs:label """feeder""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that manages the delivery of materials within a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Hydraulic
+    a owl:Class ;
+    rdfs:label """hydraulic""" ;
+    rdfs:subClassOf mtc-cnstr:ActuatorSystem ;
+    skos:definition """system that provides movement and distribution of pressurized liquid throughout the piece of equipment.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PressureSample ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Linear
+    a owl:Class ;
+    rdfs:label """linear""" ;
+    rdfs:subClassOf mtc-cnstr:AxisComponent ;
+    skos:definition """axis that provides prismatic motion along a fixed axis.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Load ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Temperature ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:AxisFeedrateActual ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Loader
+    a owl:Class ;
+    rdfs:label """loader""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that provides movement and distribution of materials, parts, tooling, and other items to or from a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Lubrication
+    a owl:Class ;
+    rdfs:label """lubrication""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that provides distribution and management of fluids used to lubricate portions of the piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:MaterialResource
+    a owl:Class ;
+    rdfs:label """material""" ;
+    rdfs:subClassOf mtc-cnstr:Resource ;
+    skos:definition """resource composed of material that is consumed or used by the piece of equipment for production of parts, materials, or other types of goods.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Resources ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Path
+    a owl:Class ;
+    rdfs:label """path""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that organizes an independent operation or function within a controller.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000141> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Execution ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Program ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PathFeedrateOverrideProgrammed ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PathFeedrateOverrideRapid ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:RotaryVelocityOverrideEvent ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PathFeedrate ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartCount ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Controller ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Personnel
+    a owl:Class ;
+    rdfs:label """personnel""" ;
+    rdfs:subClassOf mtc-cnstr:Resource ;
+    skos:definition """resource composed of an individual or individuals who either control, support, or otherwise interface with a piece of equipment.\n""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Person> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:UserOperator ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:UserMaintenance ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Pneumatic
+    a owl:Class ;
+    rdfs:label """pneumatic""" ;
+    rdfs:subClassOf mtc-cnstr:ActuatorSystem ;
+    skos:definition """system that uses compressed gasses to actuate components or do work within the piece of equipment.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Classifier> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PressureSample ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Power
+    a owl:Class ;
+    rdfs:label """power""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """power was **DEPRECATED** in *MTConnect Version 1.1* and was replaced by availability data item type.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Capability> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ProcessPower
+    a owl:Class ;
+    rdfs:label """process power""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of a power source associated with a piece of equipment that supplies energy to the manufacturing process separate from the electric system.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Protective
+    a owl:Class ;
+    rdfs:label """protective""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that provides functions used to detect or prevent harm or damage to equipment or personnel.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Resource
+    a owl:Class ;
+    rdfs:label """resource""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component composed of material or personnel involved in a manufacturing process.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Rotary
+    a owl:Class ;
+    rdfs:label """rotary""" ;
+    rdfs:subClassOf mtc-cnstr:AxisComponent ;
+    skos:definition """axis that provides rotation about a fixed axis.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Load ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Temperature ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:RotaryVelocity ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:AxisFeedrate ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Sensor
+    a owl:Class ;
+    rdfs:label """sensor""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that responds to a physical stimulus and transmits a resulting impulse or value from a sensing unit.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SensorSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DetectingDevice> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Stock
+    a owl:Class ;
+    rdfs:label """stock""" ;
+    rdfs:subClassOf mtc-cnstr:MaterialResource ;
+    skos:definition """material that is used in a manufacturing process and to which work is applied in a machine or piece of equipment to produce parts.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:MaterialEvent ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:LengthRemaining ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:LengthStandard ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:SystemComponent
+    a owl:Class ;
+    rdfs:label """system""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component that is permanently integrated into the piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/System> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ToolingDelivery
+    a owl:Class ;
+    rdfs:label """tooling delivery""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that manages, positions, stores, and delivers tooling within a piece of equipment.\n""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Assembly> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:WasteDisposal
+    a owl:Class ;
+    rdfs:label """waste disposal""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that removes manufacturing byproducts from a piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Structure
+    a owl:Class ;
+    rdfs:label """structure""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component composed of part(s) comprising the rigid bodies of the piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Link
+    a owl:Class ;
+    rdfs:label """link""" ;
+    rdfs:subClassOf mtc-cnstr:Structure ;
+    skos:definition """structure that provides a connection between component entities.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Assembly> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:GangToolBar
+    a owl:Class ;
+    rdfs:label """gang tool bar""" ;
+    rdfs:subClassOf mtc-cnstr:ToolingDelivery ;
+    skos:definition """tooling delivery composed of a tool mounting mechanism that holds any number of tools. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Heating
+    a owl:Class ;
+    rdfs:label """heating""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that delivers controlled amounts of heat to achieve a target temperature at a specified heating rate.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:AutomaticToolChanger
+    a owl:Class ;
+    rdfs:label """automatic tool changer""" ;
+    rdfs:subClassOf mtc-cnstr:ToolingDelivery ;
+    skos:definition """tooling delivery composed of a tool delivery mechanism that moves tools between a tool magazine and a spindle a turret.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Process
+    a owl:Class ;
+    rdfs:label """process""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component composed of a manufacturing process being executed on a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ManufacturingProcess> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000167 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isProcessOf ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:isProcessOf
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isProcessOf""" ;
+    rdfs:domain mtc-cnstr:Process ;
+    rdfs:range mtc-cnstr:Device ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ToolMagazine
+    a owl:Class ;
+    rdfs:label """tool magazine""" ;
+    rdfs:subClassOf mtc-cnstr:ToolingDelivery ;
+    skos:definition """tooling delivery composed of a tool storage mechanism that holds any number of tools. \n""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:PartOccurrence
+    a owl:Class ;
+    rdfs:label """part occurrence""" ;
+    rdfs:subClassOf mtc-cnstr:Part ;
+    skos:definition """part that exists at a specific place and time, such as a specific instance of a bracket at a specific timestamp.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartUniqueId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartGroupId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartKindId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartCount ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartStatus ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessOccurrenceId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessTime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:User ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Adapter
+    a owl:Class ;
+    rdfs:label """adapter""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that provides information about the data source for an MTConnect Agent.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ToolRack
+    a owl:Class ;
+    rdfs:label """tool rack""" ;
+    rdfs:subClassOf mtc-cnstr:ToolingDelivery ;
+    skos:definition """tooling delivery composed of a linear or matrixed tool storage mechanism that holds any number of tools.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Turret
+    a owl:Class ;
+    rdfs:label """turret""" ;
+    rdfs:subClassOf mtc-cnstr:ToolingDelivery ;
+    skos:definition """tooling delivery composed of a tool mounting mechanism that holds any number of tools.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Vacuum
+    a owl:Class ;
+    rdfs:label """vacuum""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that evacuates gases and liquids from an enclosed and sealed space to a controlled negative pressure or a molecular density below the prevailing atmospheric level.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Cooling
+    a owl:Class ;
+    rdfs:label """cooling""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that extracts controlled amounts of heat to achieve a target temperature at a specified cooling rate.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ProcessOccurrence
+    a owl:Class ;
+    rdfs:label """process occurrence""" ;
+    rdfs:subClassOf mtc-cnstr:Process ;
+    skos:definition """process that takes place at a specific place and time, such as a specific instance of part-milling occurring at a specific timestamp.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessOccurrenceId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessAggregateId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessTime ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:ProcessKindId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:User ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Program ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:PartUniqueId ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:PressureSystem
+    a owl:Class ;
+    rdfs:label """pressure""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that delivers compressed gas or fluid and controls the pressure and rate of pressure change to a desired target set-point.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Part
+    a owl:Class ;
+    rdfs:label """part""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """abstract component composed of a part being processed by a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:isWorkedOn ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000177 ;
+                      owl:someValuesFrom mtc-cnstr:Device ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:isWorkedOn
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:isWorkedOn""" ;
+    rdfs:domain mtc-cnstr:Part ;
+    rdfs:range mtc-cnstr:Device ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Lock
+    a owl:Class ;
+    rdfs:label """lock""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """component that physically prohibits a device or component from opening or operating.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:LockState ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Spindle
+    a owl:Class ;
+    rdfs:label """spindle""" ;
+    rdfs:subClassOf mtc-cnstr:AxisComponent ;
+    skos:definition """component that provides an axis of rotation for the purpose of rapidly rotating a part or a tool to provide sufficient surface speed for cutting operations.\n\nspindle was **DEPRECATED** in *MTConnect Version 1.1* and was replaced by rotary mode.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Thermostat
+    a owl:Class ;
+    rdfs:label """thermostat""" ;
+    rdfs:subClassOf mtc-cnstr:Sensor ;
+    skos:definition """component composed of a sensor or an instrument that measures temperature.\n\nthermostat was **DEPRECATED** in *MTConnect Version 1.2* and was replaced by temperature.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Vibration
+    a owl:Class ;
+    rdfs:label """vibration""" ;
+    rdfs:subClassOf mtc-cnstr:Sensor ;
+    skos:definition """component composed of a sensor or an instrument that measures the amount and/or frequency of vibration within a system.\n\nvibration was **DEPRECATED** in *MTConnect Version 1.2* and was replaced by displacement, frequency etc.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Chuck
+    a owl:Class ;
+    rdfs:label """chuck""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a mechanism that holds a part or stock material in place.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Fan
+    a owl:Class ;
+    rdfs:label """fan""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that produces a current of air.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Fan ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Spreader
+    a owl:Class ;
+    rdfs:label """spreader""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that flattens or spreading materials.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Spreader ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Pulley
+    a owl:Class ;
+    rdfs:label """pulley""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a mechanism or wheel that turns in a frame or block and serves to change the direction of or to transmit force.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Pulley ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:TransferPot
+    a owl:Class ;
+    rdfs:label """transfer pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that is a pot for a tool that is awaiting transfer from a tool magazine to spindle or turret.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:TransferPot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:PowerSupply
+    a owl:Class ;
+    rdfs:label """power supply""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that provides power to electric mechanisms.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:PowerSupply ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Drain
+    a owl:Class ;
+    rdfs:label """drain""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that allows material to flow for the purpose of drainage from, for example, a vessel or tank.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Drain ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Ballscrew
+    a owl:Class ;
+    rdfs:label """ballscrew""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a mechanical structure that transforms rotary motion into linear motion.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Assembly> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Ballscrew ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Compressor
+    a owl:Class ;
+    rdfs:label """compressor""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a pump or other mechanism that reduces volume and increases pressure of gases in order to condense the gases to drive pneumatically powered pieces of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Compressor ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Chute
+    a owl:Class ;
+    rdfs:label """chute""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of an inclined channel that conveys material.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Chute ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Switch
+    a owl:Class ;
+    rdfs:label """switch""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that turns on or off an electric current or makes or breaks a circuit.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Switch ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Tensioner
+    a owl:Class ;
+    rdfs:label """tensioner""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that provides or applies a stretch or strain to another mechanism.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Tensioner ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Water
+    a owl:Class ;
+    rdfs:label """water""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of $$H_2 O$$.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ChemicalSubstanceMaterial> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Water ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:WireComponent
+    a owl:Class ;
+    rdfs:label """wire""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a string like piece or filament of relatively rigid or flexible material provided in a variety of diameters.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:WireComponent ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:SensingElement
+    a owl:Class ;
+    rdfs:label """sensing element""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that provides a signal or measured value.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SensorSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DetectingDevice> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:SensingElement ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:CoolingTower
+    a owl:Class ;
+    rdfs:label """cooling tower""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a heat exchange system that uses a fluid to transfer heat to the atmosphere.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:CoolingTower ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:RemovalPot
+    a owl:Class ;
+    rdfs:label """removal pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that is a pot for a tool that has to be removed from a tool magazine or turret to a location outside of the piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:RemovalPot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Gripper
+    a owl:Class ;
+    rdfs:label """gripper""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that holds a part, stock material, or any other item in place.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Gripper ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:StagingPot
+    a owl:Class ;
+    rdfs:label """staging pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that is a pot for a tool that is awaiting transfer to a tool magazine or turret from outside of the piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:StagingPot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Brake
+    a owl:Class ;
+    rdfs:label """brake""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that slows or stops a moving object by the absorption or transfer of the energy of momentum, usually by means of friction, electrical force, or magnetic force.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Brake ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Station
+    a owl:Class ;
+    rdfs:label """station""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a storage or mounting location for a tool associated with a turret, gang tool bar, or tool rack.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Station ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Hopper
+    a owl:Class ;
+    rdfs:label """hopper""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a chamber or bin in which materials are stored temporarily, typically being filled through the top and dispensed through the bottom.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Hopper ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Belt
+    a owl:Class ;
+    rdfs:label """belt""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of an endless flexible band that transmits motion for a piece of equipment or conveys materials and objects.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Belt ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:TransferArm
+    a owl:Class ;
+    rdfs:label """transfer arm""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that physically moves a tool from one location to another.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:TransferArm ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Reel
+    a owl:Class ;
+    rdfs:label """reel""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a rotary storage unit for material.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Reel ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:FilterComponent
+    a owl:Class ;
+    rdfs:label """filter""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component through which liquids or gases are passed to remove suspended impurities or to recover solids.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Filter> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:FilterComponent ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ReturnPot
+    a owl:Class ;
+    rdfs:label """return pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that is a pot for a tool that has been removed from spindle or turret and awaiting for return to a tool magazine.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:ReturnPot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Chain
+    a owl:Class ;
+    rdfs:label """chain""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of interconnected series of objects that band together and are used to transmit motion for a piece of equipment or to convey materials and objects.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000027> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Chain ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Amplifier
+    a owl:Class ;
+    rdfs:label """amplifier""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of an electronic component or circuit that amplifies power, electric current, or voltage.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Amplifier ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Vat
+    a owl:Class ;
+    rdfs:label """vat""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component generally composed of an open container.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Vat ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ExpiredPot
+    a owl:Class ;
+    rdfs:label """expired pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that is a pot for a tool that is no longer usable for removal from a tool magazine or turret.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:ExpiredPot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Oil
+    a owl:Class ;
+    rdfs:label """oil""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a viscous liquid.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ChemicalSubstanceMaterial> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Oil ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:TableComponent
+    a owl:Class ;
+    rdfs:label """table""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a surface for holding an object or material.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000300> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:TableComponent ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Chopper
+    a owl:Class ;
+    rdfs:label """chopper""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that breaks material into smaller pieces.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Chopper ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Valve
+    a owl:Class ;
+    rdfs:label """valve""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that halts or controls the flow of a liquid, gas, or other material through a passage, pipe, inlet, or outlet.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Valve ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Pot
+    a owl:Class ;
+    rdfs:label """pot""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of a tool storage location associated with a tool magazine or automatic tool changer.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Pot ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Transformer
+    a owl:Class ;
+    rdfs:label """transformer""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that transforms electric energy from a source to a secondary circuit.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Transformer ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ExposureUnit
+    a owl:Class ;
+    rdfs:label """exposure unit""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that emits a type of radiation.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:ExposureUnit ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Tank
+    a owl:Class ;
+    rdfs:label """tank""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component generally composed of an enclosed container.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Container> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Tank ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Encoder
+    a owl:Class ;
+    rdfs:label """encoder""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that measures position.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SensorSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DetectingDevice> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Encoder ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:StorageBattery
+    a owl:Class ;
+    rdfs:label """storage battery""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of one or more cells in which chemical energy is converted into electricity and used as a source of power. """ ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:StorageBattery ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:CircuitBreaker
+    a owl:Class ;
+    rdfs:label """circuit breaker""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that interrupts an electric circuit.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:CircuitBreaker ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Motor
+    a owl:Class ;
+    rdfs:label """motor""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that converts electrical, pneumatic, or hydraulic energy into mechanical energy.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Motor ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ExtrusionUnit
+    a owl:Class ;
+    rdfs:label """extrusion unit""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that dispenses liquid or powered materials.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:ExtrusionUnit ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Galvanomotor
+    a owl:Class ;
+    rdfs:label """galvanomotor""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of an electromechanical actuator that produces deflection of a beam of light or energy in response to electric current through its coil in a magnetic field.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/TransducerSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Galvanomotor ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Pump
+    a owl:Class ;
+    rdfs:label """pump""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that raises, drives, exhausts, or compresses fluids or gases by means of a piston, plunger, or set of rotating vanes.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Machine> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Pump ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Clamp
+    a owl:Class ;
+    rdfs:label """clamp""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that strengthens, support, or fastens objects in place.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Clamp ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:LinearPositionFeedback
+    a owl:Class ;
+    rdfs:label """linear position feedback""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component that measures linear motion or position.\n\n**DEPRECATION WARNING** : May be deprecated in the future. Recommend using encoder.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SensorSpecification> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DetectingDevice> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:LinearPositionFeedback ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Workpiece
+    a owl:Class ;
+    rdfs:label """workpiece""" ;
+    rdfs:subClassOf mtc-cnstr:Component ;
+    skos:definition """leaf component composed of an object or material on which a form of work is performed.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasComposition ;
+                      owl:someValuesFrom mtc-cnstr:Composition ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000110 ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:hasComposition
+    a owl:ObjectProperty ;
+    rdfs:label """mtc-cnstr:hasComposition""" ;
+    rdfs:domain mtc-cnstr:Workpiece ;
+    rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:WorkEnvelope
+    a owl:Class ;
+    rdfs:label """work envelope""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of the physical process execution space within a piece of equipment.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000029> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:FeatureOccurrence
+    a owl:Class ;
+    rdfs:label """feature occurrence""" ;
+    rdfs:subClassOf mtc-cnstr:PartOccurrence ;
+    skos:definition """component that provides information related to an individual feature.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:FeaturePersistentId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:FeatureMeasurement ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:MeasurementType ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:CharacteristicPersistentId ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:CharacteristicStatus ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:Uncertainty ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:UncertaintyType ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:MeasurementUnits ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:observes ;
+                      owl:someValuesFrom mtc-cnstr:MeasurementValue ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:AirHandler
+    a owl:Class ;
+    rdfs:label """air handler""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that circulates air or regulates airflow without altering temperature or humidity.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:Electrode
+    a owl:Class ;
+    rdfs:label """electrode""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that is used for many electrical discharge manufacturing processes like welding.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:CuttingTorch
+    a owl:Class ;
+    rdfs:label """cutting torch""" ;
+    rdfs:subClassOf mtc-cnstr:Auxiliary ;
+    skos:definition """auxiliary that employs a concentrated flame to both sever materials through cutting and fuse them together in joining processes.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProductionTool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:ToolHolder
+    a owl:Class ;
+    rdfs:label """tool holder""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system that securely interfaces a component with a device""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Tool> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
+mtc-cnstr:PinTool
+    a owl:Class ;
+    rdfs:label """pin tool""" ;
+    rdfs:subClassOf mtc-cnstr:SystemComponent ;
+    skos:definition """system composed of a tool that performs the work for a Friction Stir Welding process""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
+
