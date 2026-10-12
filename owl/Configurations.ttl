@@ -20,8 +20,10 @@
 mtc-cnstr:Configuration
     a owl:Class ;
     rdfs:label """configuration""" ;
+    skos:altLabel """Configuration""" ;
+    iof-av:directSource """MTConnect Configuration""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """technical information about an entity describing its physical layout, functional characteristics, and relationships with other entities.""" ;
+    iof-av:naturalLanguageDefinition """technical information about an entity describing its physical layout, functional characteristics, and relationships with other entities.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
@@ -64,87 +66,73 @@ mtc-cnstr:Configuration
                       owl:someValuesFrom mtc-cnstr:Composition ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
-mtc-cnstr:isConfigurationFor
+mtc-cnstr:hasCoordinateSystem
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isConfigurationFor""" ;
-    rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:label """has coordinate system""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    iof-av:naturalLanguageDefinition """for measured values relative to a coordinate system like {{block(Position)}}, the coordinate system used may be reported.\n\n**DEPRECATED** in *Version 2.0*. Replaced by {{property(Component::coordinateSystemIdRef)}}. """ ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
-mtc-cnstr:hasSolidModel
+mtc-cnstr:hasImageFile
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasSolidModel""" ;
+    rdfs:label """has image file""" ;
     rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:SolidModel ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
-
-mtc-cnstr:hasSensorConfiguration
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasSensorConfiguration""" ;
-    rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:SensorConfiguration ;
+    rdfs:range mtc-cnstr:ImageFile ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
 mtc-cnstr:hasMotion
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasMotion""" ;
+    rdfs:label """has motion""" ;
     rdfs:domain mtc-cnstr:Configuration ;
     rdfs:range mtc-cnstr:Motion ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
-mtc-cnstr:hasRelationship
+mtc-cnstr:hasPowerSource
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasRelationship""" ;
+    rdfs:label """has power source""" ;
     rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:ConfigurationRelationship ;
+    rdfs:range mtc-cnstr:PowerSource ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
-mtc-cnstr:hasCoordinateSystem
+mtc-cnstr:hasRelationship
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasCoordinateSystem""" ;
+    rdfs:label """has relationship""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasSensorConfiguration
+    a owl:ObjectProperty ;
+    rdfs:label """has sensor configuration""" ;
     rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:CoordinateSystem ;
+    rdfs:range mtc-cnstr:SensorConfiguration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
+
+mtc-cnstr:hasSolidModel
+    a owl:ObjectProperty ;
+    rdfs:label """has solid model""" ;
+    rdfs:domain mtc-cnstr:Configuration ;
+    rdfs:range mtc-cnstr:SolidModel ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
 mtc-cnstr:hasSpecification
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasSpecification""" ;
+    rdfs:label """has specification""" ;
     rdfs:domain mtc-cnstr:Configuration ;
     rdfs:range mtc-cnstr:Specification ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
 mtc-cnstr:isConfigurationFor
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isConfigurationFor""" ;
+    rdfs:label """is configuration for""" ;
     rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:Composition ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
-
-mtc-cnstr:hasImageFile
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasImageFile""" ;
-    rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:ImageFile ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
-
-mtc-cnstr:hasPowerSource
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasPowerSource""" ;
-    rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:PowerSource ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 
 mtc-cnstr:isConfigurationOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isConfigurationOf""" ;
+    rdfs:label """is configuration of""" ;
     rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:Component ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
-
-mtc-cnstr:isConfigurationOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isConfigurationOf""" ;
-    rdfs:domain mtc-cnstr:Configuration ;
-    rdfs:range mtc-cnstr:Composition ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Configurations/> .
 

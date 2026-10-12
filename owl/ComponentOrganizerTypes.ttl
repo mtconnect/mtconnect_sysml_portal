@@ -20,111 +20,223 @@
 mtc-cnstr:Structures
     a owl:Class ;
     rdfs:label """structures""" ;
+    skos:altLabel """Structures""" ;
+    iof-av:directSource """MTConnect Component Structures""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes structure types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes structure types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:StructuresEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:StructuresEntity
+    a owl:Class ;
+    rdfs:label """structures entity""" ;
+    iof-av:directSource """MTConnect Component Structures""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes structure types. """ ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/BFO_0000141> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Interfaces
     a owl:Class ;
     rdfs:label """interfaces""" ;
+    skos:altLabel """Interfaces""" ;
+    iof-av:directSource """MTConnect Component Interfaces""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes Interface types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes Interface types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:InterfacesEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:InterfacesEntity
+    a owl:Class ;
+    rdfs:label """interfaces entity""" ;
+    iof-av:directSource """MTConnect Component Interfaces""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes Interface types. """ ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/BFO_0000141> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Auxiliaries
     a owl:Class ;
     rdfs:label """auxiliaries""" ;
+    skos:altLabel """Auxiliaries""" ;
+    iof-av:directSource """MTConnect Component Auxiliaries""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes auxiliary types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes auxiliary types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:AuxiliariesEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:AuxiliariesEntity
+    a owl:Class ;
+    rdfs:label """auxiliaries entity""" ;
+    iof-av:directSource """MTConnect Component Auxiliaries""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes auxiliary types. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Systems
     a owl:Class ;
     rdfs:label """systems""" ;
+    skos:altLabel """Systems""" ;
+    iof-av:directSource """MTConnect Component Systems""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes system types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes system types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+                      owl:someValuesFrom mtc-cnstr:SystemsEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:SystemsEntity
+    a owl:Class ;
+    rdfs:label """systems entity""" ;
+    iof-av:directSource """MTConnect Component Systems""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes system types. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Adapters
     a owl:Class ;
     rdfs:label """adapters""" ;
+    skos:altLabel """Adapters""" ;
+    iof-av:directSource """MTConnect Component Adapters""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes adapter types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes adapter types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:AdaptersEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:AdaptersEntity
+    a owl:Class ;
+    rdfs:label """adapters entity""" ;
+    iof-av:directSource """MTConnect Component Adapters""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes adapter types. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Resources
     a owl:Class ;
     rdfs:label """resources""" ;
+    skos:altLabel """Resources""" ;
+    iof-av:directSource """MTConnect Component Resources""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes resource types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes resource types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:ResourcesEntity ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000110 ;
                       owl:someValuesFrom mtc-cnstr:MaterialResource ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
+mtc-cnstr:ResourcesEntity
+    a owl:Class ;
+    rdfs:label """resources entity""" ;
+    iof-av:directSource """MTConnect Component Resources""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes resource types. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000178 ;
+                      owl:someValuesFrom mtc-cnstr:MaterialResourceEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
 mtc-cnstr:Axes
     a owl:Class ;
     rdfs:label """axes""" ;
+    skos:altLabel """Axes""" ;
+    iof-av:directSource """MTConnect Component Axes""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes axis types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes axis types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
+                      owl:someValuesFrom mtc-cnstr:AxesEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:AxesEntity
+    a owl:Class ;
+    rdfs:label """axes entity""" ;
+    iof-av:directSource """MTConnect Component Axes""" ;
+    rdfs:subClassOf mtc-cnstr:ComponentEntity ;
+    iof-av:naturalLanguageDefinition """component that organizes axis types. """ ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Processes
     a owl:Class ;
     rdfs:label """processes""" ;
+    skos:altLabel """Processes""" ;
+    iof-av:directSource """MTConnect Component Processes""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes process types. """ ;
+    iof-av:naturalLanguageDefinition """component that organizes process types. """ ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000015> ] ;
+                      owl:someValuesFrom mtc-cnstr:ProcessesEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:ProcessesEntity
+    a owl:Class ;
+    rdfs:label """processes entity""" ;
+    iof-av:directSource """MTConnect Component Processes""" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+    iof-av:naturalLanguageDefinition """component that organizes process types. """ ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Parts
     a owl:Class ;
     rdfs:label """parts""" ;
+    skos:altLabel """Parts""" ;
+    iof-av:directSource """MTConnect Component Parts""" ;
     rdfs:subClassOf mtc-cnstr:Component ;
-    skos:definition """component that organizes part types.""" ;
+    iof-av:naturalLanguageDefinition """component that organizes part types.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
+                      owl:someValuesFrom mtc-cnstr:PartsEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:PartsEntity
+    a owl:Class ;
+    rdfs:label """parts entity""" ;
+    iof-av:directSource """MTConnect Component Parts""" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ;
+    iof-av:naturalLanguageDefinition """component that organizes part types.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Materials
     a owl:Class ;
     rdfs:label """materials""" ;
+    skos:altLabel """Materials""" ;
+    iof-av:directSource """MTConnect Component Materials""" ;
     rdfs:subClassOf mtc-cnstr:Resources ;
-    skos:definition """resources that organizes material types.""" ;
+    iof-av:naturalLanguageDefinition """resources that organizes material types.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040> ] ;
+                      owl:someValuesFrom mtc-cnstr:MaterialsEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
+
+mtc-cnstr:MaterialsEntity
+    a owl:Class ;
+    rdfs:label """materials entity""" ;
+    iof-av:directSource """MTConnect Component Materials""" ;
+    rdfs:subClassOf mtc-cnstr:ResourcesEntity ;
+    iof-av:naturalLanguageDefinition """resources that organizes material types.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> .
 
 mtc-cnstr:Controllers
     a owl:Class ;
     rdfs:label """controllers""" ;
+    skos:altLabel """Controllers""" ;
+    iof-av:directSource """MTConnect Controllers""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
-    skos:definition """component that organizes controller entities.""" ;
+    iof-av:naturalLanguageDefinition """component that organizes controller entities.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;

@@ -67,16 +67,23 @@ VIEWS = {
     },
 }
 
-# Names shown to the model in place of the MTConnect names, per view, where the MTConnect name is misleading.
-# A renamed class's definition that starts with the old genus ('axis that ...') starts with the new one instead.
-# Results are still keyed by the MTConnect name.
-VIEW_NAMES = {
-    'realist': {
-        'AxisComponent': ('MotionSystem', 'motion system'),
-        'Linear': ('LinearMotionSystem', 'linear motion system'),
-        'Rotary': ('RotaryMotionSystem', 'rotary motion system'),
-    },
-}
+# Names shown to the model in place of the MTConnect names, per view, where the MTConnect name is misleading
+# (view_names.json, shared with the generator, which names the realist classes after them). A renamed class's
+# definition that starts with the old genus ('axis that ...') starts with the new one instead. Results are still
+# keyed by the MTConnect name.
+VIEW_NAMES = {view: {cls: (n['name'], n['label']) for cls, n in names.items()}
+              for view, names in json.loads((HERE / 'view_names.json').read_text()).items()}
+
+# Realist results for subclasses of these MTConnect classes are also checked for equivalence: is the quality the
+# sample measures exactly the IOF class, or a more specific kind of it?
+EQUIVALENCE_ROOTS = {'SampleObservation'}
+
+SAME_INSTRUCTIONS = (
+    'The MTConnect class in the state is information about some real-world entity, as described in `view`. Is that '
+    'real-world entity exactly the same kind of entity as the ontology class in `iof class`, so that the two classes have '
+    'the same instances? Answer no if it is only a more specific kind of `iof class`, such as a particular temperature, '
+    'length, or parameter of a particular process, or if it is a different kind of entity.'
+)
 
 INSTRUCTIONS = (
     'Choose the ontology class that is the best superclass for the MTConnect class described in the state, '
@@ -426,6 +433,33 @@ class Chooser:
         lines += [f'  {p:.4f}  {key}' for key, p in ranked]
         print('\n'.join(lines), file=sys.stderr, flush=True)
 
+    async def same(self, state: dict, iri: str) -> float:
+        """Probability that the real-world entity the MTConnect class describes is exactly the IOF class."""
+        state = {**state, 'iof class': self.taxonomy.option(iri)}
+        question = {'instructions': SAME_INSTRUCTIONS}
+        digest = hashlib.sha256(json.dumps(['noul', self.model, state, question], sort_keys=True).encode()).hexdigest()
+        if digest in self.cache:
+            self.cached += 1
+            source, probability = 'cached', self.cache[digest]
+        elif self.dry_run:
+            self.requests += 1
+            self.tokens += len(json.dumps([state, question])) // 4
+            source, probability = 'dry run, not sent', 0.5
+        else:
+            from typesafe_sdk import Noul
+            async with self.semaphore:
+                response = await self.connect().system_one(state=state, questions={'same': Noul(**question)})
+            self.requests += 1
+            self.tokens += getattr(response.usage, 'input_tokens', 0) or 0
+            source, probability = f'sent to {response.model}', response.nouls['same'].noul
+            self.cache[digest] = probability
+        if self.verbose:
+            print('\n'.join(['=' * 100, f"{state['mtconnect class']['name']} same as {self.taxonomy.labels[iri]} "
+                             f"({curie(iri)}) [{source}]", '--- state', json.dumps(state, indent=2, ensure_ascii=False),
+                             '--- question', json.dumps(question, indent=2, ensure_ascii=False),
+                             f'--- answer\n  yes: {probability:.4f}']), file=sys.stderr, flush=True)
+        return probability
+
     def save(self) -> None:
         if not self.dry_run:
             self.cache_path.write_text(json.dumps(self.cache))
@@ -495,6 +529,7 @@ def summarize(taxonomy: Taxonomy, mtc: MTConnectClass, view: str, result: dict) 
         'runner_up_iri': runner['path'][-1] if runner else '',
         'runner_up_label': taxonomy.labels[runner['path'][-1]] if runner else '',
         'path': ' > '.join(taxonomy.labels[c] for c in best['path']),
+        'equivalent_probability': '',
     }
 
 
@@ -521,7 +556,10 @@ async def run(args: argparse.Namespace) -> None:
 
             async def classify(mtc: MTConnectClass) -> None:
                 result = await beam_search(chooser, mtc.state(view), root, args.beam)
-                rows.append(summarize(taxonomy, mtc, view, result))
+                row = summarize(taxonomy, mtc, view, result)
+                if view == 'realist' and any(a['name'] in EQUIVALENCE_ROOTS for a in mtc.ancestors):
+                    row['equivalent_probability'] = round(await chooser.same(mtc.state(view), result['beam'][0]['path'][-1]), 4)
+                rows.append(row)
                 details.append({'mtconnect_class': mtc.name, 'view': view, 'beam': [
                     {'score': round(c['score'], 4), 'edges': c['edges'], 'path': [curie(p) for p in c['path']]}
                     for c in result['beam']]})
@@ -544,7 +582,8 @@ async def run(args: argparse.Namespace) -> None:
         details += [d for d in json.loads(json_path.read_text()) if (d['view'], d['mtconnect_class']) not in done]
     rows.sort(key=lambda r: (r['view'], r['package'], r['mtconnect_class']))
     with open(csv_path, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()) if rows else ['mtconnect_class'])
+        fields = list(dict.fromkeys(key for row in rows for key in row)) or ['mtconnect_class']
+        writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
     json_path.write_text(json.dumps(

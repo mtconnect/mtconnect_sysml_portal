@@ -20,38 +20,40 @@
 mtc-cnstr:Specification
     a owl:Class ;
     rdfs:label """specification""" ;
+    skos:altLabel """Specification""" ;
+    iof-av:directSource """MTConnect Specification""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """design characteristics for a piece of equipment.""" ;
+    iof-av:naturalLanguageDefinition """design characteristics for a piece of equipment.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:subType ;
+                      owl:onProperty mtc-cnstr:hasSubType ;
                       owl:someValuesFrom mtc-cnstr:DataItemSubTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:dataItemIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:units ;
-                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:compositionIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasDataItemIdRefValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:coordinateSystemIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasUnits ;
+                      owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasCompositionIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:originator ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystemIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasOriginator ;
                       owl:someValuesFrom mtc-cnstr:OriginatorEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasMaximum ;
@@ -79,139 +81,13 @@ mtc-cnstr:Specification
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:DataItemTypeEnum ;
-    skos:definition """same as {{property(DataItem::type)}}. See {{package(DataItem Types)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:subType
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:subType""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:DataItemSubTypeEnum ;
-    skos:definition """same as {{property(DataItem::subType)}}. See {{sect(DataItem)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:dataItemIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:dataItemIdRef""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range xsd:ID ;
-    skos:definition """reference to the {{property(DataItem::id)}} associated with this entity.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:units
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:units""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:UnitEnum ;
-    skos:definition """same as {{property(DataItem::units)}}. See {{sect(DataItem)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:compositionIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:compositionIdRef""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range xsd:ID ;
-    skos:definition """reference to the {{property(Composition::id)}} associated with this entity.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range xsd:string ;
-    skos:definition """{{property(Specification::name)}} provides additional meaning and differentiates between {{block(Specification)}} entities.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:coordinateSystemIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:coordinateSystemIdRef""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range xsd:ID ;
-    skos:definition """references the {{block(CoordinateSystem)}} for geometric {{block(Specification)}} elements.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for this {{block(Specification)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:originator
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:originator""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:OriginatorEnum ;
-    skos:definition """reference to the creator of the {{block(Specification)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasMaximum
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasMaximum""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:Maximum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasUpperLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasUpperLimit""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:UpperLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasLowerWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasLowerWarning""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:LowerWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasLowerLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasLowerLimit""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:LowerLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasUpperWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasUpperWarning""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:UpperWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasNominal
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasNominal""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:Nominal ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasMinimum
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasMinimum""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:Minimum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isSpecificationOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isSpecificationOf""" ;
-    rdfs:domain mtc-cnstr:Specification ;
-    rdfs:range mtc-cnstr:Configuration ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:ProcessSpecification
     a owl:Class ;
     rdfs:label """process specification""" ;
+    skos:altLabel """ProcessSpecification""" ;
+    iof-av:directSource """MTConnect Specification ProcessSpecification""" ;
     rdfs:subClassOf mtc-cnstr:Specification ;
-    skos:definition """specification that provides information used to assess the conformance of a variable to process requirements.""" ;
+    iof-av:naturalLanguageDefinition """specification that provides information used to assess the conformance of a variable to process requirements.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/ProcessParameterSpecification> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
@@ -227,221 +103,103 @@ mtc-cnstr:ProcessSpecification
                       owl:someValuesFrom mtc-cnstr:AlarmLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:hasSpecificationLimits
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasSpecificationLimits""" ;
-    rdfs:domain mtc-cnstr:ProcessSpecification ;
-    rdfs:range mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasControlLimits
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasControlLimits""" ;
-    rdfs:domain mtc-cnstr:ProcessSpecification ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:hasAlarmLimits
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasAlarmLimits""" ;
-    rdfs:domain mtc-cnstr:ProcessSpecification ;
-    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:ControlLimitsSpecifications
     a owl:Class ;
     rdfs:label """control limits""" ;
+    skos:altLabel """ControlLimits""" ;
+    iof-av:directSource """MTConnect ControlLimits""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """set of limits that is used to indicate whether a process variable is stable and in control.""" ;
+    iof-av:naturalLanguageDefinition """set of limits that is used to indicate whether a process variable is stable and in control.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/ControlLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:upperLimit ;
+                      owl:onProperty mtc-cnstr:hasUpperLimit ;
                       owl:someValuesFrom mtc-cnstr:UpperLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:upperWarning ;
+                      owl:onProperty mtc-cnstr:hasUpperWarning ;
                       owl:someValuesFrom mtc-cnstr:UpperWarning ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:lowerWarning ;
+                      owl:onProperty mtc-cnstr:hasLowerWarning ;
                       owl:someValuesFrom mtc-cnstr:LowerWarning ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:nominal ;
+                      owl:onProperty mtc-cnstr:hasNominal ;
                       owl:someValuesFrom mtc-cnstr:Nominal ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:lowerLimit ;
+                      owl:onProperty mtc-cnstr:hasLowerLimit ;
                       owl:someValuesFrom mtc-cnstr:LowerLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isControlLimitsOf ;
                       owl:someValuesFrom mtc-cnstr:ProcessSpecification ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:upperLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:upperLimit""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:UpperLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:upperWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:upperWarning""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:UpperWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:lowerWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:lowerWarning""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:LowerWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:nominal
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:nominal""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:Nominal ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:lowerLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:lowerLimit""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:LowerLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isControlLimitsOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isControlLimitsOf""" ;
-    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:range mtc-cnstr:ProcessSpecification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:AlarmLimitsSpecifications
     a owl:Class ;
     rdfs:label """alarm limits""" ;
+    skos:altLabel """AlarmLimits""" ;
+    iof-av:directSource """MTConnect AlarmLimits""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """set of limits that is used to trigger warning or alarm indicators.""" ;
+    iof-av:naturalLanguageDefinition """set of limits that is used to trigger warning or alarm indicators.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/AlertLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:upperLimit ;
+                      owl:onProperty mtc-cnstr:hasUpperLimit ;
                       owl:someValuesFrom mtc-cnstr:UpperLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:upperWarning ;
+                      owl:onProperty mtc-cnstr:hasUpperWarning ;
                       owl:someValuesFrom mtc-cnstr:UpperWarning ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:lowerLimit ;
+                      owl:onProperty mtc-cnstr:hasLowerLimit ;
                       owl:someValuesFrom mtc-cnstr:LowerLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:lowerWarning ;
+                      owl:onProperty mtc-cnstr:hasLowerWarning ;
                       owl:someValuesFrom mtc-cnstr:LowerWarning ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isAlarmLimitsOf ;
                       owl:someValuesFrom mtc-cnstr:ProcessSpecification ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:upperLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:upperLimit""" ;
-    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:range mtc-cnstr:UpperLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:upperWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:upperWarning""" ;
-    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:range mtc-cnstr:UpperWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:lowerLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:lowerLimit""" ;
-    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:range mtc-cnstr:LowerLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:lowerWarning
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:lowerWarning""" ;
-    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:range mtc-cnstr:LowerWarning ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isAlarmLimitsOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isAlarmLimitsOf""" ;
-    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:range mtc-cnstr:ProcessSpecification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:SpecificationLimitsSpecifications
     a owl:Class ;
     rdfs:label """specification limits""" ;
+    skos:altLabel """SpecificationLimits""" ;
+    iof-av:directSource """MTConnect SpecificationLimits""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """set of limits that define a range of values designating acceptable performance for a variable.""" ;
+    iof-av:naturalLanguageDefinition """set of limits that define a range of values designating acceptable performance for a variable.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/AcceptanceCriteria> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:upperLimit ;
+                      owl:onProperty mtc-cnstr:hasUpperLimit ;
                       owl:someValuesFrom mtc-cnstr:UpperLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:nominal ;
+                      owl:onProperty mtc-cnstr:hasNominal ;
                       owl:someValuesFrom mtc-cnstr:Nominal ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:lowerLimit ;
+                      owl:onProperty mtc-cnstr:hasLowerLimit ;
                       owl:someValuesFrom mtc-cnstr:LowerLimit ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isSpecificationLimitsOf ;
                       owl:someValuesFrom mtc-cnstr:ProcessSpecification ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:upperLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:upperLimit""" ;
-    rdfs:domain mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:range mtc-cnstr:UpperLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:nominal
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:nominal""" ;
-    rdfs:domain mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:range mtc-cnstr:Nominal ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:lowerLimit
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:lowerLimit""" ;
-    rdfs:domain mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:range mtc-cnstr:LowerLimit ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isSpecificationLimitsOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isSpecificationLimitsOf""" ;
-    rdfs:domain mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:range mtc-cnstr:ProcessSpecification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:UpperWarning
     a owl:Class ;
     rdfs:label """upper warning""" ;
+    skos:altLabel """UpperWarning""" ;
+    iof-av:directSource """MTConnect UpperWarning""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """upper boundary indicating increased concern and supervision may be required.""" ;
+    iof-av:naturalLanguageDefinition """upper boundary indicating increased concern and supervision may be required.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/AlertLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isUpperWarningOf ;
@@ -454,45 +212,19 @@ mtc-cnstr:UpperWarning
                       owl:someValuesFrom mtc-cnstr:AlarmLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:UpperWarning ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperWarningOf""" ;
-    rdfs:domain mtc-cnstr:UpperWarning ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperWarningOf""" ;
-    rdfs:domain mtc-cnstr:UpperWarning ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperWarningOf""" ;
-    rdfs:domain mtc-cnstr:UpperWarning ;
-    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:UpperLimit
     a owl:Class ;
     rdfs:label """upper limit""" ;
+    skos:altLabel """UpperLimit""" ;
+    iof-av:directSource """MTConnect UpperLimit""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.""" ;
+    iof-av:naturalLanguageDefinition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/ActionLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isUpperLimitOf ;
@@ -508,83 +240,38 @@ mtc-cnstr:UpperLimit
                       owl:someValuesFrom mtc-cnstr:SpecificationLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:UpperLimit ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperLimitOf""" ;
-    rdfs:domain mtc-cnstr:UpperLimit ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperLimitOf""" ;
-    rdfs:domain mtc-cnstr:UpperLimit ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperLimitOf""" ;
-    rdfs:domain mtc-cnstr:UpperLimit ;
-    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isUpperLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isUpperLimitOf""" ;
-    rdfs:domain mtc-cnstr:UpperLimit ;
-    rdfs:range mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:Maximum
     a owl:Class ;
     rdfs:label """maximum""" ;
+    skos:altLabel """Maximum""" ;
+    iof-av:directSource """MTConnect Maximum""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """numeric upper constraint.""" ;
+    iof-av:naturalLanguageDefinition """numeric upper constraint.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/LimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isMaximumOf ;
                       owl:someValuesFrom mtc-cnstr:Specification ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:Maximum ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isMaximumOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isMaximumOf""" ;
-    rdfs:domain mtc-cnstr:Maximum ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:LowerLimit
     a owl:Class ;
     rdfs:label """lower limit""" ;
+    skos:altLabel """LowerLimit""" ;
+    iof-av:directSource """MTConnect LowerLimit""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.""" ;
+    iof-av:naturalLanguageDefinition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/ActionLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isLowerLimitOf ;
@@ -600,52 +287,19 @@ mtc-cnstr:LowerLimit
                       owl:someValuesFrom mtc-cnstr:SpecificationLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:LowerLimit ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerLimitOf""" ;
-    rdfs:domain mtc-cnstr:LowerLimit ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerLimitOf""" ;
-    rdfs:domain mtc-cnstr:LowerLimit ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerLimitOf""" ;
-    rdfs:domain mtc-cnstr:LowerLimit ;
-    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerLimitOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerLimitOf""" ;
-    rdfs:domain mtc-cnstr:LowerLimit ;
-    rdfs:range mtc-cnstr:SpecificationLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:LowerWarning
     a owl:Class ;
     rdfs:label """lower warning""" ;
+    skos:altLabel """LowerWarning""" ;
+    iof-av:directSource """MTConnect LowerWarning""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """lower boundary indicating increased concern and supervision may be required.""" ;
+    iof-av:naturalLanguageDefinition """lower boundary indicating increased concern and supervision may be required.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/AlertLimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isLowerWarningOf ;
@@ -658,76 +312,38 @@ mtc-cnstr:LowerWarning
                       owl:someValuesFrom mtc-cnstr:AlarmLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:LowerWarning ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerWarningOf""" ;
-    rdfs:domain mtc-cnstr:LowerWarning ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerWarningOf""" ;
-    rdfs:domain mtc-cnstr:LowerWarning ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isLowerWarningOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isLowerWarningOf""" ;
-    rdfs:domain mtc-cnstr:LowerWarning ;
-    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:Minimum
     a owl:Class ;
     rdfs:label """minimum""" ;
+    skos:altLabel """Minimum""" ;
+    iof-av:directSource """MTConnect Minimum""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """numeric lower constraint.""" ;
+    iof-av:naturalLanguageDefinition """numeric lower constraint.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/LimitValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isMinimumOf ;
                       owl:someValuesFrom mtc-cnstr:Specification ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:Minimum ;
-    rdfs:range xsd:float ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
-mtc-cnstr:isMinimumOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isMinimumOf""" ;
-    rdfs:domain mtc-cnstr:Minimum ;
-    rdfs:range mtc-cnstr:Specification ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
-
 mtc-cnstr:Nominal
     a owl:Class ;
     rdfs:label """nominal""" ;
+    skos:altLabel """Nominal""" ;
+    iof-av:directSource """MTConnect Nominal""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """numeric target or expected value.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/TargetValueExpression> ;
+    iof-av:naturalLanguageDefinition """numeric target or expected value.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/SetpointValueExpression> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isNominalOf ;
@@ -740,31 +356,174 @@ mtc-cnstr:Nominal
                       owl:someValuesFrom mtc-cnstr:SpecificationLimitsSpecifications ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:Nominal ;
-    rdfs:range xsd:float ;
+mtc-cnstr:hasAlarmLimits
+    a owl:ObjectProperty ;
+    rdfs:label """has alarm limits""" ;
+    rdfs:domain mtc-cnstr:ProcessSpecification ;
+    rdfs:range mtc-cnstr:AlarmLimitsSpecifications ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:isNominalOf
+mtc-cnstr:hasCompositionIdRefValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has composition id ref value""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """reference to the {{property(Composition::id)}} associated with this entity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasControlLimits
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isNominalOf""" ;
-    rdfs:domain mtc-cnstr:Nominal ;
+    rdfs:label """has control limits""" ;
+    rdfs:domain mtc-cnstr:ProcessSpecification ;
+    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasDataItemIdRefValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has data item id ref value""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """reference to the {{property(DataItem::id)}} associated with this entity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasLowerLimit
+    a owl:ObjectProperty ;
+    rdfs:label """has lower limit""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range mtc-cnstr:LowerLimit ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasLowerWarning
+    a owl:ObjectProperty ;
+    rdfs:label """has lower warning""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range mtc-cnstr:LowerWarning ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasMaximum
+    a owl:ObjectProperty ;
+    rdfs:label """has maximum""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range mtc-cnstr:Maximum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasMinimum
+    a owl:ObjectProperty ;
+    rdfs:label """has minimum""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range mtc-cnstr:Minimum ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasNominal
+    a owl:ObjectProperty ;
+    rdfs:label """has nominal""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range mtc-cnstr:Nominal ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasOriginator
+    a owl:ObjectProperty ;
+    rdfs:label """has originator""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range mtc-cnstr:OriginatorEnum ;
+    iof-av:naturalLanguageDefinition """reference to the creator of the {{block(Specification)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasSpecificationLimits
+    a owl:ObjectProperty ;
+    rdfs:label """has specification limits""" ;
+    rdfs:domain mtc-cnstr:ProcessSpecification ;
+    rdfs:range mtc-cnstr:SpecificationLimitsSpecifications ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasUpperLimit
+    a owl:ObjectProperty ;
+    rdfs:label """has upper limit""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range mtc-cnstr:UpperLimit ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:hasUpperWarning
+    a owl:ObjectProperty ;
+    rdfs:label """has upper warning""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range mtc-cnstr:UpperWarning ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isAlarmLimitsOf
+    a owl:ObjectProperty ;
+    rdfs:label """is alarm limits of""" ;
+    rdfs:domain mtc-cnstr:AlarmLimitsSpecifications ;
+    rdfs:range mtc-cnstr:ProcessSpecification ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isControlLimitsOf
+    a owl:ObjectProperty ;
+    rdfs:label """is control limits of""" ;
+    rdfs:domain mtc-cnstr:ControlLimitsSpecifications ;
+    rdfs:range mtc-cnstr:ProcessSpecification ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isLowerLimitOf
+    a owl:ObjectProperty ;
+    rdfs:label """is lower limit of""" ;
+    rdfs:domain mtc-cnstr:LowerLimit ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isLowerWarningOf
+    a owl:ObjectProperty ;
+    rdfs:label """is lower warning of""" ;
+    rdfs:domain mtc-cnstr:LowerWarning ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isMaximumOf
+    a owl:ObjectProperty ;
+    rdfs:label """is maximum of""" ;
+    rdfs:domain mtc-cnstr:Maximum ;
+    rdfs:range mtc-cnstr:Specification ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isMinimumOf
+    a owl:ObjectProperty ;
+    rdfs:label """is minimum of""" ;
+    rdfs:domain mtc-cnstr:Minimum ;
     rdfs:range mtc-cnstr:Specification ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
 mtc-cnstr:isNominalOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isNominalOf""" ;
+    rdfs:label """is nominal of""" ;
     rdfs:domain mtc-cnstr:Nominal ;
-    rdfs:range mtc-cnstr:ControlLimitsSpecifications ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 
-mtc-cnstr:isNominalOf
+mtc-cnstr:isSpecificationLimitsOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isNominalOf""" ;
-    rdfs:domain mtc-cnstr:Nominal ;
-    rdfs:range mtc-cnstr:SpecificationLimitsSpecifications ;
+    rdfs:label """is specification limits of""" ;
+    rdfs:domain mtc-cnstr:SpecificationLimitsSpecifications ;
+    rdfs:range mtc-cnstr:ProcessSpecification ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isSpecificationOf
+    a owl:ObjectProperty ;
+    rdfs:label """is specification of""" ;
+    rdfs:domain mtc-cnstr:Specification ;
+    rdfs:range mtc-cnstr:Configuration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isUpperLimitOf
+    a owl:ObjectProperty ;
+    rdfs:label """is upper limit of""" ;
+    rdfs:domain mtc-cnstr:UpperLimit ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
+
+mtc-cnstr:isUpperWarningOf
+    a owl:ObjectProperty ;
+    rdfs:label """is upper warning of""" ;
+    rdfs:domain mtc-cnstr:UpperWarning ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Specifications/> .
 

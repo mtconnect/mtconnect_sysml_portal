@@ -42,9 +42,13 @@ class OwlModel < Model
     @iri = "<#{$mtc_base_iri}#{@domain}/>"
   end
 
+  def generated?
+    not (@name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
+         root.name == 'Glossary')
+  end
+
   def generate_ontology
-    return nil if @name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
-      root.name == 'Glossary'
+    return nil unless generated?
 
     output_file = File.join(@@output_dir, "#{@domain}.ttl")
     $logger.info "Generating OWL Turtle ontology for model #{@name} to #{output_file}"
@@ -56,10 +60,23 @@ class OwlModel < Model
       @types.each do |type| 
         type.write_turtle(f) 
       end
+
+      OwlType.property_declarations_for(self).each { |d| write_property_declaration(f, d) }
     end
 
     $logger.info "Written #{output_file}"
     @domain
+  end
+
+  def write_property_declaration(f, d)
+    f.puts d[:name]
+    f.puts "    a #{d[:object] ? 'owl:ObjectProperty' : 'owl:DatatypeProperty'} ;"
+    f.puts "    rdfs:label #{turtle_string(label(d[:name].delete_prefix('mtc-cnstr:')))} ;"
+    f.puts "    rdfs:domain #{d[:domain]} ;" if d[:domain]
+    f.puts "    rdfs:range #{d[:range]} ;" if d[:range]
+    f.puts "    iof-av:naturalLanguageDefinition #{turtle_string(d[:documentation])} ;" if d[:documentation]
+    f.puts "    rdfs:isDefinedBy #{@iri} ."
+    f.puts
   end
 
   def owl_classes

@@ -20,29 +20,31 @@
 mtc-cnstr:Component
     a owl:Class ;
     rdfs:label """component""" ;
+    skos:altLabel """Component""" ;
+    iof-av:directSource """MTConnect Component""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
-    skos:definition """logical or physical entity that provides a capability.""" ;
+    iof-av:naturalLanguageDefinition """logical or physical entity that provides a capability.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000004> ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:nativeName ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:sampleInterval ;
+                      owl:onProperty mtc-cnstr:hasNativeNameValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasSampleIntervalValue ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:sampleRate ;
+                      owl:onProperty mtc-cnstr:hasSampleRateValue ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:uuid ;
-                      owl:someValuesFrom xsd:UUID ] ;
+                      owl:onProperty mtc-cnstr:hasUuidValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasDescription ;
                       owl:someValuesFrom mtc-cnstr:Description ] ;
@@ -68,140 +70,51 @@ mtc-cnstr:Component
                       owl:onProperty mtc-cnstr:hasReference ;
                       owl:someValuesFrom mtc-cnstr:Reference ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:coordinateSystemIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystemIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasComponentStream ;
                       owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for the {{block(Component)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:string ;
-    skos:definition """name of the {{block(Component)}}.\n\nWhen provided, {{property(Component::name)}} **MUST** be unique for all child {{block(Component)}} entities of a parent {{block(Component)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:nativeName
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:nativeName""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:string ;
-    skos:definition """common name associated with {{block(Component)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:sampleInterval
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:sampleInterval""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:float ;
-    skos:definition """interval in milliseconds between the completion of the reading of the data associated with the {{block(Component)}} until the beginning of the next sampling of that data.\n\nThis information may be used by client software applications to understand how often information from a {{block(Component)}} is expected to be refreshed.\n\nThe refresh rate for data from all child {{block(Component)}} entities will be the\nsame as for the parent {{block(Component)}} element unless specifically overridden by another {{property(Component::sampleInterval)}} provided for the child {{block(Component)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:sampleRate
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:sampleRate""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:float ;
-    skos:definition """**DEPRECATED** in *MTConnect Version 1.2*. Replaced by {{property(Component::sampleInterval)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:uuid
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:uuid""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:UUID ;
-    skos:definition """universally unique identifier for the {{block(Component)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:hasDescription
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasDescription""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:Description ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:hasComposition
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasComposition""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:Composition ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:hasConfiguration
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasConfiguration""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:Configuration ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:observes
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:observes""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:DataItem ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:madeObservation
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:madeObservation""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:Observation ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:hasReference
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasReference""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:Reference ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:coordinateSystemIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:coordinateSystemIdRef""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range xsd:ID ;
-    skos:definition """specifies the {{block(CoordinateSystem)}} for this {{block(Component)}} and its children.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:hasComponentStream
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasComponentStream""" ;
-    rdfs:domain mtc-cnstr:Component ;
-    rdfs:range mtc-cnstr:ComponentStream ;
+mtc-cnstr:ComponentEntity
+    a owl:Class ;
+    rdfs:label """component entity""" ;
+    iof-av:directSource """MTConnect Component""" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> ;
+    iof-av:naturalLanguageDefinition """logical or physical entity that provides a capability.""" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000178 ;
+                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty bfo:BFO_0000176 ;
+                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
 mtc-cnstr:Description
     a owl:Class ;
     rdfs:label """description""" ;
+    skos:altLabel """Description""" ;
+    iof-av:directSource """MTConnect Description""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ;
-    skos:definition """descriptive content.""" ;
+    iof-av:naturalLanguageDefinition """descriptive content.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/DescriptiveInformationContentEntity> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:manufacturer ;
+                      owl:onProperty mtc-cnstr:hasManufacturerValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:model ;
+                      owl:onProperty mtc-cnstr:hasModelValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:serialNumber ;
+                      owl:onProperty mtc-cnstr:hasSerialNumberValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:station ;
+                      owl:onProperty mtc-cnstr:hasStationValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isDescriptionOf ;
@@ -211,57 +124,139 @@ mtc-cnstr:Description
                       owl:someValuesFrom mtc-cnstr:Composition ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
-mtc-cnstr:manufacturer
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:manufacturer""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range xsd:string ;
-    skos:definition """name of the manufacturer of the physical or logical part of a piece of equipment represented by this element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:model
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:model""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range xsd:string ;
-    skos:definition """model description of the physical part or logical function of a piece of equipment represented by this element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:serialNumber
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:serialNumber""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range xsd:string ;
-    skos:definition """serial number associated with a piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:station
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:station""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range xsd:string ;
-    skos:definition """identifier where a manufacturing function takes place.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range xsd:string ;
-    skos:definition """description of the element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
-
-mtc-cnstr:isDescriptionOf
+mtc-cnstr:hasComponentStream
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isDescriptionOf""" ;
-    rdfs:domain mtc-cnstr:Description ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:label """has component stream""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range mtc-cnstr:ComponentStream ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
-mtc-cnstr:isDescriptionOf
+mtc-cnstr:hasComposition
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isDescriptionOf""" ;
-    rdfs:domain mtc-cnstr:Description ;
+    rdfs:label """has composition""" ;
+    rdfs:domain mtc-cnstr:Component ;
     rdfs:range mtc-cnstr:Composition ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasConfiguration
+    a owl:ObjectProperty ;
+    rdfs:label """has configuration""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range mtc-cnstr:Configuration ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasCoordinateSystemIdRefValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has coordinate system id ref value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """specifies the {{block(CoordinateSystem)}} for this {{block(Component)}} and its children.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasDescription
+    a owl:ObjectProperty ;
+    rdfs:label """has description""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range mtc-cnstr:Description ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasIdValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has id value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """unique identifier for the {{block(Component)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasManufacturerValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has manufacturer value""" ;
+    rdfs:domain mtc-cnstr:Description ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """name of the manufacturer of the physical or logical part of a piece of equipment represented by this element.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasModelValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has model value""" ;
+    rdfs:domain mtc-cnstr:Description ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """model description of the physical part or logical function of a piece of equipment represented by this element.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasNativeNameValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has native name value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """common name of the {{block(Component)}} associated with the {{block(ComponentStream)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasReference
+    a owl:ObjectProperty ;
+    rdfs:label """has reference""" ;
+    rdfs:domain mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:Reference ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasSampleIntervalValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has sample interval value""" ;
+    rdfs:domain mtc-cnstr:Component ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """interval in milliseconds between the completion of the reading of the data associated with the {{block(Component)}} until the beginning of the next sampling of that data.\n\nThis information may be used by client software applications to understand how often information from a {{block(Component)}} is expected to be refreshed.\n\nThe refresh rate for data from all child {{block(Component)}} entities will be the\nsame as for the parent {{block(Component)}} element unless specifically overridden by another {{property(Component::sampleInterval)}} provided for the child {{block(Component)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasSampleRateValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has sample rate value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """rate at which successive samples of the value are recorded.\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasSerialNumberValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has serial number value""" ;
+    rdfs:domain mtc-cnstr:Description ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """serial number associated with a piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasStationValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has station value""" ;
+    rdfs:domain mtc-cnstr:Description ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """identifier where a manufacturing function takes place.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:hasUuidValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has uuid value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """uuid of the {{block(Device)}}.  The value reported for {{property(DeviceStream::uuid)}} **MUST** be the same as the value defined for the {{property(Device::uuid)}} of the same {{block(Device)}} in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:isDescriptionOf
+    a owl:ObjectProperty ;
+    rdfs:label """is description of""" ;
+    rdfs:domain mtc-cnstr:Description ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:madeObservation
+    a owl:ObjectProperty ;
+    rdfs:label """made observation""" ;
+    rdfs:domain mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:Observation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
+
+mtc-cnstr:observes
+    a owl:ObjectProperty ;
+    rdfs:label """observes""" ;
+    rdfs:domain mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:DataItem ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 

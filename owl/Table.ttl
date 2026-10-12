@@ -20,125 +20,78 @@
 mtc-cnstr:TableRepresentation
     a owl:Class ;
     rdfs:label """table""" ;
+    skos:altLabel """Table""" ;
+    iof-av:directSource """MTConnect Representation Table""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
-    skos:definition """representation for an observation composed of two-dimensional sets of key-value pairs where the entry represents rows containing sets of key-value pairs given by cell entities. \n""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000306> ;
+    iof-av:naturalLanguageDefinition """representation for an observation composed of two-dimensional sets of key-value pairs where the entry represents rows containing sets of key-value pairs given by cell entities. \n""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResult ;
                       owl:someValuesFrom mtc-cnstr:EntryTable ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:count ;
+                      owl:onProperty mtc-cnstr:hasCountValue ;
                       owl:someValuesFrom xsd:integer ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:result
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:TableRepresentation ;
-    rdfs:range mtc-cnstr:EntryTable ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:count
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:count""" ;
-    rdfs:domain mtc-cnstr:TableRepresentation ;
-    rdfs:range xsd:integer ;
-    skos:definition """number of {{termplural(key-value pair)}} represented as {{block(Entry)}} entities.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
 
 mtc-cnstr:EntryTable
     a owl:Class ;
     rdfs:label """entry""" ;
+    skos:altLabel """Entry""" ;
+    iof-av:directSource """MTConnect Entry""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001933> ;
-    skos:definition """key-value pair published as part of a table.\n\n""" ;
+    iof-av:naturalLanguageDefinition """key-value pair published as part of a table.\n\n""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/Constituent> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:key ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasKeyValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:removed ;
+                      owl:onProperty mtc-cnstr:hasRemovedValue ;
                       owl:someValuesFrom xsd:boolean ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResult ;
                       owl:someValuesFrom mtc-cnstr:Cell ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isEntryOf ;
                       owl:someValuesFrom mtc-cnstr:TableRepresentation ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
 
-mtc-cnstr:key
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:key""" ;
-    rdfs:domain mtc-cnstr:EntryTable ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for each {{term(key-value pair)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:removed
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:removed""" ;
-    rdfs:domain mtc-cnstr:EntryTable ;
-    rdfs:range xsd:boolean ;
-    skos:definition """removal indicator of a {{term(key-value pair)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:result
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:EntryTable ;
-    rdfs:range mtc-cnstr:Cell ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:isEntryOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isEntryOf""" ;
-    rdfs:domain mtc-cnstr:EntryTable ;
-    rdfs:range mtc-cnstr:TableRepresentation ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
 mtc-cnstr:Cell
     a owl:Class ;
     rdfs:label """cell""" ;
+    skos:altLabel """Cell""" ;
+    iof-av:directSource """MTConnect Cell""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001933> ;
-    skos:definition """key-value pair published as part of a TableEntry.""" ;
+    iof-av:naturalLanguageDefinition """key-value pair published as part of a TableEntry.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:key ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasKeyValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResultValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isCellOf ;
                       owl:someValuesFrom mtc-cnstr:EntryTable ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
 
-mtc-cnstr:key
+mtc-cnstr:hasKeyValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:key""" ;
-    rdfs:domain mtc-cnstr:Cell ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for each {{term(key-value pair)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
-
-mtc-cnstr:result
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:Cell ;
+    rdfs:label """has key value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:range xsd:string ;
-    skos:definition """value of the {{block(Cell)}}.""" ;
+    iof-av:naturalLanguageDefinition """unique identifier for each {{term(key-value pair)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
 
 mtc-cnstr:isCellOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isCellOf""" ;
+    rdfs:label """is cell of""" ;
     rdfs:domain mtc-cnstr:Cell ;
     rdfs:range mtc-cnstr:EntryTable ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .

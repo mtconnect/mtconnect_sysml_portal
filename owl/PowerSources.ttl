@@ -20,75 +20,53 @@
 mtc-cnstr:PowerSource
     a owl:Class ;
     rdfs:label """power source""" ;
+    skos:altLabel """PowerSource""" ;
+    iof-av:directSource """MTConnect PowerSource""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """potential energy sources for the component.""" ;
+    iof-av:naturalLanguageDefinition """potential energy sources for the component.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/MaterialArtifact> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:PowerSourceTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:componentIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasComponentIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:order ;
+                      owl:onProperty mtc-cnstr:hasOrderValue ;
                       owl:someValuesFrom xsd:integer ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isPowerSourceOf ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
 
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:PowerSource ;
-    rdfs:range mtc-cnstr:PowerSourceTypeEnum ;
-    skos:definition """type of the power source.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
-
-mtc-cnstr:id
+mtc-cnstr:hasComponentIdRefValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:PowerSource ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for the power source.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
-
-mtc-cnstr:componentIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:componentIdRef""" ;
-    rdfs:domain mtc-cnstr:PowerSource ;
-    rdfs:range xsd:ID ;
-    skos:definition """reference to the {{block(Component)}} providing observations about the power source.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
-
-mtc-cnstr:order
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:order""" ;
-    rdfs:domain mtc-cnstr:PowerSource ;
-    rdfs:range xsd:integer ;
-    skos:definition """optional precedence for a given power source.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
-
-mtc-cnstr:value
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
+    rdfs:label """has component id ref value""" ;
     rdfs:domain mtc-cnstr:PowerSource ;
     rdfs:range xsd:string ;
-    skos:definition """name of the power source.""" ;
+    iof-av:naturalLanguageDefinition """reference to the {{block(Component)}} providing observations about the power source.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
+
+mtc-cnstr:hasOrderValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has order value""" ;
+    rdfs:domain mtc-cnstr:PowerSource ;
+    rdfs:range xsd:integer ;
+    iof-av:naturalLanguageDefinition """optional precedence for a given power source.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .
 
 mtc-cnstr:isPowerSourceOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isPowerSourceOf""" ;
+    rdfs:label """is power source of""" ;
     rdfs:domain mtc-cnstr:PowerSource ;
     rdfs:range mtc-cnstr:Configuration ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PowerSources/> .

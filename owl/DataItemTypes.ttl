@@ -20,103 +20,68 @@
 mtc-cnstr:EventDataItem
     a owl:Class ;
     rdfs:label """event""" ;
+    skos:altLabel """Event""" ;
+    iof-av:directSource """MTConnect DataItem Event""" ;
     rdfs:subClassOf mtc-cnstr:DataItemType ;
-    skos:definition """abstract data item that is a discrete piece of information from a piece of equipment. It does not have intermediate values that vary over time.\n""" ;
+    iof-av:naturalLanguageDefinition """abstract data item that is a discrete piece of information from a piece of equipment. It does not have intermediate values that vary over time.\n""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:category ;
+                      owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:EventEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:category
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:category""" ;
-    rdfs:domain mtc-cnstr:EventDataItem ;
-    rdfs:range mtc-cnstr:CategoryEnum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:EventDataItem ;
-    rdfs:range mtc-cnstr:EventEnum ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
 
 mtc-cnstr:SampleDataItem
     a owl:Class ;
     rdfs:label """sample""" ;
+    skos:altLabel """Sample""" ;
+    iof-av:directSource """MTConnect DataItem Sample""" ;
     rdfs:subClassOf mtc-cnstr:DataItemType ;
-    skos:definition """abstract data item that is continuously changing or analog data value.\n""" ;
+    iof-av:naturalLanguageDefinition """abstract data item that is continuously changing or analog data value.\n""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:category ;
+                      owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:SampleEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:units ;
+                      owl:onProperty mtc-cnstr:hasUnits ;
                       owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:category
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:category""" ;
-    rdfs:domain mtc-cnstr:SampleDataItem ;
-    rdfs:range mtc-cnstr:CategoryEnum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:SampleDataItem ;
-    rdfs:range mtc-cnstr:SampleEnum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:units
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:units""" ;
-    rdfs:domain mtc-cnstr:SampleDataItem ;
-    rdfs:range mtc-cnstr:UnitEnum ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
 
 mtc-cnstr:ConditionDataItem
     a owl:Class ;
     rdfs:label """condition""" ;
+    skos:altLabel """Condition""" ;
+    iof-av:directSource """MTConnect DataItem Condition""" ;
     rdfs:subClassOf mtc-cnstr:DataItemType ;
-    skos:definition """abstract data item that is about an entity's status regarding its ability to operate or it provides an indication whether the data reported for the entity is within an expected range.""" ;
+    iof-av:naturalLanguageDefinition """abstract data item that is about an entity's status regarding its ability to operate or it provides an indication whether the data reported for the entity is within an expected range.""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000016> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:category ;
+                      owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
 
-mtc-cnstr:category
+mtc-cnstr:hasCategory
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:category""" ;
-    rdfs:domain mtc-cnstr:ConditionDataItem ;
+    rdfs:label """has category""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:range mtc-cnstr:CategoryEnum ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:ConditionDataItem ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """specifies the kind of information provided by a data item.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItemTypes/> .
 

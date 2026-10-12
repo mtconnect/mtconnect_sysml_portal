@@ -1,0 +1,7 @@
+{
+  "realist": {
+    "AxisComponent": {"name": "MotionSystem", "label": "motion system"},
+    "Linear": {"name": "LinearMotionSystem", "label": "linear motion system"},
+    "Rotary": {"name": "RotaryMotionSystem", "label": "rotary motion system"}
+  }
+}

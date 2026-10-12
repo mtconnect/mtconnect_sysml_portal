@@ -20,26 +20,28 @@
 mtc-cnstr:Motion
     a owl:Class ;
     rdfs:label """motion""" ;
+    skos:altLabel """Motion""" ;
+    iof-av:directSource """MTConnect Motion""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """movement of the component relative to a coordinate system. """ ;
+    iof-av:naturalLanguageDefinition """movement of the component relative to a coordinate system. """ ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Change> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:actuation ;
+                      owl:onProperty mtc-cnstr:hasActuation ;
                       owl:someValuesFrom mtc-cnstr:MotionActuationTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:coordinateSystemIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystemIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:parentIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasParentIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:MotionTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasAxis ;
@@ -51,95 +53,21 @@ mtc-cnstr:Motion
                       owl:onProperty mtc-cnstr:hasTransformation ;
                       owl:someValuesFrom mtc-cnstr:Transformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:Description ;
+                      owl:onProperty mtc-cnstr:hasDescriptionValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isMotionOf ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
 
-mtc-cnstr:actuation
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:actuation""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:MotionActuationTypeEnum ;
-    skos:definition """describes if this component is actuated directly or indirectly as a result of other motion.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:coordinateSystemIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:coordinateSystemIdRef""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range xsd:ID ;
-    skos:definition """coordinate system within which the kinematic motion occurs.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for this element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:parentIdRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:parentIdRef""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range xsd:ID ;
-    skos:definition """pointer to the {{property(Motion::id)}}.\n\nThe kinematic chain connects all components using the parent relations. All motion is connected to the motion of the parent. The first node in the chain will not have a parent.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:MotionTypeEnum ;
-    skos:definition """type of motion.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:hasAxis
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasAxis""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:AbstractAxis ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:hasOrigin
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasOrigin""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:AbstractOrigin ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:hasTransformation
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasTransformation""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:Transformation ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:Description
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:Description""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range xsd:string ;
-    skos:definition """textual description for {{block(Motion)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:isMotionOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isMotionOf""" ;
-    rdfs:domain mtc-cnstr:Motion ;
-    rdfs:range mtc-cnstr:Configuration ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
 mtc-cnstr:AbstractAxis
     a owl:Class ;
     rdfs:label """abstract axis""" ;
+    skos:altLabel """AbstractAxis""" ;
+    iof-av:directSource """MTConnect AbstractAxis""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """axis along or around which the component moves relative to a coordinate system.""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
+    iof-av:naturalLanguageDefinition """axis along or around which the component moves relative to a coordinate system.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000142> ] ;
@@ -148,72 +76,76 @@ mtc-cnstr:AbstractAxis
                       owl:someValuesFrom mtc-cnstr:Motion ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
 
-mtc-cnstr:isAxisOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isAxisOf""" ;
-    rdfs:domain mtc-cnstr:AbstractAxis ;
-    rdfs:range mtc-cnstr:Motion ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
 mtc-cnstr:AxisDataSet
     a owl:Class ;
     rdfs:label """axis data set""" ;
+    skos:altLabel """AxisDataSet""" ;
+    iof-av:directSource """MTConnect Representation AxisDataSet""" ;
     rdfs:subClassOf mtc-cnstr:DataSet ;
     rdfs:subClassOf mtc-cnstr:AbstractAxis ;
-    skos:definition """axis along or around which the component moves relative to a coordinate system represented as a dataset.""" ;
+    iof-av:naturalLanguageDefinition """axis along or around which the component moves relative to a coordinate system represented as a dataset.""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000142> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:X ;
+                      owl:onProperty mtc-cnstr:hasXValue ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:Y ;
+                      owl:onProperty mtc-cnstr:hasYValue ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:Z ;
+                      owl:onProperty mtc-cnstr:hasZValue ;
                       owl:someValuesFrom xsd:float ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:X
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:X""" ;
-    rdfs:domain mtc-cnstr:AxisDataSet ;
-    rdfs:range xsd:float ;
-    skos:definition """x-component of {{block(Axis)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:Y
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:Y""" ;
-    rdfs:domain mtc-cnstr:AxisDataSet ;
-    rdfs:range xsd:float ;
-    skos:definition """y-component of {{block(Axis)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
-
-mtc-cnstr:Z
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:Z""" ;
-    rdfs:domain mtc-cnstr:AxisDataSet ;
-    rdfs:range xsd:float ;
-    skos:definition """z-component of {{block(Axis)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
 
 mtc-cnstr:AxisAbstractAxis
     a owl:Class ;
     rdfs:label """axis""" ;
+    skos:altLabel """Axis""" ;
+    iof-av:directSource """MTConnect AbstractAxis Axis""" ;
     rdfs:subClassOf mtc-cnstr:AbstractAxis ;
-    skos:definition """axis along or around which the component moves relative to a coordinate system.""" ;
+    iof-av:naturalLanguageDefinition """axis along or around which the component moves relative to a coordinate system.""" ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:value ;
-                      owl:someValuesFrom xsd:float3d ] ;
+                      owl:onProperty mtc-cnstr:hasValueLiteral ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
 
-mtc-cnstr:value
+mtc-cnstr:hasActuation
+    a owl:ObjectProperty ;
+    rdfs:label """has actuation""" ;
+    rdfs:domain mtc-cnstr:Motion ;
+    rdfs:range mtc-cnstr:MotionActuationTypeEnum ;
+    iof-av:naturalLanguageDefinition """describes if this component is actuated directly or indirectly as a result of other motion.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
+
+mtc-cnstr:hasAxis
+    a owl:ObjectProperty ;
+    rdfs:label """has axis""" ;
+    rdfs:domain mtc-cnstr:Motion ;
+    rdfs:range mtc-cnstr:AbstractAxis ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
+
+mtc-cnstr:hasValueLiteral
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:value""" ;
-    rdfs:domain mtc-cnstr:AxisAbstractAxis ;
-    rdfs:range xsd:float3d ;
+    rdfs:label """has value literal""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range rdfs:Literal ;
+    iof-av:naturalLanguageDefinition """current interval value of the activity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
+
+mtc-cnstr:isAxisOf
+    a owl:ObjectProperty ;
+    rdfs:label """is axis of""" ;
+    rdfs:domain mtc-cnstr:AbstractAxis ;
+    rdfs:range mtc-cnstr:Motion ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
+
+mtc-cnstr:isMotionOf
+    a owl:ObjectProperty ;
+    rdfs:label """is motion of""" ;
+    rdfs:domain mtc-cnstr:Motion ;
+    rdfs:range mtc-cnstr:Configuration ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Motion/> .
 

@@ -20,64 +20,42 @@
 mtc-cnstr:ImageFile
     a owl:Class ;
     rdfs:label """image file""" ;
+    skos:altLabel """ImageFile""" ;
+    iof-av:directSource """MTConnect ImageFile""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """reference to a file containing an image of the component.""" ;
+    iof-av:naturalLanguageDefinition """reference to a file containing an image of the component.""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000310> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:href ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:mediaType ;
+                      owl:onProperty mtc-cnstr:hasHrefValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasMediaTypeValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isImageFileOf ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .
 
-mtc-cnstr:id
+mtc-cnstr:hasMediaTypeValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:ImageFile ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier of the image file.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .
-
-mtc-cnstr:href
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:href""" ;
+    rdfs:label """has media type value""" ;
     rdfs:domain mtc-cnstr:ImageFile ;
     rdfs:range xsd:string ;
-    skos:definition """{{term(URL)}} giving the location of the image file.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .
-
-mtc-cnstr:mediaType
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:mediaType""" ;
-    rdfs:domain mtc-cnstr:ImageFile ;
-    rdfs:range xsd:string ;
-    skos:definition """mime type of the image file.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:ImageFile ;
-    rdfs:range xsd:string ;
-    skos:definition """description of the image file.""" ;
+    iof-av:naturalLanguageDefinition """mime type of the image file.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .
 
 mtc-cnstr:isImageFileOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isImageFileOf""" ;
+    rdfs:label """is image file of""" ;
     rdfs:domain mtc-cnstr:ImageFile ;
     rdfs:range mtc-cnstr:Configuration ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ImageFiles/> .

@@ -20,78 +20,68 @@
 mtc-cnstr:SpecificationRelationship
     a owl:Class ;
     rdfs:label """specification relationship""" ;
+    skos:altLabel """SpecificationRelationship""" ;
+    iof-av:directSource """MTConnect AbstractDataItemRelationship SpecificationRelationship""" ;
     rdfs:subClassOf mtc-cnstr:AbstractDataItemRelationship ;
-    skos:definition """abstract data item relationship that provides a semantic reference to another specification described by specification relationship::type and specification relationship::idRef.""" ;
+    iof-av:naturalLanguageDefinition """abstract data item relationship that provides a semantic reference to another specification described by specification relationship::type and specification relationship::idRef.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:SpecificationRelationshipTypeEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:SpecificationRelationship ;
-    rdfs:range mtc-cnstr:SpecificationRelationshipTypeEnum ;
-    skos:definition """specifies how the {{block(Specification)}} is related.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 
 mtc-cnstr:DataItemRelationship
     a owl:Class ;
     rdfs:label """data item relationship""" ;
+    skos:altLabel """DataItemRelationship""" ;
+    iof-av:directSource """MTConnect AbstractDataItemRelationship DataItemRelationship""" ;
     rdfs:subClassOf mtc-cnstr:AbstractDataItemRelationship ;
-    skos:definition """abstract data item relationship that provides a semantic reference to another data item described by data item relationship::type.""" ;
+    iof-av:naturalLanguageDefinition """abstract data item relationship that provides a semantic reference to another data item described by data item relationship::type.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:DataItemRelationshipTypeEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:DataItemRelationship ;
-    rdfs:range mtc-cnstr:DataItemRelationshipTypeEnum ;
-    skos:definition """specifies how the {{block(DataItem)}} is related.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 
 mtc-cnstr:AbstractDataItemRelationship
     a owl:Class ;
     rdfs:label """abstract data item relationship""" ;
+    skos:altLabel """AbstractDataItemRelationship""" ;
+    iof-av:directSource """MTConnect AbstractDataItemRelationship""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
-    skos:definition """association between a data item and another entity.""" ;
+    iof-av:naturalLanguageDefinition """association between a data item and another entity.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000020> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:idRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isRelationshipOf ;
                       owl:someValuesFrom mtc-cnstr:DataItem ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 
-mtc-cnstr:idRef
+mtc-cnstr:hasIdRefValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:idRef""" ;
-    rdfs:domain mtc-cnstr:AbstractDataItemRelationship ;
-    rdfs:range xsd:ID ;
-    skos:definition """reference to the related entity's `id`.""" ;
+    rdfs:label """has id ref value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """reference to the related entity's `id`.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 
-mtc-cnstr:name
+mtc-cnstr:hasNameValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:AbstractDataItemRelationship ;
+    rdfs:label """has name value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:range xsd:string ;
-    skos:definition """descriptive name associated with this {{block(AbstractDataItemRelationship)}}.""" ;
+    iof-av:naturalLanguageDefinition """identifier of the maintenance activity.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 
 mtc-cnstr:isRelationshipOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isRelationshipOf""" ;
-    rdfs:domain mtc-cnstr:AbstractDataItemRelationship ;
-    rdfs:range mtc-cnstr:DataItem ;
+    rdfs:label """is relationship of""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/RelationshipTypesforDataItem/> .
 

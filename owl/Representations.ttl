@@ -20,8 +20,10 @@
 mtc-cnstr:Representation
     a owl:Class ;
     rdfs:label """representation""" ;
+    skos:altLabel """Representation""" ;
+    iof-av:directSource """MTConnect Representation""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000033> ;
-    skos:definition """specifies the format and structure of observation::result.""" ;
+    iof-av:naturalLanguageDefinition """specifies the format and structure of observation::result.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
@@ -30,156 +32,184 @@ mtc-cnstr:Representation
 mtc-cnstr:Value
     a owl:Class ;
     rdfs:label """value""" ;
+    skos:altLabel """Value""" ;
+    iof-av:directSource """MTConnect Representation Value""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
-    skos:definition """default representation type for all observation types where observation::result type is an MTConnect data type. See data types.""" ;
+    iof-av:naturalLanguageDefinition """default representation type for all observation types where observation::result type is an MTConnect data type. See data types.""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:TimeSeries
     a owl:Class ;
     rdfs:label """time series""" ;
+    skos:altLabel """TimeSeries""" ;
+    iof-av:directSource """MTConnect Representation TimeSeries""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
-    skos:definition """representation for an observation composed of a series of sampled data.\n""" ;
+    iof-av:naturalLanguageDefinition """representation for an observation composed of a series of sampled data.\n""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:sampleCount ;
+                      owl:onProperty mtc-cnstr:hasSampleCountValue ;
                       owl:someValuesFrom xsd:integer ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResultValue ;
                       owl:someValuesFrom xsd:float ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:sampleCount
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:sampleCount""" ;
-    rdfs:domain mtc-cnstr:TimeSeries ;
-    rdfs:range xsd:integer ;
-    skos:definition """number of values given for the {{block(Observation)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:result
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:TimeSeries ;
-    rdfs:range xsd:float ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:Discrete
     a owl:Class ;
     rdfs:label """discrete""" ;
+    skos:altLabel """Discrete""" ;
+    iof-av:directSource """MTConnect Representation Discrete""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
-    skos:definition """**DEPRECATED** representation for an observation where each discrete occurrence of the data may have the same value as the previous occurrence of the data.\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    iof-av:naturalLanguageDefinition """**DEPRECATED** representation for an observation where each discrete occurrence of the data may have the same value as the previous occurrence of the data.\n""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResultValue ;
                       owl:someValuesFrom xsd:string ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:result
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:Discrete ;
-    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:DataSet
     a owl:Class ;
     rdfs:label """data set""" ;
+    skos:altLabel """DataSet""" ;
+    iof-av:directSource """MTConnect Representation DataSet""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
-    skos:definition """representation for an observation composed of value(s) represented as a set of key-value pairs.\n""" ;
+    iof-av:naturalLanguageDefinition """representation for an observation composed of value(s) represented as a set of key-value pairs.\n""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:count ;
+                      owl:onProperty mtc-cnstr:hasCountValue ;
                       owl:someValuesFrom xsd:integer ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResult ;
                       owl:someValuesFrom mtc-cnstr:EntryRepresentations ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:count
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:count""" ;
-    rdfs:domain mtc-cnstr:DataSet ;
-    rdfs:range xsd:integer ;
-    skos:definition """number of {{block(Entry)}} elements for the {{block(Observation)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:result
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:DataSet ;
-    rdfs:range mtc-cnstr:EntryRepresentations ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:EntryRepresentations
     a owl:Class ;
     rdfs:label """entry""" ;
+    skos:altLabel """Entry""" ;
+    iof-av:directSource """MTConnect Entry""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001933> ;
-    skos:definition """key-value pair published as part of a data set.""" ;
+    iof-av:naturalLanguageDefinition """key-value pair published as part of a data set.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ValueExpression> ] ;
+                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:key ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasKeyValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:removed ;
+                      owl:onProperty mtc-cnstr:hasRemovedValue ;
                       owl:someValuesFrom xsd:boolean ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isEntryFor ;
                       owl:someValuesFrom mtc-cnstr:DataSet ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:result ;
+                      owl:onProperty mtc-cnstr:hasResultValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isEntryOf ;
                       owl:someValuesFrom mtc-cnstr:DataSet ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
-mtc-cnstr:key
+mtc-cnstr:hasCountValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:key""" ;
-    rdfs:domain mtc-cnstr:EntryRepresentations ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for each {{term(key-value pair)}}.""" ;
+    rdfs:label """has count value""" ;
+    rdfs:domain mtc-cnstr:Representation ;
+    rdfs:range xsd:integer ;
+    iof-av:naturalLanguageDefinition """number of {{block(Entry)}} elements for the {{block(Observation)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
-mtc-cnstr:removed
+mtc-cnstr:hasLowerLimitValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:removed""" ;
-    rdfs:domain mtc-cnstr:EntryRepresentations ;
+    rdfs:label """has lower limit value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """lower conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasLowerWarningValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has lower warning value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """lower boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasRemovedValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has removed value""" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/OBI_0001933> ;
     rdfs:range xsd:boolean ;
-    skos:definition """removal indicator of a {{term(key-value pair)}}.""" ;
+    iof-av:naturalLanguageDefinition """removal indicator of a {{term(key-value pair)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasSampleCountValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has sample count value""" ;
+    rdfs:domain mtc-cnstr:TimeSeries ;
+    rdfs:range xsd:integer ;
+    iof-av:naturalLanguageDefinition """number of values given for the {{block(Observation)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasUpperLimitValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has upper limit value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """upper conformance boundary for a variable.\n\n> Note: immediate concern or action may be required.\n\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasUpperWarningValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has upper warning value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range xsd:float ;
+    iof-av:naturalLanguageDefinition """upper boundary indicating increased concern and supervision may be required.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasXValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has x value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range rdfs:Literal ;
+    iof-av:naturalLanguageDefinition """x-coordinate.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasYValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has y value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range rdfs:Literal ;
+    iof-av:naturalLanguageDefinition """y-coordinate.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
+
+mtc-cnstr:hasZValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has z value""" ;
+    rdfs:domain mtc-cnstr:DataSet ;
+    rdfs:range rdfs:Literal ;
+    iof-av:naturalLanguageDefinition """x-coordinate.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:isEntryFor
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isEntryFor""" ;
+    rdfs:label """is entry for""" ;
     rdfs:domain mtc-cnstr:EntryRepresentations ;
     rdfs:range mtc-cnstr:DataSet ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
-
-mtc-cnstr:result
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:result""" ;
-    rdfs:domain mtc-cnstr:EntryRepresentations ;
-    rdfs:range xsd:string ;
-    skos:definition """value of the {{block(Entry)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 
 mtc-cnstr:isEntryOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isEntryOf""" ;
-    rdfs:domain mtc-cnstr:EntryRepresentations ;
-    rdfs:range mtc-cnstr:DataSet ;
+    rdfs:label """is entry of""" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/OBI_0001933> ;
+    rdfs:range mtc-cnstr:Representation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Representations/> .
 

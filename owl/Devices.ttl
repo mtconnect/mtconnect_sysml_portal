@@ -20,10 +20,20 @@
 mtc-cnstr:Agent
     a owl:Class ;
     rdfs:label """agent""" ;
+    skos:altLabel """Agent""" ;
+    iof-av:directSource """MTConnect Component Agent""" ;
     rdfs:subClassOf mtc-cnstr:Device ;
-    skos:definition """device composed of an MTConnect Agent and all its connected data sources.""" ;
+    iof-av:naturalLanguageDefinition """device composed of an MTConnect Agent and all its connected data sources.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ] ;
+                      owl:someValuesFrom mtc-cnstr:AgentEntity ] ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Devices/> .
+
+mtc-cnstr:AgentEntity
+    a owl:Class ;
+    rdfs:label """agent entity""" ;
+    iof-av:directSource """MTConnect Component Agent""" ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
+    iof-av:naturalLanguageDefinition """device composed of an MTConnect Agent and all its connected data sources.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Devices/> .
 

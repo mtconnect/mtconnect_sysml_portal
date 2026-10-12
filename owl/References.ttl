@@ -20,108 +20,81 @@
 mtc-cnstr:Reference
     a owl:Class ;
     rdfs:label """reference""" ;
+    skos:altLabel """Reference""" ;
+    iof-av:directSource """MTConnect Reference""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
-    skos:definition """pointer to information that is associated with another entity defined elsewhere in the MTConnectDevices entity for a piece of equipment.""" ;
+    iof-av:naturalLanguageDefinition """pointer to information that is associated with another entity defined elsewhere in the MTConnectDevices entity for a piece of equipment.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:idRef ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasIdRefValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:dataItemId ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:refDataItemId ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasDataItemIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasRefDataItemIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isReferenceOf ;
                       owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 
-mtc-cnstr:idRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:idRef""" ;
-    rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range xsd:ID ;
-    skos:definition """pointer to the `id` of an entity that contains the information to be associated with this entity.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range xsd:string ;
-    skos:definition """ name of an element or a piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
-mtc-cnstr:dataItemId
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:dataItemId""" ;
-    rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range xsd:ID ;
-    skos:definition """pointer to the {{property(DataItem::id)}} that contains the information to be associated with this entity.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
-mtc-cnstr:refDataItemId
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:refDataItemId""" ;
-    rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range xsd:ID ;
-    skos:definition """pointer to the {{property(DataItem::id)}} that contains the information to be associated with this entity.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
-mtc-cnstr:isReferenceOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isReferenceOf""" ;
-    rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range mtc-cnstr:Component ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
 mtc-cnstr:DataItemRef
     a owl:Class ;
     rdfs:label """data item ref""" ;
+    skos:altLabel """DataItemRef""" ;
+    iof-av:directSource """MTConnect Reference DataItemRef""" ;
     rdfs:subClassOf mtc-cnstr:Reference ;
-    skos:definition """reference that is a pointer to a data item associated with another entity defined for a piece of equipment.""" ;
+    iof-av:naturalLanguageDefinition """reference that is a pointer to a data item associated with another entity defined for a piece of equipment.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Identifier> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000002> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:idRef ;
+                      owl:onProperty mtc-cnstr:hasIdRef ;
                       owl:someValuesFrom mtc-cnstr:DataItem ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
-
-mtc-cnstr:idRef
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:idRef""" ;
-    rdfs:domain mtc-cnstr:DataItemRef ;
-    rdfs:range mtc-cnstr:DataItem ;
-    skos:definition """pointer to the {{property(DataItem::id)}} that contains the information to be associated with this entity.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 
 mtc-cnstr:ComponentRef
     a owl:Class ;
     rdfs:label """component ref""" ;
+    skos:altLabel """ComponentRef""" ;
+    iof-av:directSource """MTConnect Reference ComponentRef""" ;
     rdfs:subClassOf mtc-cnstr:Reference ;
-    skos:definition """reference that is a pointer to all of the information associated with another entity defined for a piece of equipment.\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Identifier> ;
+    iof-av:naturalLanguageDefinition """reference that is a pointer to all of the information associated with another entity defined for a piece of equipment.\n""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000002> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:idRef ;
+                      owl:onProperty mtc-cnstr:hasIdRef ;
                       owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 
-mtc-cnstr:idRef
+mtc-cnstr:hasIdRef
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:idRef""" ;
-    rdfs:domain mtc-cnstr:ComponentRef ;
+    rdfs:label """has id ref""" ;
+    rdfs:domain mtc-cnstr:Reference ;
+    rdfs:range <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    iof-av:naturalLanguageDefinition """pointer to the {{property(DataItem::id)}} that contains the information to be associated with this entity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
+
+mtc-cnstr:hasRefDataItemIdValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has ref data item id value""" ;
+    rdfs:domain mtc-cnstr:Reference ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """pointer to the {{property(DataItem::id)}} that contains the information to be associated with this entity.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
+
+mtc-cnstr:isReferenceOf
+    a owl:ObjectProperty ;
+    rdfs:label """is reference of""" ;
+    rdfs:domain mtc-cnstr:Reference ;
     rdfs:range mtc-cnstr:Component ;
-    skos:definition """pointer to the {{property(Component::id)}} that contains the information to be associated with this entity.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 

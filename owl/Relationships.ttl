@@ -20,174 +20,130 @@
 mtc-cnstr:ConfigurationRelationship
     a owl:Class ;
     rdfs:label """configuration relationship""" ;
+    skos:altLabel """ConfigurationRelationship""" ;
+    iof-av:directSource """MTConnect ConfigurationRelationship""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
-    skos:definition """association between two pieces of equipment or assets that may function independently but together perform a manufacturing operation.""" ;
+    iof-av:naturalLanguageDefinition """association between two pieces of equipment or assets that may function independently but together perform a manufacturing operation.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000020> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:RelationshipTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:criticality ;
+                      owl:onProperty mtc-cnstr:hasCriticality ;
                       owl:someValuesFrom mtc-cnstr:CriticalityTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isRelationshipOf ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
-    rdfs:range xsd:string ;
-    skos:definition """name associated with this {{block(ConfigurationRelationship)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for this {{block(ConfigurationRelationship)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
-    rdfs:range mtc-cnstr:RelationshipTypeEnum ;
-    skos:definition """defines the authority that this piece of equipment has relative to the associated piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:criticality
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:criticality""" ;
-    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
-    rdfs:range mtc-cnstr:CriticalityTypeEnum ;
-    skos:definition """defines whether the services or functions provided by the associated piece of equipment is required for the operation of this piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:isRelationshipOf
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isRelationshipOf""" ;
-    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
-    rdfs:range mtc-cnstr:Configuration ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
 mtc-cnstr:ComponentRelationship
     a owl:Class ;
     rdfs:label """component relationship""" ;
+    skos:altLabel """ComponentRelationship""" ;
+    iof-av:directSource """MTConnect ConfigurationRelationship ComponentRelationship""" ;
     rdfs:subClassOf mtc-cnstr:ConfigurationRelationship ;
-    skos:definition """configuration relationship that describes the association between a component or an Asset and another component.""" ;
+    iof-av:naturalLanguageDefinition """configuration relationship that describes the association between a component or an Asset and another component.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:idRef ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:idRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:idRef""" ;
-    rdfs:domain mtc-cnstr:ComponentRelationship ;
-    rdfs:range xsd:ID ;
-    skos:definition """reference to the associated {{block(Component)}}.""" ;
+                      owl:onProperty mtc-cnstr:hasIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
 mtc-cnstr:DeviceRelationship
     a owl:Class ;
     rdfs:label """device relationship""" ;
+    skos:altLabel """DeviceRelationship""" ;
+    iof-av:directSource """MTConnect ConfigurationRelationship DeviceRelationship""" ;
     rdfs:subClassOf mtc-cnstr:ConfigurationRelationship ;
-    skos:definition """configuration relationship that describes the association between a component or an Asset and a device.""" ;
+    iof-av:naturalLanguageDefinition """configuration relationship that describes the association between a component or an Asset and a device.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:deviceUuidRef ;
-                      owl:someValuesFrom xsd:UUID ] ;
+                      owl:onProperty mtc-cnstr:hasDeviceUuidRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:href ;
-                      owl:someValuesFrom xsd:xlinkhref ] ;
+                      owl:onProperty mtc-cnstr:hasHrefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:role ;
+                      owl:onProperty mtc-cnstr:hasRole ;
                       owl:someValuesFrom mtc-cnstr:RoleTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:xlinktype ;
-                      owl:someValuesFrom xsd:xlinktype ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:deviceUuidRef
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:deviceUuidRef""" ;
-    rdfs:domain mtc-cnstr:DeviceRelationship ;
-    rdfs:range xsd:UUID ;
-    skos:definition """reference to the {{property(Device::uuid)}} of the associated piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:href
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:href""" ;
-    rdfs:domain mtc-cnstr:DeviceRelationship ;
-    rdfs:range xsd:xlinkhref ;
-    skos:definition """{{term(URI)}} identifying the {{term(agent)}} that is publishing information for the associated piece of equipment. """ ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:role
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:role""" ;
-    rdfs:domain mtc-cnstr:DeviceRelationship ;
-    rdfs:range mtc-cnstr:RoleTypeEnum ;
-    skos:definition """defines the services or capabilities that the referenced piece of equipment provides relative to this piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:xlinktype
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:xlinktype""" ;
-    rdfs:domain mtc-cnstr:DeviceRelationship ;
-    rdfs:range xsd:xlinktype ;
-    skos:definition """`xlink:type`**MUST** have a fixed value of `locator` as defined in W3C XLink 1.1 {{cite(https://www.w3.org/TR/xlink11/)}}.""" ;
+                      owl:onProperty mtc-cnstr:hasXlinktypeValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
 mtc-cnstr:AssetRelationship
     a owl:Class ;
     rdfs:label """asset relationship""" ;
+    skos:altLabel """AssetRelationship""" ;
+    iof-av:directSource """MTConnect ConfigurationRelationship AssetRelationship""" ;
     rdfs:subClassOf mtc-cnstr:ConfigurationRelationship ;
-    skos:definition """configuration relationship that describes the association between a component or an Asset and another Asset.""" ;
+    iof-av:naturalLanguageDefinition """configuration relationship that describes the association between a component or an Asset and another Asset.""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:assetIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:assetType ;
+                      owl:onProperty mtc-cnstr:hasAssetIdRefValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:href ;
-                      owl:someValuesFrom xsd:xlinkhref ] ;
+                      owl:onProperty mtc-cnstr:hasAssetTypeValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasHrefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
-mtc-cnstr:assetIdRef
+mtc-cnstr:hasAssetIdRefValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:assetIdRef""" ;
-    rdfs:domain mtc-cnstr:AssetRelationship ;
-    rdfs:range xsd:ID ;
-    skos:definition """uuid of the related {{block(Asset)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
-
-mtc-cnstr:assetType
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:assetType""" ;
+    rdfs:label """has asset id ref value""" ;
     rdfs:domain mtc-cnstr:AssetRelationship ;
     rdfs:range xsd:string ;
-    skos:definition """type of {{block(Asset)}} being referenced.""" ;
+    iof-av:naturalLanguageDefinition """uuid of the related {{block(Asset)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
-mtc-cnstr:href
+mtc-cnstr:hasCriticality
+    a owl:ObjectProperty ;
+    rdfs:label """has criticality""" ;
+    rdfs:domain mtc-cnstr:ConfigurationRelationship ;
+    rdfs:range mtc-cnstr:CriticalityTypeEnum ;
+    iof-av:naturalLanguageDefinition """defines whether the services or functions provided by the associated piece of equipment is required for the operation of this piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
+
+mtc-cnstr:hasDeviceUuidRefValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:href""" ;
-    rdfs:domain mtc-cnstr:AssetRelationship ;
-    rdfs:range xsd:xlinkhref ;
-    skos:definition """{{term(URI)}} reference to the associated {{block(Asset)}}.""" ;
+    rdfs:label """has device uuid ref value""" ;
+    rdfs:domain mtc-cnstr:DeviceRelationship ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """reference to the {{property(Device::uuid)}} of the associated piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
+
+mtc-cnstr:hasHrefValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has href value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/DesignSpecification> ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """{{term(URI)}} identifying the {{term(agent)}} that is publishing information for the associated piece of equipment. """ ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
+
+mtc-cnstr:hasRole
+    a owl:ObjectProperty ;
+    rdfs:label """has role""" ;
+    rdfs:domain mtc-cnstr:DeviceRelationship ;
+    rdfs:range mtc-cnstr:RoleTypeEnum ;
+    iof-av:naturalLanguageDefinition """defines the services or capabilities that the referenced piece of equipment provides relative to this piece of equipment.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
+
+mtc-cnstr:hasXlinktypeValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has xlinktype value""" ;
+    rdfs:domain mtc-cnstr:DeviceRelationship ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """`xlink:type`**MUST** have a fixed value of `locator` as defined in W3C XLink 1.1 {{cite(https://www.w3.org/TR/xlink11/)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 

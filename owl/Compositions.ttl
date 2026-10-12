@@ -20,8 +20,10 @@
 mtc-cnstr:Composition
     a owl:Class ;
     rdfs:label """composition""" ;
+    skos:altLabel """Composition""" ;
+    iof-av:directSource """MTConnect Composition""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
-    skos:definition """functional part of a piece of equipment contained within a component.""" ;
+    iof-av:naturalLanguageDefinition """functional part of a piece of equipment contained within a component.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/Constituent> ] ;
@@ -35,69 +37,23 @@ mtc-cnstr:Composition
                       owl:onProperty mtc-cnstr:hasConfiguration ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:CompositionTypeEnum ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:uuid ;
-                      owl:someValuesFrom xsd:UUID ] ;
+                      owl:onProperty mtc-cnstr:hasType ;
+                      owl:someValuesFrom mtc-cnstr:CompositionTypeEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasUuidValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
 
 mtc-cnstr:isCompositionOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isCompositionOf""" ;
+    rdfs:label """is composition of""" ;
     rdfs:domain mtc-cnstr:Composition ;
     rdfs:range mtc-cnstr:Component ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:hasDescription
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasDescription""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range mtc-cnstr:Description ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:hasConfiguration
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasConfiguration""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range mtc-cnstr:Configuration ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for the {{block(Composition)}} element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range mtc-cnstr:CompositionTypeEnum ;
-    skos:definition """type of {{block(Composition)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range xsd:string ;
-    skos:definition """name of the {{block(Composition)}} element.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
-
-mtc-cnstr:uuid
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:uuid""" ;
-    rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range xsd:UUID ;
-    skos:definition """universally unique identifier for the {{block(Composition)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
 

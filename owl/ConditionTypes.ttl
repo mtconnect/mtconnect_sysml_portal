@@ -20,114 +20,88 @@
 mtc-cnstr:ActuatorCondition
     a owl:Class ;
     rdfs:label """actuator""" ;
+    skos:altLabel """Actuator""" ;
+    iof-av:directSource """MTConnect Condition Actuator""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """indication of a fault associated with an actuator.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:ActuatorCondition ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """indication of a fault associated with an actuator.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_ACTUATOR ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 
 mtc-cnstr:Communications
     a owl:Class ;
     rdfs:label """communications""" ;
+    skos:altLabel """Communications""" ;
+    iof-av:directSource """MTConnect Condition Communications""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """indication that the piece of equipment has experienced a communications failure.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:Communications ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """indication that the piece of equipment has experienced a communications failure.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_COMMUNICATIONS ]
+            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 
 mtc-cnstr:DataRange
     a owl:Class ;
     rdfs:label """data range""" ;
+    skos:altLabel """DataRange""" ;
+    iof-av:directSource """MTConnect Condition DataRange""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """indication that the value of the data associated with a measured value or a calculation is outside of an expected range.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessExcursion> ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:DataRange ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """indication that the value of the data associated with a measured value or a calculation is outside of an expected range.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_DATARANGE ]
+            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/ProcessExcursion> ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 
 mtc-cnstr:LogicProgram
     a owl:Class ;
     rdfs:label """logic program""" ;
+    skos:altLabel """LogicProgram""" ;
+    iof-av:directSource """MTConnect Condition LogicProgram""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """indication that an error occurred in the logic program or programmable logic controller (PLC) associated with a piece of equipment.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:LogicProgram ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """indication that an error occurred in the logic program or programmable logic controller (PLC) associated with a piece of equipment.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_LOGICPROGRAM ]
+            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 
 mtc-cnstr:MotionProgram
     a owl:Class ;
     rdfs:label """motion program""" ;
+    skos:altLabel """MotionProgram""" ;
+    iof-av:directSource """MTConnect Condition MotionProgram""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """indication that an error occurred in the motion program associated with a piece of equipment.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:MotionProgram ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """indication that an error occurred in the motion program associated with a piece of equipment.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_MOTIONPROGRAM ]
+            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/FailureEvent> ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 
 mtc-cnstr:SystemCondition
     a owl:Class ;
     rdfs:label """system""" ;
+    skos:altLabel """System""" ;
+    iof-av:directSource """MTConnect Condition System""" ;
     rdfs:subClassOf mtc-cnstr:ConditionObservation ;
-    skos:definition """general purpose indication associated with an electronic component of a piece of equipment or a controller that represents a fault that is not associated with the operator, program, or hardware.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
-                      owl:someValuesFrom mtc-cnstr:ConditionEnum ] ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:SystemCondition ;
-    rdfs:range mtc-cnstr:ConditionEnum ;
+    iof-av:naturalLanguageDefinition """general purpose indication associated with an electronic component of a piece of equipment or a controller that represents a fault that is not associated with the operator, program, or hardware.""" ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf (
+            mtc-cnstr:ConditionObservation
+            [ a owl:Restriction ; owl:onProperty mtc-cnstr:hasType ; owl:hasValue mtc-cnstr:ConditionEnum_SYSTEM ]
+        ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ConditionTypes/> .
 

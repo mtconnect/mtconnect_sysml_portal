@@ -52,6 +52,7 @@ class OwlGenerator
     @top.find_data_types
     @top.find_definitions
 
+    OwlType.prepare_properties(OwlModel.models.each_value.select(&:generated?).flat_map(&:owl_classes))
     models = OwlModel.models.each_value.select(&:generate_ontology)
     domains = models.map(&:domain).sort
     generate_about(dir, domains)

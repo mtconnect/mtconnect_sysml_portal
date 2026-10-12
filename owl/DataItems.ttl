@@ -20,58 +20,60 @@
 mtc-cnstr:DataItem
     a owl:Class ;
     rdfs:label """data item""" ;
+    skos:altLabel """DataItem""" ;
+    iof-av:directSource """MTConnect DataItem""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000027> ;
-    skos:definition """information reported about a piece of equipment.""" ;
+    iof-av:naturalLanguageDefinition """information reported about a piece of equipment.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:category ;
+                      owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:compositionId ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:coordinateSystem ;
-                      owl:someValuesFrom mtc-cnstr:CoordinateSystemEnum ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:discrete ;
-                      owl:someValuesFrom xsd:boolean ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:id ;
-                      owl:someValuesFrom xsd:ID ] ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:name ;
+                      owl:onProperty mtc-cnstr:hasCompositionIdValue ;
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:nativeScale ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystem ;
+                      owl:someValuesFrom mtc-cnstr:CoordinateSystemEnum ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasDiscreteValue ;
+                      owl:someValuesFrom xsd:boolean ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasIdValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasNameValue ;
+                      owl:someValuesFrom xsd:string ] ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty mtc-cnstr:hasNativeScaleValue ;
                       owl:someValuesFrom xsd:integer ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:nativeUnits ;
+                      owl:onProperty mtc-cnstr:hasNativeUnits ;
                       owl:someValuesFrom mtc-cnstr:NativeUnitEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:sampleRate ;
+                      owl:onProperty mtc-cnstr:hasSampleRateValue ;
                       owl:someValuesFrom xsd:float ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:significantDigits ;
+                      owl:onProperty mtc-cnstr:hasSignificantDigitsValue ;
                       owl:someValuesFrom xsd:integer ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:statistic ;
+                      owl:onProperty mtc-cnstr:hasStatistic ;
                       owl:someValuesFrom mtc-cnstr:StatisticEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:subType ;
+                      owl:onProperty mtc-cnstr:hasSubType ;
                       owl:someValuesFrom mtc-cnstr:DataItemSubTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:type ;
+                      owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:units ;
+                      owl:onProperty mtc-cnstr:hasUnits ;
                       owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isObservedBy ;
                       owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:representation ;
+                      owl:onProperty mtc-cnstr:hasRepresentation ;
                       owl:someValuesFrom mtc-cnstr:RepresentationEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasSource ;
@@ -95,8 +97,8 @@ mtc-cnstr:DataItem
                       owl:onProperty mtc-cnstr:hasDefinition ;
                       owl:someValuesFrom mtc-cnstr:Definition ] ;
     rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty mtc-cnstr:coordinateSystemIdRef ;
-                      owl:someValuesFrom xsd:ID ] ;
+                      owl:onProperty mtc-cnstr:hasCoordinateSystemIdRefValue ;
+                      owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasRelationship ;
                       owl:someValuesFrom mtc-cnstr:AbstractDataItemRelationship ] ;
@@ -105,200 +107,106 @@ mtc-cnstr:DataItem
                       owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
-mtc-cnstr:category
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:category""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:CategoryEnum ;
-    skos:definition """specifies the kind of information provided by a data item.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:compositionId
+mtc-cnstr:hasCompositionIdValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:compositionId""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:ID ;
-    skos:definition """identifier attribute of the {{block(Composition)}} that the reported data is most closely associated.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:coordinateSystem
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:coordinateSystem""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:CoordinateSystemEnum ;
-    skos:definition """for measured values relative to a coordinate system like {{block(Position)}}, the coordinate system used may be reported.\n\n**DEPRECATED** in *Version 2.0*. Replaced by {{property(Component::coordinateSystemIdRef)}}. """ ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:discrete
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:discrete""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:boolean ;
-    skos:definition """indication signifying whether each value reported for the {{term(Observation)}} is significant and whether duplicate values are to be suppressed.\n\nIf a value is not defined for {{property(DataItem::discrete)}}, the default value **MUST** be `false`.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:id
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:id""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:ID ;
-    skos:definition """unique identifier for this data item.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:name
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:name""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:label """has composition id value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:range xsd:string ;
-    skos:definition """name of the data item.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:nativeScale
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:nativeScale""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:integer ;
-    skos:definition """used to convert the reported value to represent the original measured value.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:nativeUnits
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:nativeUnits""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:NativeUnitEnum ;
-    skos:definition """native units of measurement for the reported value of the data item.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:sampleRate
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:sampleRate""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:float ;
-    skos:definition """rate at which successive samples of a data item are recorded by a piece of equipment.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:significantDigits
-    a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:significantDigits""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:integer ;
-    skos:definition """number of significant digits in the reported value.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:statistic
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:statistic""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:StatisticEnum ;
-    skos:definition """type of statistical calculation performed on a series of data samples to provide the reported data value.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:subType
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:subType""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:DataItemSubTypeEnum ;
-    skos:definition """sub-categorization of the {{property(DataItem::type)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:type
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:type""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:DataItemTypeEnum ;
-    skos:definition """type of data being measured. See {{package(DataItem Types)}}.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:units
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:units""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:UnitEnum ;
-    skos:definition """unit of measurement for the reported value of the data item.""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:isObservedBy
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isObservedBy""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:Component ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:representation
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:representation""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:RepresentationEnum ;
-    skos:definition """description of a means to interpret data consisting of multiple data points or samples reported as a single value.  \n\nIf {{property(DataItem::representation)}} is not specified, it **MUST** be determined to be `VALUE`.\n""" ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:hasSource
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasSource""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:Source ;
+    iof-av:naturalLanguageDefinition """identifier of the {{block(Composition)}} entity defined in the {{term(MTConnectDevices Response Document)}} associated with the data reported for the {{block(Observation)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
 mtc-cnstr:hasConstraint
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasConstraint""" ;
+    rdfs:label """has constraint""" ;
     rdfs:domain mtc-cnstr:DataItem ;
     rdfs:range mtc-cnstr:Constraints ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
-mtc-cnstr:hasFilter
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasFilter""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:FilterPropertiesofDataItem ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:hasInitialValue
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasInitialValue""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:InitialValue ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:hasResetTrigger
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasResetTrigger""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:ResetTrigger ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
-mtc-cnstr:hasObservation
-    a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasObservation""" ;
-    rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:Observation ;
-    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
-
 mtc-cnstr:hasDefinition
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasDefinition""" ;
+    rdfs:label """has definition""" ;
     rdfs:domain mtc-cnstr:DataItem ;
     rdfs:range mtc-cnstr:Definition ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
-mtc-cnstr:coordinateSystemIdRef
+mtc-cnstr:hasDiscreteValue
     a owl:DatatypeProperty ;
-    rdfs:label """mtc-cnstr:coordinateSystemIdRef""" ;
+    rdfs:label """has discrete value""" ;
     rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range xsd:ID ;
-    skos:definition """associated {{block(CoordinateSystem)}} context for the {{block(DataItem)}}.""" ;
+    rdfs:range xsd:boolean ;
+    iof-av:naturalLanguageDefinition """indication signifying whether each value reported for the {{term(Observation)}} is significant and whether duplicate values are to be suppressed.\n\nIf a value is not defined for {{property(DataItem::discrete)}}, the default value **MUST** be `false`.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
-mtc-cnstr:hasRelationship
+mtc-cnstr:hasInitialValue
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:hasRelationship""" ;
+    rdfs:label """has initial value""" ;
     rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:AbstractDataItemRelationship ;
+    rdfs:range mtc-cnstr:InitialValue ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasNativeScaleValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has native scale value""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range xsd:integer ;
+    iof-av:naturalLanguageDefinition """used to convert the reported value to represent the original measured value.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasNativeUnits
+    a owl:ObjectProperty ;
+    rdfs:label """has native units""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range mtc-cnstr:NativeUnitEnum ;
+    iof-av:naturalLanguageDefinition """native units of measurement for the reported value of the data item.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasObservation
+    a owl:ObjectProperty ;
+    rdfs:label """has observation""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range mtc-cnstr:Observation ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasRepresentation
+    a owl:ObjectProperty ;
+    rdfs:label """has representation""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range mtc-cnstr:RepresentationEnum ;
+    iof-av:naturalLanguageDefinition """description of a means to interpret data consisting of multiple data points or samples reported as a single value.  \n\nIf {{property(DataItem::representation)}} is not specified, it **MUST** be determined to be `VALUE`.\n""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasResetTrigger
+    a owl:ObjectProperty ;
+    rdfs:label """has reset trigger""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range mtc-cnstr:ResetTrigger ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasSignificantDigitsValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has significant digits value""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range xsd:integer ;
+    iof-av:naturalLanguageDefinition """number of significant digits in the reported value.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:hasSource
+    a owl:ObjectProperty ;
+    rdfs:label """has source""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range mtc-cnstr:Source ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
 mtc-cnstr:isDataItemOf
     a owl:ObjectProperty ;
-    rdfs:label """mtc-cnstr:isDataItemOf""" ;
+    rdfs:label """is data item of""" ;
+    rdfs:domain mtc-cnstr:DataItem ;
+    rdfs:range mtc-cnstr:Component ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
+
+mtc-cnstr:isObservedBy
+    a owl:ObjectProperty ;
+    rdfs:label """is observed by""" ;
     rdfs:domain mtc-cnstr:DataItem ;
     rdfs:range mtc-cnstr:Component ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
