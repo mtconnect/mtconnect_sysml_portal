@@ -41,7 +41,7 @@ mtc-cnstr:Reference
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isReferenceOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 
 mtc-cnstr:DataItemRef
@@ -72,7 +72,7 @@ mtc-cnstr:ComponentRef
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000002> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasIdRef ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 
 mtc-cnstr:hasIdRef
@@ -95,6 +95,6 @@ mtc-cnstr:isReferenceOf
     a owl:ObjectProperty ;
     rdfs:label """is reference of""" ;
     rdfs:domain mtc-cnstr:Reference ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/References/> .
 

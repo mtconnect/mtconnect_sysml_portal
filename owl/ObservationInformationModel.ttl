@@ -74,13 +74,13 @@ mtc-cnstr:ComponentStream
                       owl:someValuesFrom mtc-cnstr:ConditionObservation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isOrganizerFor ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isComponentStreamOf ;
                       owl:someValuesFrom mtc-cnstr:DeviceStream ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isComponentStreamOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
 
 mtc-cnstr:Observation
@@ -88,9 +88,12 @@ mtc-cnstr:Observation
     rdfs:label """observation""" ;
     skos:altLabel """Observation""" ;
     iof-av:directSource """MTConnect Observation""" ;
-    rdfs:subClassOf iof-cnstr:ValueExpression ;
+    rdfs:subClassOf iof-cnstr:Observation ;
     iof-av:naturalLanguageDefinition """abstract entity that provides telemetry data for a data item at a point in time.""" ;
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isOutputOf ;
+                      owl:someValuesFrom [ a owl:Class ; owl:unionOf ( iof-cnstr:MeasurementProcess iof-cnstr:MonitoringProcess ) ] ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000148> ] ;
@@ -114,7 +117,7 @@ mtc-cnstr:Observation
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:madeByComponent ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:DataItemTypeEnum ] ;
@@ -141,7 +144,7 @@ mtc-cnstr:Observation
                       owl:someValuesFrom xsd:boolean ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isObservationOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isObservationOf ;
                       owl:someValuesFrom mtc-cnstr:DataItem ] ;
@@ -152,9 +155,11 @@ mtc-cnstr:SampleObservation
     rdfs:label """sample""" ;
     skos:altLabel """Sample""" ;
     iof-av:directSource """MTConnect Sample""" ;
-    rdfs:subClassOf iof-cnstr:MeasuredValueExpression ;
+    rdfs:subClassOf mtc-cnstr:Observation ;
     iof-av:naturalLanguageDefinition """observation that is continuously changing or analog data value.\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isOutputOf ;
+                      owl:someValuesFrom iof-cnstr:MeasurementProcess ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
@@ -191,7 +196,9 @@ mtc-cnstr:EventObservation
     iof-av:directSource """MTConnect Event""" ;
     rdfs:subClassOf mtc-cnstr:Observation ;
     iof-av:naturalLanguageDefinition """observation that is a discrete piece of information from a piece of equipment.\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isOutputOf ;
+                      owl:someValuesFrom iof-cnstr:MonitoringProcess ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
@@ -213,7 +220,9 @@ mtc-cnstr:ConditionObservation
     iof-av:directSource """MTConnect Condition""" ;
     rdfs:subClassOf mtc-cnstr:Observation ;
     iof-av:naturalLanguageDefinition """observation that provides the condition of a piece of equipment or a Component.\n\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Observation> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isOutputOf ;
+                      owl:someValuesFrom iof-cnstr:MonitoringProcess ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
@@ -305,7 +314,7 @@ mtc-cnstr:hasExtendedValue
 mtc-cnstr:hasNativeCodeValue
     a owl:DatatypeProperty ;
     rdfs:label """has native code value""" ;
-    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
     rdfs:range xsd:string ;
     iof-av:naturalLanguageDefinition """native code is the proprietary identifier designating a specific alarm, fault or warning code provided by the piece of equipment.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
@@ -321,7 +330,7 @@ mtc-cnstr:hasNativeSeverityValue
 mtc-cnstr:hasOrganizedByComponentStream
     a owl:ObjectProperty ;
     rdfs:label """has organized by component stream""" ;
-    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:domain mtc-cnstr:Observation ;
     rdfs:range mtc-cnstr:ComponentStream ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
 
@@ -365,7 +374,7 @@ mtc-cnstr:hasQuality
 mtc-cnstr:hasResetTriggered
     a owl:ObjectProperty ;
     rdfs:label """has reset triggered""" ;
-    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:domain mtc-cnstr:Observation ;
     rdfs:range mtc-cnstr:ResetTriggeredEnum ;
     iof-av:naturalLanguageDefinition """identifies when a reported value has been reset and what has caused that reset to occur for those {{block(DataItem)}} entities that may be periodically reset to an initial value.\n\n`resetTriggered` **MUST** only be provided for the specific occurrence of a {{block(DataItem)}} reported in the {{term(MTConnectStreams Response Document)}} when the reset occurred.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
@@ -381,7 +390,8 @@ mtc-cnstr:hasSequenceValue
 mtc-cnstr:hasState
     a owl:ObjectProperty ;
     rdfs:label """has state""" ;
-    rdfs:domain mtc-cnstr:Observation ;
+    rdfs:domain mtc-cnstr:ConditionObservation ;
+    rdfs:range mtc-cnstr:ConditionStateEnum ;
     iof-av:naturalLanguageDefinition """{{term(condition state)}} of the piece of equipment or {{block(Component)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
 
@@ -427,7 +437,7 @@ mtc-cnstr:isOrganizerFor
     a owl:ObjectProperty ;
     rdfs:label """is organizer for""" ;
     rdfs:domain mtc-cnstr:ComponentStream ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
 
 mtc-cnstr:isUnavailableValue
@@ -442,7 +452,7 @@ mtc-cnstr:madeByComponent
     a owl:ObjectProperty ;
     rdfs:label """made by component""" ;
     rdfs:domain mtc-cnstr:Observation ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ObservationInformationModel/> .
 
 mtc-cnstr:madeForDataItem

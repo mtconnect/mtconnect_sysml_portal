@@ -89,6 +89,14 @@ mtc-cnstr:hasKeyValue
     iof-av:naturalLanguageDefinition """unique identifier for each {{term(key-value pair)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
 
+mtc-cnstr:hasResultValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has result value""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range rdfs:Literal ;
+    iof-av:naturalLanguageDefinition """{{term(observation)}} of the {{block(Observation)}} entity.\n\nThe default value type for {{property(Observation::result)}} is `string`.\n\n> Note 1 to entry: in {{term(XML)}} the {{property(Observation::result)}} is the `CDATA` of the Observation {{term(element)}}.\n\n~~~~xml\n<Execution dataItemId=\"...\" ...>READY</Execution>\n~~~~\n\n> Note 2 to entry: in {{term(JSON)}} the {{property(Observation::result)}} is the member `value` of the Observation object.\n\n~~~~json\n\"Execution\" : [ { \"dataItemId\": \"...\" ..., \"value\": \"READY\" } ]\n~~~~""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Table/> .
+
 mtc-cnstr:isCellOf
     a owl:ObjectProperty ;
     rdfs:label """is cell of""" ;

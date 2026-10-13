@@ -8,13 +8,49 @@ OWL_CLASSIFIER_ROOTS = {
   'DataItem' => 'mtc-cnstr:DataItemType'
 }
 
-# Classes placed directly in a specific IOF branch, replacing their SysML superclasses.
-# TODO: The ontology is a monohierarchy, so SampleObservation no longer inherits from Observation
-# and loses the Observation properties (timestamp, sequence, dataItemId, ...). This needs to be resolved.
+# Classes placed directly in a specific IOF branch, replacing their SysML superclasses
 OWL_IOF_SUPERCLASSES = {
-  'Observation' => 'iof-cnstr:ValueExpression',
-  'SampleObservation' => 'iof-cnstr:MeasuredValueExpression'
+  'Observation' => 'iof-cnstr:Observation'
 }
+
+# An observation is information that is the output of a measurement, or of monitoring (analysing the state of
+# something); written as isOutputOf restrictions
+OWL_OUTPUT_OF = {
+  'Observation' => '[ a owl:Class ; owl:unionOf ( iof-cnstr:MeasurementProcess iof-cnstr:MonitoringProcess ) ]',
+  'SampleObservation' => 'iof-cnstr:MeasurementProcess',
+  'EventObservation' => 'iof-cnstr:MonitoringProcess',
+  'ConditionObservation' => 'iof-cnstr:MonitoringProcess'
+}
+OWL_IS_OUTPUT_OF = 'iof-cnstr:isOutputOf'
+
+# What the information classes without a realist counterpart are about
+OWL_INFORMATION_ABOUT = {
+  'DataItem' => 'Observation',
+  'SampleDataItem' => 'SampleObservation',
+  'EventDataItem' => 'EventObservation',
+  'ConditionDataItem' => 'ConditionObservation'
+}
+
+# The information side is kept simple:
+# - components: only the abstract component types and Device have information classes, named <term>Information
+#   (ComponentInformation, AxisInformation), since the information is the same for every component type; the concrete
+#   types exist on the realist side, and what the information is about says what it really is
+# - observations: the base abstractions, the events whose result is a controlled vocabulary (state variables), and
+#   the conditions; the other sample and event types are not generated (the samples' qualities are, on the realist side)
+OWL_COMPONENT_INFORMATION_SUFFIX = 'Information'
+OWL_COMPONENT_INFORMATION_CONCRETE = Set['Device']
+OWL_EVENT_ROOT = 'EventObservation'
+OWL_CONDITION_ROOT = 'ConditionObservation'
+
+# State variables (events whose result is a controlled vocabulary, and conditions, whose normal/warning/fault is one)
+# are about a state, which IOF does not define yet
+# for processes. The closest is material state: a process in which a material entity's condition remains unchanged.
+# Each state variable has a realist <term>MaterialState, and its observation has, as a part, the value expression of
+# that state, carrying the state information.
+OWL_STATE_GENUS = 'iof-cnstr:MaterialState'
+OWL_STATE_SUFFIX = 'MaterialState'
+OWL_VALUE_EXPRESSION = 'iof-cnstr:ValueExpression'
+OWL_IS_VALUE_EXPRESSION_OF = 'iof-cnstr:isValueExpressionOfAtSomeTime'
 
 # Component to component relations are mereological and use the BFO parthood relations
 # ('has continuant part at all times' and 'continuant part of at all times') instead of minting new properties
@@ -31,12 +67,10 @@ OWL_COMPONENT_RELATIONS = {
   'isProcessOf' => nil
 }
 
-# Subclasses of these MTConnect classes are defined classes: equivalent to their MTConnect parent intersected with
-# the enumeration values they fix (type value SampleEnum TEMPERATURE), what they are about, and their data
-# requirements. Their primary (asserted) parent can then be their IOF classification, and the reasoner infers the
-# MTConnect parent back. The data requirements are only stated in the equivalence. Components have no fixed values;
-# what they are about (isAbout some <their realist class>) tells them apart, so the information side can be placed
-# where it makes sense in the IOF information taxonomy while the aboutness says what it really is.
+# Subclasses of these MTConnect classes are defined classes: equivalent to their nearest MTConnect information parent
+# intersected with the enumeration values they fix (type value EventEnum EXECUTION), what they are about, and their
+# data requirements, which are only stated in the equivalence. Component information classes have no fixed values;
+# what they are about (isAbout some <their realist class>) tells them apart and says what they really are.
 OWL_EQUIVALENCE_ROOTS = Set['SampleObservation', 'EventObservation', 'ConditionObservation', 'Component']
 
 # MTConnect roots whose classes are cited by the category below the root, e.g. 'MTConnect Sample Temperature'
@@ -65,9 +99,9 @@ OWL_BFO_ENTITY = 'http://purl.obolibrary.org/obo/BFO_0000001'
 OWL_INFORMATION_ROOT = '<https://spec.industrialontologies.org/ontology/construct/InformationContentEntity>'
 
 # Realist classes: the real-world things described by the component tree, written next to the information classes.
-# They are named from classifier/view_names.json, or the information class name with a suffix.
+# They are named from classifier/view_names.json, or the MTConnect name (samples get a kind suffix, see below).
 OWL_VIEW_NAMES_FILE = File.join(File.dirname(__FILE__), 'classifier', 'view_names.json')
-OWL_REALIST_SUFFIX = 'Entity'
+OWL_REALIST_SUFFIX = ''
 
 # Realist classes are also written for the qualities and characteristics the samples measure
 OWL_REALIST_SAMPLE_ROOTS = Set['SampleObservation']
@@ -112,6 +146,7 @@ class OwlType < Type
   @@iof_equivalence = nil
   @@iof_paths = nil
   @@view_names = nil
+  @@information_by_name = nil
 
   def initialize(model, e)
     super
@@ -203,7 +238,20 @@ class OwlType < Type
   end
 
   def realist?
-    owl_class? and (component? or sample?)
+    owl_class? and (component? or sample? or state_variable?)
+  end
+
+  # An event whose result is a controlled vocabulary, or a condition, about a (material) state
+  def state_variable?
+    return false unless information_class?
+    roots = mtc_ancestors.map(&:owl_name)
+    roots.include?(OWL_CONDITION_ROOT) or (roots.include?(OWL_EVENT_ROOT) and controlled_vocabulary?)
+  end
+
+  # The value expression of the state, which the state variable's observation has as a part
+  def state_value_expression
+    "[ a owl:Class ; owl:intersectionOf ( #{OWL_VALUE_EXPRESSION} [ a owl:Restriction ; " \
+      "owl:onProperty #{OWL_IS_VALUE_EXPRESSION_OF} ; owl:someValuesFrom mtc-cnstr:#{realist_name} ] ) ]"
   end
 
   def mtc_ancestors
@@ -230,6 +278,7 @@ class OwlType < Type
 
   # The IOF class this realist class is equivalent to, when the classifier judged them the same kind of entity
   def realist_equivalent
+    return nil if state_variable?
     OwlType.iof_parents # loads the equivalence probabilities
     probability = @@iof_equivalence&.dig('realist', owl_name)
     iof_parent('realist') if probability and probability >= OWL_REALIST_EQUIVALENCE_THRESHOLD
@@ -249,7 +298,13 @@ class OwlType < Type
 
   def realist_name
     OwlType.view_names.dig('realist', owl_name, 'name') ||
-      "#{owl_name}#{component? ? OWL_REALIST_SUFFIX : realist_kind_suffix}"
+      if component?
+        "#{owl_name}#{OWL_REALIST_SUFFIX}"
+      elsif state_variable?
+        "#{owl_name.delete_suffix('State')}#{OWL_STATE_SUFFIX}" # ChuckState becomes ChuckMaterialState
+      else
+        "#{owl_name}#{realist_kind_suffix}"
+      end
   end
 
   def realist_label
@@ -267,6 +322,11 @@ class OwlType < Type
   # continuant), and linear motion system (engineered system) stays under motion system.
   def realist_superclass
     @realist_superclass ||= begin
+      if state_variable?
+        # States are not classified; a sub-state is under its parent's state (DirectionLinear under Direction)
+        parent = realist_mtc_parent
+        return @realist_superclass = parent&.state_variable? ? "mtc-cnstr:#{parent.realist_name}" : OWL_STATE_GENUS
+      end
       parent, iof = realist_mtc_parent, iof_parent('realist')
       parent_iof = parent&.iof_parent('realist')
       if parent and (iof.nil? or parent_iof.nil? or iof == parent_iof or parent.iof_path('realist').include?(iof))
@@ -282,6 +342,7 @@ class OwlType < Type
   # An IOF match that adds to what the realist superclass already implies, for review. A match at or above the
   # parent's match is already inherited.
   def realist_candidate
+    return nil if state_variable?
     iof = iof_parent('realist')
     return nil if iof.nil? or realist_superclass == "<#{iof}>" or realist_equivalent
     iof unless realist_mtc_parent&.iof_path('realist')&.include?(iof)
@@ -293,7 +354,7 @@ class OwlType < Type
   # class using it is (entailed to be) a subclass of, and its range likewise for its targets. A property with no
   # common class has no domain or range; repeated rdfs:domain axioms would mean the intersection of the classes.
   def self.prepare_properties(types)
-    by_name = OwlType.owl_names.invert
+    by_name = OwlType.information_by_name
     uses = Hash.new { |h, k| h[k] = [] }
     types.each do |type|
       type.property_uses.each do |rel, name, type_name, is_object, target|
@@ -319,13 +380,13 @@ class OwlType < Type
         $logger.warn "Property #{name} is used as both an object and a datatype property; declaring it as " \
                      "#{is_object ? 'an object' : 'a datatype'} property"
       end
-      domain = common.(list.map { |type, _| "mtc-cnstr:#{type.owl_name}" })
+      domain = common.(list.map { |type, _| "mtc-cnstr:#{type.info_name}" })
       ranges = list.map { |_, _, type_name| type_name }.uniq
       range = ranges.size == 1 ? ranges.first : common.(ranges)
       range ||= 'rdfs:Literal' unless is_object
       doc = list.map { |_, rel| rel.documentation }.find { |d| d and !d.empty? }
       home = (domain&.start_with?('mtc-cnstr:') && by_name[domain.delete_prefix('mtc-cnstr:')]) ||
-             list.map(&:first).min_by(&:owl_name)
+             list.map(&:first).min_by(&:info_name)
       @@property_declarations[home.model] << { name: name, object: is_object, domain: domain, range: range,
                                                  documentation: doc }
     end
@@ -354,11 +415,11 @@ class OwlType < Type
   # the genus of its equivalence, and the IOF classes above a classifier match
   def entailed_ancestors
     @entailed_ancestors ||= begin
-      by_name = OwlType.owl_names.invert
+      by_name = OwlType.information_by_name
       out, queue = [], [self]
       while (type = queue.shift)
         supers = type.owl_superclasses.map { |s| s.start_with?('iof-cnstr:') ? "<#{OwlType.expand_curie(s)}>" : s }
-        supers.unshift("mtc-cnstr:#{type.equivalence_genus.owl_name}") if type.defined_by_equivalence?
+        supers.unshift("mtc-cnstr:#{type.equivalence_genus.info_name}") if type.defined_by_equivalence?
         supers.each do |sup|
           next if out.include?(sup)
           out << sup
@@ -399,12 +460,61 @@ class OwlType < Type
     @name == 'Component' && owl_parents.empty? || owl_parents.any?(&:component?)
   end
 
+  # Whether this class has an information class in the generated ontology (see OWL_COMPONENT_INFORMATION_SUFFIX)
+  def information_class?
+    return @information_class if defined?(@information_class)
+    @information_class = owl_class? &&
+      if component?
+        abstract? || OWL_COMPONENT_INFORMATION_CONCRETE.include?(owl_name)
+      elsif sample?
+        false
+      elsif mtc_ancestors.any? { |a| a.owl_name == OWL_EVENT_ROOT }
+        controlled_vocabulary?
+      else
+        true
+      end
+  end
+
+  # An event whose result is a controlled vocabulary (an enumeration), here or in an MTConnect ancestor
+  def controlled_vocabulary?
+    ([self] + mtc_ancestors).any? do |type|
+      type.relations.any? do |rel|
+        next false unless rel.is_a?(Relation::Attribute) and rel.owner.equal?(type) and rel.name == 'result'
+        target = LazyPointer === rel.target.type ? rel.target.type.resolve && rel.target.type.obj : rel.target.type
+        target&.type == 'uml:Enumeration'
+      end
+    end
+  end
+
+  # The local name of the information class
+  def info_name
+    component? ? "#{turtle_name(@name)}#{OWL_COMPONENT_INFORMATION_SUFFIX}" : owl_name
+  end
+
+  def info_label
+    component? ? label(info_name) : label
+  end
+
+  # The nearest MTConnect ancestors that have information classes
+  def info_parents
+    @info_parents ||= owl_parents.flat_map { |p| p.information_class? ? [p] : p.info_parents }.uniq
+  end
+
+  def info_parent
+    info_parents.first
+  end
+
+  def self.information_by_name
+    @@information_by_name ||= @@types_by_id.values.select { |t| OwlType === t && t.information_class? }
+                                                  .to_h { |t| [t.info_name, t] }
+  end
+
   def write_turtle(f)
     return if @name.nil? || @name.empty?
 
     case @type
     when 'uml:Class', 'uml:AssociationClass'
-      write_class(f, owl_name)
+      write_class(f, info_name) if information_class?
       write_realist_class(f) if realist?
     when 'uml:Enumeration'
       write_enumeration(f, turtle_name(@name))
@@ -427,16 +537,16 @@ class OwlType < Type
   # The superclass and classification methods are used across classes (parents, property domains)
   public
 
-  # The MTConnect information is placed in the information content entity branch of IOF:
-  # data item types are classifiers, observations are value expressions (samples are measured
-  # value expressions), configuration is a design specification, and everything else, including
-  # component types, is descriptive.
+  # The MTConnect information is placed in the information content entity branch of IOF: an information class is
+  # under its nearest MTConnect ancestor that has an information class; a root is placed explicitly
+  # (OWL_IOF_SUPERCLASSES), as a design specification (configuration), or under its classifier match. Data item types
+  # are classifiers.
   def owl_superclasses
     @owl_superclasses ||= compute_owl_superclasses
   end
 
   def compute_owl_superclasses
-    parents = owl_parents
+    parents = info_parents
     if OWL_IOF_SUPERCLASSES.include?(owl_name)
       [OWL_IOF_SUPERCLASSES[owl_name]]
     elsif parents.empty?
@@ -451,10 +561,8 @@ class OwlType < Type
       parents.map do |parent|
         if parent.owl_parents.empty? and OWL_CLASSIFIER_ROOTS.include?(parent.name)
           OWL_CLASSIFIER_ROOTS[parent.name]
-        elsif iof_consistent_with?(parent) or !defined_by_equivalence?
-          "mtc-cnstr:#{parent.owl_name}"
         else
-          "<#{iof_parent('information')}>"
+          "mtc-cnstr:#{parent.info_name}"
         end
       end.uniq
     end
@@ -469,7 +577,7 @@ class OwlType < Type
       ancestors << parent
       queue.concat(parent.owl_parents)
     end
-    @equivalence_genus = ancestors.any? { |a| OWL_EQUIVALENCE_ROOTS.include?(a.owl_name) } ? owl_parents.first : nil
+    @equivalence_genus = ancestors.any? { |a| OWL_EQUIVALENCE_ROOTS.include?(a.owl_name) } ? info_parent : nil
   end
 
   # The enumeration values this class fixes, from its own attributes with an enumeration default, as
@@ -503,20 +611,9 @@ class OwlType < Type
     end
   end
 
-  # Subsumption-aware monohierarchy: a class stays under its MTConnect parent only when the parent's IOF match is at
-  # least as specific as its own (its match is at or above the parent's), so nothing is lost. When its match is more
-  # specific, or in a different branch, the classification wins and the class is placed directly under its own IOF
-  # match. Only classes defined by equivalence move; the reasoner infers their MTConnect parent back.
-  def iof_consistent_with?(parent)
-    own, theirs = iof_parent('information'), parent.iof_information
-    # A parent placed explicitly (OWL_IOF_SUPERCLASSES or a package rule) is not on its classifier path
-    parent_path = theirs == parent.iof_parent('information') ? parent.iof_path('information') : [theirs]
-    own.nil? or theirs.nil? or own == theirs or parent_path.include?(own)
-  end
-
   # The MTConnect parent this class is a subclass of in the generated ontology
   def owl_mtc_parent
-    owl_parents.find { |parent| owl_superclasses.include?("mtc-cnstr:#{parent.owl_name}") }
+    info_parents.find { |parent| owl_superclasses.include?("mtc-cnstr:#{parent.info_name}") }
   end
 
   # A class kept under its MTConnect parent records a more specific IOF match as a candidate for review. A match at or
@@ -545,7 +642,7 @@ class OwlType < Type
 
     f.puts "mtc-cnstr:#{local}"
     f.puts "    a owl:Class ;"
-    f.puts "    rdfs:label #{turtle_string(label)} ;"
+    f.puts "    rdfs:label #{turtle_string(info_label)} ;"
     f.puts "    skos:altLabel #{turtle_string(@name)} ;" # the MTConnect term
     f.puts "    iof-av:directSource #{turtle_string(mtconnect_source)} ;"
 
@@ -559,8 +656,22 @@ class OwlType < Type
     candidate = iof_parent_candidate
     f.puts "    mtc-cnstr:iofParentCandidate <#{candidate}> ;" if candidate
 
-    about = realist? ? "mtc-cnstr:#{realist_name}" : (iri = iof_about) && "<#{iri}>"
+    about = if OWL_INFORMATION_ABOUT.include?(owl_name)
+              "mtc-cnstr:#{OwlType.owl_names.invert[OWL_INFORMATION_ABOUT[owl_name]]&.info_name || OWL_INFORMATION_ABOUT[owl_name]}"
+            elsif realist?
+              "mtc-cnstr:#{realist_name}"
+            else
+              (iri = iof_about) && "<#{iri}>"
+            end
     props = owl_properties
+
+    if (process = OWL_OUTPUT_OF[owl_name])
+      f.puts <<TTL
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty #{OWL_IS_OUTPUT_OF} ;
+                      owl:someValuesFrom #{process} ] ;
+TTL
+    end
 
     if defined_by_equivalence?
       write_equivalence(f, about, props)
@@ -570,6 +681,14 @@ class OwlType < Type
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty #{OWL_IS_ABOUT} ;
                       owl:someValuesFrom #{about} ] ;
+TTL
+      end
+
+      if state_variable?
+        f.puts <<TTL
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty #{OWL_HAS_PART} ;
+                      owl:someValuesFrom #{state_value_expression} ] ;
 TTL
       end
 
@@ -591,11 +710,14 @@ TTL
   # The class as its MTConnect parent intersected with its values, what it is about, and its data requirements
   def write_equivalence(f, about, props)
     fixed = value_restrictions.map(&:first)
-    members = ["mtc-cnstr:#{equivalence_genus.owl_name}"]
+    members = ["mtc-cnstr:#{equivalence_genus.info_name}"]
     members += value_restrictions.map do |prop, value|
       "[ a owl:Restriction ; owl:onProperty #{prop} ; owl:hasValue #{value} ]"
     end
     members << "[ a owl:Restriction ; owl:onProperty #{OWL_IS_ABOUT} ; owl:someValuesFrom #{about} ]" if about
+    if state_variable?
+      members << "[ a owl:Restriction ; owl:onProperty #{OWL_HAS_PART} ; owl:someValuesFrom #{state_value_expression} ]"
+    end
     props.each do |prop, rel_name, type_name, is_object, target|
       next if fixed.include?(rel_name) # 'type some SampleEnum' is implied by 'type value SampleEnum_...'
       next if OWL_REALIST_ONLY_RELATIONS.include?(rel_name)
@@ -718,7 +840,13 @@ TTL
       if target
         case target.type
         when 'uml:Class', 'uml:AssociationClass'
-          type_name = "mtc-cnstr:#{target.owl_name}"
+          # The information side refers to the nearest class with an information class
+          info = target.information_class? ? target : target.info_parent
+          if info.nil?
+            $logger.debug "#{@name}::#{rel.name}: #{target.name} has no information class, skipping"
+            next
+          end
+          type_name = "mtc-cnstr:#{info.info_name}"
           is_object = true
         when 'uml:Enumeration'
           type_name = "mtc-cnstr:#{turtle_name(target.name)}"

@@ -105,6 +105,21 @@ mtc-cnstr:hasKeyType
     iof-av:naturalLanguageDefinition """{{property(DataItem::type)}} that defines the meaning of {{property(CellDefinition::key)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
 
+mtc-cnstr:hasSubType
+    a owl:ObjectProperty ;
+    rdfs:label """has sub type""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    iof-av:naturalLanguageDefinition """subtype of the {{block(DataItem)}} associated with this {{block(Observation)}}.\n\n{{property(Observation::subType)}} **MUST** match the associated {{property(DataItem::subType)}} defined in the {{term(MTConnectDevices Response Document)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
+mtc-cnstr:hasUnits
+    a owl:ObjectProperty ;
+    rdfs:label """has units""" ;
+    rdfs:domain <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    rdfs:range mtc-cnstr:UnitEnum ;
+    iof-av:naturalLanguageDefinition """same as {{property(DataItem::units)}}. See {{package(Device Information Model)}}.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/PropertiesofDefinition/> .
+
 mtc-cnstr:isCellDefinitionOf
     a owl:ObjectProperty ;
     rdfs:label """is cell definition of""" ;

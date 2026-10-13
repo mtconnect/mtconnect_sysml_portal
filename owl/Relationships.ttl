@@ -107,6 +107,14 @@ mtc-cnstr:hasAssetIdRefValue
     iof-av:naturalLanguageDefinition """uuid of the related {{block(Asset)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
 
+mtc-cnstr:hasAssetTypeValue
+    a owl:DatatypeProperty ;
+    rdfs:label """has asset type value""" ;
+    rdfs:domain mtc-cnstr:AssetRelationship ;
+    rdfs:range xsd:string ;
+    iof-av:naturalLanguageDefinition """type of {{block(Asset)}} being referenced.""" ;
+    rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Relationships/> .
+
 mtc-cnstr:hasCriticality
     a owl:ObjectProperty ;
     rdfs:label """has criticality""" ;

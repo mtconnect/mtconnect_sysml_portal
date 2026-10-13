@@ -30,7 +30,7 @@ mtc-cnstr:Configuration
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000020> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isConfigurationFor ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasSolidModel ;
                       owl:someValuesFrom mtc-cnstr:SolidModel ] ;
@@ -60,7 +60,7 @@ mtc-cnstr:Configuration
                       owl:someValuesFrom mtc-cnstr:PowerSource ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isConfigurationOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isConfigurationOf ;
                       owl:someValuesFrom mtc-cnstr:Composition ] ;

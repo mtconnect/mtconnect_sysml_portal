@@ -26,7 +26,7 @@ mtc-cnstr:DataItem
     iof-av:naturalLanguageDefinition """information reported about a piece of equipment.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+                      owl:someValuesFrom mtc-cnstr:Observation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
@@ -71,7 +71,7 @@ mtc-cnstr:DataItem
                       owl:someValuesFrom mtc-cnstr:UnitEnum ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isObservedBy ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasRepresentation ;
                       owl:someValuesFrom mtc-cnstr:RepresentationEnum ] ;
@@ -104,7 +104,7 @@ mtc-cnstr:DataItem
                       owl:someValuesFrom mtc-cnstr:AbstractDataItemRelationship ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isDataItemOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
 mtc-cnstr:hasCompositionIdValue
@@ -201,13 +201,13 @@ mtc-cnstr:isDataItemOf
     a owl:ObjectProperty ;
     rdfs:label """is data item of""" ;
     rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 
 mtc-cnstr:isObservedBy
     a owl:ObjectProperty ;
     rdfs:label """is observed by""" ;
     rdfs:domain mtc-cnstr:DataItem ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/DataItems/> .
 

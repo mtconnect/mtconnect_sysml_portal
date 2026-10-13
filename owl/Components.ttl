@@ -17,16 +17,16 @@
     owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/Components/> ;
     owl:versionInfo "2.8" .
 
-mtc-cnstr:Component
+mtc-cnstr:ComponentInformation
     a owl:Class ;
-    rdfs:label """component""" ;
+    rdfs:label """component information""" ;
     skos:altLabel """Component""" ;
     iof-av:directSource """MTConnect Component""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     iof-av:naturalLanguageDefinition """logical or physical entity that provides a capability.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasIdValue ;
                       owl:someValuesFrom xsd:string ] ;
@@ -53,13 +53,13 @@ mtc-cnstr:Component
                       owl:someValuesFrom mtc-cnstr:Composition ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000110 ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasConfiguration ;
                       owl:someValuesFrom mtc-cnstr:Configuration ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000177 ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:observes ;
                       owl:someValuesFrom mtc-cnstr:DataItem ] ;
@@ -77,18 +77,18 @@ mtc-cnstr:Component
                       owl:someValuesFrom mtc-cnstr:ComponentStream ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
-mtc-cnstr:ComponentEntity
+mtc-cnstr:Component
     a owl:Class ;
-    rdfs:label """component entity""" ;
+    rdfs:label """component""" ;
     iof-av:directSource """MTConnect Component""" ;
     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> ;
     iof-av:naturalLanguageDefinition """logical or physical entity that provides a capability.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000178 ;
-                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000176 ;
-                      owl:someValuesFrom mtc-cnstr:ComponentEntity ] ;
+                      owl:someValuesFrom mtc-cnstr:Component ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
 mtc-cnstr:Description
@@ -118,7 +118,7 @@ mtc-cnstr:Description
                       owl:someValuesFrom xsd:string ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isDescriptionOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isDescriptionOf ;
                       owl:someValuesFrom mtc-cnstr:Composition ] ;
@@ -134,7 +134,7 @@ mtc-cnstr:hasComponentStream
 mtc-cnstr:hasComposition
     a owl:ObjectProperty ;
     rdfs:label """has composition""" ;
-    rdfs:domain mtc-cnstr:Component ;
+    rdfs:domain mtc-cnstr:ComponentInformation ;
     rdfs:range mtc-cnstr:Composition ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
@@ -195,14 +195,14 @@ mtc-cnstr:hasNativeNameValue
 mtc-cnstr:hasReference
     a owl:ObjectProperty ;
     rdfs:label """has reference""" ;
-    rdfs:domain mtc-cnstr:Component ;
+    rdfs:domain mtc-cnstr:ComponentInformation ;
     rdfs:range mtc-cnstr:Reference ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
 mtc-cnstr:hasSampleIntervalValue
     a owl:DatatypeProperty ;
     rdfs:label """has sample interval value""" ;
-    rdfs:domain mtc-cnstr:Component ;
+    rdfs:domain mtc-cnstr:ComponentInformation ;
     rdfs:range xsd:float ;
     iof-av:naturalLanguageDefinition """interval in milliseconds between the completion of the reading of the data associated with the {{block(Component)}} until the beginning of the next sampling of that data.\n\nThis information may be used by client software applications to understand how often information from a {{block(Component)}} is expected to be refreshed.\n\nThe refresh rate for data from all child {{block(Component)}} entities will be the\nsame as for the parent {{block(Component)}} element unless specifically overridden by another {{property(Component::sampleInterval)}} provided for the child {{block(Component)}}.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
@@ -249,14 +249,14 @@ mtc-cnstr:isDescriptionOf
 mtc-cnstr:madeObservation
     a owl:ObjectProperty ;
     rdfs:label """made observation""" ;
-    rdfs:domain mtc-cnstr:Component ;
+    rdfs:domain mtc-cnstr:ComponentInformation ;
     rdfs:range mtc-cnstr:Observation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 
 mtc-cnstr:observes
     a owl:ObjectProperty ;
     rdfs:label """observes""" ;
-    rdfs:domain mtc-cnstr:Component ;
+    rdfs:domain mtc-cnstr:ComponentInformation ;
     rdfs:range mtc-cnstr:DataItem ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Components/> .
 

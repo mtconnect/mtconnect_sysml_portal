@@ -29,7 +29,7 @@ mtc-cnstr:Composition
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/Constituent> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:isCompositionOf ;
-                      owl:someValuesFrom mtc-cnstr:Component ] ;
+                      owl:someValuesFrom mtc-cnstr:ComponentInformation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasDescription ;
                       owl:someValuesFrom mtc-cnstr:Description ] ;
@@ -54,6 +54,6 @@ mtc-cnstr:isCompositionOf
     a owl:ObjectProperty ;
     rdfs:label """is composition of""" ;
     rdfs:domain mtc-cnstr:Composition ;
-    rdfs:range mtc-cnstr:Component ;
+    rdfs:range mtc-cnstr:ComponentInformation ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/Compositions/> .
 

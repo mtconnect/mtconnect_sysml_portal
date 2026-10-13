@@ -27,7 +27,7 @@ mtc-cnstr:EventDataItem
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
+                      owl:someValuesFrom mtc-cnstr:EventObservation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
@@ -46,7 +46,7 @@ mtc-cnstr:SampleDataItem
     mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+                      owl:someValuesFrom mtc-cnstr:SampleObservation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
@@ -68,7 +68,7 @@ mtc-cnstr:ConditionDataItem
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000027> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000016> ] ;
+                      owl:someValuesFrom mtc-cnstr:ConditionObservation ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasCategory ;
                       owl:someValuesFrom mtc-cnstr:CategoryEnum ] ;
