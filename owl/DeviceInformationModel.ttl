@@ -62,7 +62,7 @@ mtc-cnstr:Device
                       owl:someValuesFrom mtc-cnstr:Resource ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000178 ;
-                      owl:someValuesFrom mtc-cnstr:Structure ] ;
+                      owl:someValuesFrom mtc-cnstr:StructureSystem ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty bfo:BFO_0000178 ;
                       owl:someValuesFrom mtc-cnstr:Part ] ;

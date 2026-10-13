@@ -17,9 +17,9 @@
     owl:versionIRI <https://model.mtconnect.org/ontology/v2.8/machinetool/Devices/> ;
     owl:versionInfo "2.8" .
 
-mtc-cnstr:Agent
+mtc-cnstr:AgentSystem
     a owl:Class ;
-    rdfs:label """agent""" ;
+    rdfs:label """agent system""" ;
     iof-av:directSource """MTConnect Component Agent""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """device composed of an MTConnect Agent and all its connected data sources.""" ;

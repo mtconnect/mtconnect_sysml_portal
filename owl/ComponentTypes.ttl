@@ -99,9 +99,9 @@ mtc-cnstr:Controller
                       owl:someValuesFrom mtc-cnstr:Device ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Coolant
+mtc-cnstr:CoolantSystem
     a owl:Class ;
-    rdfs:label """coolant""" ;
+    rdfs:label """coolant system""" ;
     iof-av:directSource """MTConnect Component Coolant""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that provides distribution and management of fluids that remove heat from a piece of equipment.""" ;
@@ -115,9 +115,9 @@ mtc-cnstr:Deposition
     iof-av:naturalLanguageDefinition """auxiliary that manages the addition of material or state change of material being performed in an additive manufacturing process.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Dielectric
+mtc-cnstr:DielectricSystem
     a owl:Class ;
-    rdfs:label """dielectric""" ;
+    rdfs:label """dielectric system""" ;
     iof-av:directSource """MTConnect Component Dielectric""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that manages a chemical mixture used in a manufacturing process being performed at that piece of equipment.""" ;
@@ -131,9 +131,9 @@ mtc-cnstr:Door
     iof-av:naturalLanguageDefinition """component composed of a mechanical mechanism or closure that can cover a physical access portal into a piece of equipment allowing or restricting access to other parts of the equipment.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Electric
+mtc-cnstr:ElectricSystem
     a owl:Class ;
-    rdfs:label """electric""" ;
+    rdfs:label """electric system""" ;
     iof-av:directSource """MTConnect Component Electric""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """system composed of the main power supply for the piece of equipment that provides distribution of that power throughout the equipment.""" ;
@@ -163,17 +163,17 @@ mtc-cnstr:Environmental
     iof-av:naturalLanguageDefinition """component that observes the surroundings of another component.\n\n> Note: environmental **SHOULD** be organized by Auxillaries, systems or parts depending on the relationship to the component.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Feeder
+mtc-cnstr:FeederSystem
     a owl:Class ;
-    rdfs:label """feeder""" ;
+    rdfs:label """feeder system""" ;
     iof-av:directSource """MTConnect Component Feeder""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that manages the delivery of materials within a piece of equipment.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Hydraulic
+mtc-cnstr:HydraulicSystem
     a owl:Class ;
-    rdfs:label """hydraulic""" ;
+    rdfs:label """hydraulic system""" ;
     iof-av:directSource """MTConnect Component Hydraulic""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that provides movement and distribution of pressurized liquid throughout the piece of equipment.""" ;
@@ -195,9 +195,9 @@ mtc-cnstr:Loader
     iof-av:naturalLanguageDefinition """auxiliary that provides movement and distribution of materials, parts, tooling, and other items to or from a piece of equipment.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Lubrication
+mtc-cnstr:LubricationSystem
     a owl:Class ;
-    rdfs:label """lubrication""" ;
+    rdfs:label """lubrication system""" ;
     iof-av:directSource """MTConnect Component Lubrication""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that provides distribution and management of fluids used to lubricate portions of the piece of equipment.""" ;
@@ -209,9 +209,6 @@ mtc-cnstr:MaterialResource
     iof-av:directSource """MTConnect Component Material""" ;
     rdfs:subClassOf mtc-cnstr:Resource ;
     iof-av:naturalLanguageDefinition """resource composed of material that is consumed or used by the piece of equipment for production of parts, materials, or other types of goods.""" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-                      owl:onProperty bfo:BFO_0000176 ;
-                      owl:someValuesFrom mtc-cnstr:Resources ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
 mtc-cnstr:Path
@@ -233,9 +230,9 @@ mtc-cnstr:Personnel
     iof-av:naturalLanguageDefinition """resource composed of an individual or individuals who either control, support, or otherwise interface with a piece of equipment.\n""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Pneumatic
+mtc-cnstr:PneumaticSystem
     a owl:Class ;
-    rdfs:label """pneumatic""" ;
+    rdfs:label """pneumatic system""" ;
     iof-av:directSource """MTConnect Component Pneumatic""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """system that uses compressed gasses to actuate components or do work within the piece of equipment.""" ;
@@ -249,17 +246,17 @@ mtc-cnstr:Power
     iof-av:naturalLanguageDefinition """power was **DEPRECATED** in *MTConnect Version 1.1* and was replaced by availability data item type.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:ProcessPower
+mtc-cnstr:ProcessPowerSystem
     a owl:Class ;
-    rdfs:label """process power""" ;
+    rdfs:label """process power system""" ;
     iof-av:directSource """MTConnect Component ProcessPower""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system composed of a power source associated with a piece of equipment that supplies energy to the manufacturing process separate from the electric system.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Protective
+mtc-cnstr:ProtectiveSystem
     a owl:Class ;
-    rdfs:label """protective""" ;
+    rdfs:label """protective system""" ;
     iof-av:directSource """MTConnect Component Protective""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """system that provides functions used to detect or prevent harm or damage to equipment or personnel.""" ;
@@ -325,14 +322,14 @@ mtc-cnstr:SystemInformation
     owl:equivalentClass [ a owl:Class ;
         owl:intersectionOf (
             mtc-cnstr:ComponentInformation
-            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom mtc-cnstr:SystemComponent ]
+            [ a owl:Restriction ; owl:onProperty iof-cnstr:isAbout ; owl:someValuesFrom mtc-cnstr:System ]
             [ a owl:Restriction ; owl:onProperty bfo:BFO_0000177 ; owl:someValuesFrom mtc-cnstr:DeviceInformation ]
         ) ] ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:SystemComponent
+mtc-cnstr:System
     a owl:Class ;
-    rdfs:label """system component""" ;
+    rdfs:label """system""" ;
     iof-av:directSource """MTConnect Component System""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/System> ;
     iof-av:naturalLanguageDefinition """abstract component that is permanently integrated into the piece of equipment.""" ;
@@ -357,9 +354,9 @@ mtc-cnstr:WasteDisposal
     iof-av:naturalLanguageDefinition """auxiliary that removes manufacturing byproducts from a piece of equipment.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Structure
+mtc-cnstr:StructureSystem
     a owl:Class ;
-    rdfs:label """structure""" ;
+    rdfs:label """structure system""" ;
     iof-av:directSource """MTConnect Component Structure""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """component composed of part(s) comprising the rigid bodies of the piece of equipment.""" ;
@@ -384,9 +381,9 @@ mtc-cnstr:GangToolBar
     iof-av:naturalLanguageDefinition """tooling delivery composed of a tool mounting mechanism that holds any number of tools. """ ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Heating
+mtc-cnstr:HeatingSystem
     a owl:Class ;
-    rdfs:label """heating""" ;
+    rdfs:label """heating system""" ;
     iof-av:directSource """MTConnect Component Heating""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that delivers controlled amounts of heat to achieve a target temperature at a specified heating rate.""" ;
@@ -469,17 +466,17 @@ mtc-cnstr:Turret
     iof-av:naturalLanguageDefinition """tooling delivery composed of a tool mounting mechanism that holds any number of tools.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Vacuum
+mtc-cnstr:VacuumSystem
     a owl:Class ;
-    rdfs:label """vacuum""" ;
+    rdfs:label """vacuum system""" ;
     iof-av:directSource """MTConnect Component Vacuum""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """system that evacuates gases and liquids from an enclosed and sealed space to a controlled negative pressure or a molecular density below the prevailing atmospheric level.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:Cooling
+mtc-cnstr:CoolingSystem
     a owl:Class ;
-    rdfs:label """cooling""" ;
+    rdfs:label """cooling system""" ;
     iof-av:directSource """MTConnect Component Cooling""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EquipmentModule> ;
     iof-av:naturalLanguageDefinition """system that extracts controlled amounts of heat to achieve a target temperature at a specified cooling rate.""" ;
@@ -1112,9 +1109,9 @@ mtc-cnstr:FeatureOccurrence
     iof-av:naturalLanguageDefinition """component that provides information related to an individual feature.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 
-mtc-cnstr:AirHandler
+mtc-cnstr:AirHandlerSystem
     a owl:Class ;
-    rdfs:label """air handler""" ;
+    rdfs:label """air handler system""" ;
     iof-av:directSource """MTConnect Component AirHandler""" ;
     rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/EngineeredSystem> ;
     iof-av:naturalLanguageDefinition """system that circulates air or regulates airflow without altering temperature or humidity.""" ;

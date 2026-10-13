@@ -298,17 +298,6 @@
       ]
     },
     {
-      "name": "Adapters",
-      "sysml_name": "Adapters",
-      "label": "adapters",
-      "definition": "component that organizes adapter types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "Agent",
       "sysml_name": "Agent",
       "label": "agent",
@@ -824,17 +813,6 @@
       ]
     },
     {
-      "name": "Auxiliaries",
-      "sysml_name": "Auxiliaries",
-      "label": "auxiliaries",
-      "definition": "component that organizes auxiliary types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "Auxiliary",
       "sysml_name": "Auxiliary",
       "label": "auxiliary",
@@ -854,17 +832,6 @@
       "abstract": false,
       "parents": [
         "EventObservation"
-      ]
-    },
-    {
-      "name": "Axes",
-      "sysml_name": "Axes",
-      "label": "axes",
-      "definition": "component that organizes axis types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
       ]
     },
     {
@@ -1793,15 +1760,6 @@
       "parents": [
         "ControllerModeOverride"
       ]
-    },
-    {
-      "name": "Controllers",
-      "sysml_name": "Controllers",
-      "label": "controllers",
-      "definition": "component that organizes controller entities.",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": []
     },
     {
       "name": "Coolant",
@@ -3861,17 +3819,6 @@
       "parents": []
     },
     {
-      "name": "Interfaces",
-      "sysml_name": "Interfaces",
-      "label": "interfaces",
-      "definition": "component that organizes Interface types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "LeakDetect",
       "sysml_name": "LeakDetect",
       "label": "leak detect",
@@ -4492,17 +4439,6 @@
       "abstract": false,
       "parents": [
         "Resource"
-      ]
-    },
-    {
-      "name": "Materials",
-      "sysml_name": "Materials",
-      "label": "materials",
-      "definition": "resources that organizes material types.",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Resources"
       ]
     },
     {
@@ -5344,17 +5280,6 @@
       ]
     },
     {
-      "name": "Parts",
-      "sysml_name": "Parts",
-      "label": "parts",
-      "definition": "component that organizes part types.",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "Path",
       "sysml_name": "Path",
       "label": "path",
@@ -6156,17 +6081,6 @@
       ]
     },
     {
-      "name": "Processes",
-      "sysml_name": "Processes",
-      "label": "processes",
-      "definition": "component that organizes process types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "Program",
       "sysml_name": "Program",
       "label": "program",
@@ -6574,17 +6488,6 @@
       "definition": "abstract component composed of material or personnel involved in a manufacturing process.",
       "package": "ComponentTypes",
       "abstract": true,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
-      "name": "Resources",
-      "sysml_name": "Resources",
-      "label": "resources",
-      "definition": "component that organizes resource types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
       "parents": [
         "Component"
       ]
@@ -7242,17 +7145,6 @@
       ]
     },
     {
-      "name": "Structures",
-      "sysml_name": "Structures",
-      "label": "structures",
-      "definition": "component that organizes structure types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
-      ]
-    },
-    {
       "name": "SwingAngle",
       "sysml_name": "SwingAngle",
       "label": "swing angle",
@@ -7316,17 +7208,6 @@
       "abstract": false,
       "parents": [
         "ConditionObservation"
-      ]
-    },
-    {
-      "name": "Systems",
-      "sysml_name": "Systems",
-      "label": "systems",
-      "definition": "component that organizes system types. ",
-      "package": "ComponentOrganizerTypes",
-      "abstract": false,
-      "parents": [
-        "Component"
       ]
     },
     {

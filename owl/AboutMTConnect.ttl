@@ -4,7 +4,6 @@
 <https://model.mtconnect.org/ontology/machinetool/AboutMTConnect/>
     a owl:Ontology ;
     rdfs:label "about mtconnect" ;
-    owl:imports <https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/> ;
     owl:imports <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> ;
     owl:imports <https://model.mtconnect.org/ontology/machinetool/Components/> ;
     owl:imports <https://model.mtconnect.org/ontology/machinetool/Compositions/> ;

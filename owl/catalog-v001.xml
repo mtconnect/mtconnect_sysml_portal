@@ -2,8 +2,6 @@
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <uri id="MTConnectCore" name="https://model.mtconnect.org/ontology/machinetool/MTConnectCore/" uri="MTConnectCore.ttl"/>
     <uri id="MTConnectCore" name="https://model.mtconnect.org/ontology/v2.8/machinetool/MTConnectCore/" uri="MTConnectCore.ttl"/>
-    <uri id="ComponentOrganizerTypes" name="https://model.mtconnect.org/ontology/machinetool/ComponentOrganizerTypes/" uri="ComponentOrganizerTypes.ttl"/>
-    <uri id="ComponentOrganizerTypes" name="https://model.mtconnect.org/ontology/v2.8/machinetool/ComponentOrganizerTypes/" uri="ComponentOrganizerTypes.ttl"/>
     <uri id="ComponentTypes" name="https://model.mtconnect.org/ontology/machinetool/ComponentTypes/" uri="ComponentTypes.ttl"/>
     <uri id="ComponentTypes" name="https://model.mtconnect.org/ontology/v2.8/machinetool/ComponentTypes/" uri="ComponentTypes.ttl"/>
     <uri id="Components" name="https://model.mtconnect.org/ontology/machinetool/Components/" uri="Components.ttl"/>

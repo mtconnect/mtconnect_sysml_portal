@@ -44,7 +44,7 @@ class OwlModel < Model
 
   def generated?
     not (@name.nil? or @name.empty? or @name == 'MTConnect' or @name == 'Glossary' or @types.empty? or
-         root.name == 'Glossary')
+         root.name == 'Glossary' or OWL_EXCLUDED_PACKAGES.include?(@domain))
   end
 
   def generate_ontology

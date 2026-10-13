@@ -76,6 +76,10 @@ OWL_EQUIVALENCE_ROOTS = Set['SampleObservation', 'EventObservation', 'ConditionO
 # MTConnect roots whose classes are cited by the category below the root, e.g. 'MTConnect Sample Temperature'
 OWL_SOURCE_CATEGORY_ROOTS = Set['Observation']
 
+# Packages whose classes are not generated: the component organizers (Axes, Controllers, ...) only group components
+# in the MTConnect information model and have no ontological counterpart. Relations to them are not generated.
+OWL_EXCLUDED_PACKAGES = Set['ComponentOrganizerTypes']
+
 # Packages whose root classes are design specifications
 OWL_DESIGN_SPECIFICATION_PACKAGES = Set['Configurations']
 
@@ -102,6 +106,11 @@ OWL_INFORMATION_ROOT = '<https://spec.industrialontologies.org/ontology/construc
 # They are named from classifier/view_names.json, or the MTConnect name (samples get a kind suffix, see below).
 OWL_VIEW_NAMES_FILE = File.join(File.dirname(__FILE__), 'classifier', 'view_names.json')
 OWL_REALIST_SUFFIX = ''
+
+# Realist component classes classified as systems (under iof:System, through their own IOF match or their realist
+# parent) are named <term>System, e.g. HydraulicSystem
+OWL_IOF_SYSTEM = 'https://spec.industrialontologies.org/ontology/construct/System'
+OWL_SYSTEM_SUFFIX = 'System'
 
 # Realist classes are also written for the qualities and characteristics the samples measure
 OWL_REALIST_SAMPLE_ROOTS = Set['SampleObservation']
@@ -238,7 +247,7 @@ class OwlType < Type
   end
 
   def realist?
-    owl_class? and (component? or sample? or state_variable?)
+    owl_class? and !excluded? and (component? or sample? or state_variable?)
   end
 
   # An event whose result is a controlled vocabulary, or a condition, about a (material) state
@@ -298,12 +307,28 @@ class OwlType < Type
 
   def realist_name
     OwlType.view_names.dig('realist', owl_name, 'name') ||
-      if component?
+      if system?
+        term = turtle_name(@name)
+        term =~ /#{OWL_SYSTEM_SUFFIX}s?\z/ ? term : "#{term}#{OWL_SYSTEM_SUFFIX}" # Hydraulic becomes HydraulicSystem
+      elsif component?
         "#{owl_name}#{OWL_REALIST_SUFFIX}"
       elsif state_variable?
         "#{owl_name.delete_suffix('State')}#{OWL_STATE_SUFFIX}" # ChuckState becomes ChuckMaterialState
       else
         "#{owl_name}#{realist_kind_suffix}"
+      end
+  end
+
+  # A component whose realist class is classified as a system, see OWL_IOF_SYSTEM
+  def system?
+    return @system if defined?(@system)
+    @system = false # guards against cycles while the superclass is computed
+    @system = component? &&
+      if realist_superclass.start_with?('mtc-cnstr:')
+        realist_mtc_parent.system?
+      else
+        iri = realist_superclass[/\A<(.*)>\z/, 1]
+        iri == OWL_IOF_SYSTEM or (iri == iof_parent('realist') and iof_path('realist').include?(OWL_IOF_SYSTEM))
       end
   end
 
@@ -442,6 +467,10 @@ class OwlType < Type
       not (@name.nil? or @name.empty?) and @model.root.name != 'Glossary'
   end
 
+  def excluded?
+    OWL_EXCLUDED_PACKAGES.include?(@model.domain)
+  end
+
   def owl_name
     OwlType.owl_names.fetch(self) { turtle_name(@name) }
   end
@@ -463,7 +492,7 @@ class OwlType < Type
   # Whether this class has an information class in the generated ontology (see OWL_COMPONENT_INFORMATION_SUFFIX)
   def information_class?
     return @information_class if defined?(@information_class)
-    @information_class = owl_class? &&
+    @information_class = owl_class? && !excluded? &&
       if component?
         abstract? || OWL_COMPONENT_INFORMATION_CONCRETE.include?(owl_name)
       elsif sample?
@@ -837,6 +866,8 @@ TTL
       # Relations through an association class target the association class; use the participant
       end_ = rel.is_a?(Relation::Association) ? rel.final_target : rel.target
       target = LazyPointer === end_.type ? end_.type.resolve && end_.type.obj : end_.type
+      # Relations to classes that are not generated, such as the component organizers, are left out
+      next if OwlType === target and target.excluded?
       if target
         case target.type
         when 'uml:Class', 'uml:AssociationClass'
