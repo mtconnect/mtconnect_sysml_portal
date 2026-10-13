@@ -242,7 +242,7 @@ mtc-cnstr:Power
     a owl:Class ;
     rdfs:label """power""" ;
     iof-av:directSource """MTConnect Component Power""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/Capability> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ElectricalQuality> ;
     iof-av:naturalLanguageDefinition """power was **DEPRECATED** in *MTConnect Version 1.1* and was replaced by availability data item type.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/ComponentTypes/> .
 

@@ -67,6 +67,7 @@ mtc-cnstr:ComponentRef
     iof-av:directSource """MTConnect Reference ComponentRef""" ;
     rdfs:subClassOf mtc-cnstr:Reference ;
     iof-av:naturalLanguageDefinition """reference that is a pointer to all of the information associated with another entity defined for a piece of equipment.\n""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/Identifier> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000002> ] ;

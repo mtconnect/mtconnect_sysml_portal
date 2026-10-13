@@ -24,7 +24,7 @@ mtc-cnstr:CoordinateSystem
     iof-av:directSource """MTConnect CoordinateSystem""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
     iof-av:naturalLanguageDefinition """reference system that associates a unique set of n parameters with each point in an n-dimensional space. <em>ISO 10303-218:2004</em>""" ;
-    mtc-cnstr:iofParentCandidate <https://www.omg.org/spec/Commons/Collections/Arrangement> ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000141> ] ;
@@ -160,7 +160,7 @@ mtc-cnstr:OriginDataSet
     rdfs:subClassOf mtc-cnstr:DataSet ;
     rdfs:subClassOf mtc-cnstr:AbstractOrigin ;
     iof-av:naturalLanguageDefinition """coordinates of the origin position of a coordinate system represented as a dataset.""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000147> ] ;
@@ -199,7 +199,6 @@ mtc-cnstr:TranslationDataSet
     rdfs:subClassOf mtc-cnstr:DataSet ;
     rdfs:subClassOf mtc-cnstr:AbstractTranslation ;
     iof-av:naturalLanguageDefinition """translations along X, Y, and Z axes are expressed as x,y, and z respectively within a 3-dimensional vector represented as a dataset.""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasXValue ;
                       owl:someValuesFrom xsd:string ] ;
@@ -219,6 +218,7 @@ mtc-cnstr:RotationDataSet
     rdfs:subClassOf mtc-cnstr:DataSet ;
     rdfs:subClassOf mtc-cnstr:AbstractRotation ;
     iof-av:naturalLanguageDefinition """rotations about X, Y, and Z axes are expressed in A, B, and C respectively within a 3-dimensional vector represented as a dataset.\n""" ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasAValue ;
                       owl:someValuesFrom xsd:string ] ;

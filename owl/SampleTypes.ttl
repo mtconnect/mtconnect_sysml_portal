@@ -141,7 +141,7 @@ mtc-cnstr:AxisFeedrateJogCharacteristic
     a owl:Class ;
     rdfs:label """axis feedrate jog characteristic""" ;
     iof-av:directSource """MTConnect Sample AxisFeedrate.Jog""" ;
-    rdfs:subClassOf mtc-cnstr:AxisFeedrateCharacteristic ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/RateProcessProfile> ;
     iof-av:naturalLanguageDefinition """relating to momentary activation of a function or a movement.\n\n**DEPRECATION WARNING**: May be deprecated in the future.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -633,11 +633,11 @@ mtc-cnstr:PathPositionCommandedCharacteristic
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:PathPositionTarget
+mtc-cnstr:PathPositionTargetCharacteristic
     a owl:Class ;
-    rdfs:label """path position target""" ;
+    rdfs:label """path position target characteristic""" ;
     iof-av:directSource """MTConnect Sample PathPosition.Target""" ;
-    rdfs:subClassOf mtc-cnstr:PathPositionQuality ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """goal of the operation or process.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -681,11 +681,11 @@ mtc-cnstr:PositionCommandedCharacteristic
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:PositionProgrammedCharacteristic
+mtc-cnstr:PositionProgrammed
     a owl:Class ;
-    rdfs:label """position programmed characteristic""" ;
+    rdfs:label """position programmed""" ;
     iof-av:directSource """MTConnect Sample Position.Programmed""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000031> ;
     iof-av:naturalLanguageDefinition """directive value without offsets and adjustments.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -833,11 +833,11 @@ mtc-cnstr:SoundLevelDScaleQuality
     iof-av:naturalLanguageDefinition """D Scale weighting factor""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:SpindleSpeedQuality
+mtc-cnstr:SpindleSpeedCharacteristic
     a owl:Class ;
-    rdfs:label """spindle speed quality""" ;
+    rdfs:label """spindle speed characteristic""" ;
     iof-av:directSource """MTConnect Sample SpindleSpeed""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """rotational speed of the rotary axis.\n\n**DEPRECATED** in *Version 1.2*.  Replaced by `ROTARY_VELOCITY`.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -845,7 +845,7 @@ mtc-cnstr:SpindleSpeedActualCharacteristic
     a owl:Class ;
     rdfs:label """spindle speed actual characteristic""" ;
     iof-av:directSource """MTConnect Sample SpindleSpeed.Actual""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
+    rdfs:subClassOf mtc-cnstr:SpindleSpeedCharacteristic ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.\n\n**DEPRECATED** in *Version 1.3*.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -853,7 +853,7 @@ mtc-cnstr:SpindleSpeedCommandedCharacteristic
     a owl:Class ;
     rdfs:label """spindle speed commanded characteristic""" ;
     iof-av:directSource """MTConnect Sample SpindleSpeed.Commanded""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
+    rdfs:subClassOf mtc-cnstr:SpindleSpeedCharacteristic ;
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.\n\n**DEPRECATED** in *Version 1.3*.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -861,7 +861,7 @@ mtc-cnstr:SpindleSpeedOverrideCharacteristic
     a owl:Class ;
     rdfs:label """spindle speed override characteristic""" ;
     iof-av:directSource """MTConnect Sample SpindleSpeed.Override""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
+    rdfs:subClassOf mtc-cnstr:SpindleSpeedCharacteristic ;
     iof-av:naturalLanguageDefinition """operator's overridden value.\n\n**DEPRECATED** in *Version 1.3*.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -989,7 +989,7 @@ mtc-cnstr:VolumeFluidActualQuality
     a owl:Class ;
     rdfs:label """volume fluid actual quality""" ;
     iof-av:directSource """MTConnect Sample VolumeFluid.Actual""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/WorkingVolume> ;
+    rdfs:subClassOf mtc-cnstr:VolumeFluidQuality ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1285,7 +1285,7 @@ mtc-cnstr:HumiditySpecificQuality
     a owl:Class ;
     rdfs:label """humidity specific quality""" ;
     iof-av:directSource """MTConnect Sample HumiditySpecific""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/MassFraction> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/MoistureContent> ;
     iof-av:naturalLanguageDefinition """ratio of the water vapor present over the total weight of the water vapor and air present expressed as a percent.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1293,7 +1293,7 @@ mtc-cnstr:HumiditySpecificActualQuality
     a owl:Class ;
     rdfs:label """humidity specific actual quality""" ;
     iof-av:directSource """MTConnect Sample HumiditySpecific.Actual""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/MoistureContent> ;
+    rdfs:subClassOf mtc-cnstr:HumiditySpecificQuality ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1317,7 +1317,7 @@ mtc-cnstr:DecelerationProgrammedCharacteristic
     a owl:Class ;
     rdfs:label """deceleration programmed characteristic""" ;
     iof-av:directSource """MTConnect Sample Deceleration.Programmed""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """directive value without offsets and adjustments.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1401,11 +1401,11 @@ mtc-cnstr:PressureAbsoluteQuality
     iof-av:naturalLanguageDefinition """The force per unit area measured relative to a vacuum.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:AccelerationActual
+mtc-cnstr:AccelerationActualQuality
     a owl:Class ;
-    rdfs:label """acceleration actual""" ;
+    rdfs:label """acceleration actual quality""" ;
     iof-av:directSource """MTConnect Sample Acceleration.Actual""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:subClassOf mtc-cnstr:AccelerationQuality ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1429,7 +1429,7 @@ mtc-cnstr:PressurizationRateCommandedCharacteristic
     a owl:Class ;
     rdfs:label """pressurization rate commanded characteristic""" ;
     iof-av:directSource """MTConnect Sample PressurizationRate.Commanded""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
+    rdfs:subClassOf mtc-cnstr:PressurizationRateCharacteristic ;
     iof-av:naturalLanguageDefinition """directive value including adjustments such as an offset or overrides.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1473,11 +1473,11 @@ mtc-cnstr:VolumeFluidStart
     iof-av:naturalLanguageDefinition """boundary when an activity or an event commences.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:AngularAccelerationActual
+mtc-cnstr:AngularAccelerationActualQuality
     a owl:Class ;
-    rdfs:label """angular acceleration actual""" ;
+    rdfs:label """angular acceleration actual quality""" ;
     iof-av:directSource """MTConnect Sample AngularAcceleration.Actual""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:subClassOf mtc-cnstr:AngularAccelerationQuality ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1525,7 +1525,7 @@ mtc-cnstr:VolumeSpatialStart
     a owl:Class ;
     rdfs:label """volume spatial start""" ;
     iof-av:directSource """MTConnect Sample VolumeSpatial.Start""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000011> ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000035> ;
     iof-av:naturalLanguageDefinition """boundary when an activity or an event commences.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1541,7 +1541,7 @@ mtc-cnstr:OpennessQuality
     a owl:Class ;
     rdfs:label """openness quality""" ;
     iof-av:directSource """MTConnect Sample Openness""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/OpticalQuality> ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ;
     iof-av:naturalLanguageDefinition """percentage open where 100% is fully open and 0% is fully closed.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1629,15 +1629,15 @@ mtc-cnstr:DischargeRateTargetCharacteristic
     a owl:Class ;
     rdfs:label """discharge rate target characteristic""" ;
     iof-av:directSource """MTConnect Sample DischargeRate.Target""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyProcessParameter> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/KeyPerformanceIndicator> ;
     iof-av:naturalLanguageDefinition """goal of the operation or process.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:ChargeRateQuality
+mtc-cnstr:ChargeRateCharacteristic
     a owl:Class ;
-    rdfs:label """charge rate quality""" ;
+    rdfs:label """charge rate characteristic""" ;
     iof-av:directSource """MTConnect Sample ChargeRate""" ;
-    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ElectricalQuality> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """value of the current being supplied to the component for the purpose of charging.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1645,7 +1645,7 @@ mtc-cnstr:ChargeRateActualQuality
     a owl:Class ;
     rdfs:label """charge rate actual quality""" ;
     iof-av:directSource """MTConnect Sample ChargeRate.Actual""" ;
-    rdfs:subClassOf mtc-cnstr:ChargeRateQuality ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ElectricalQuality> ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1705,11 +1705,11 @@ mtc-cnstr:SettlingErrorLinearCharacteristic
     iof-av:naturalLanguageDefinition """difference between the commanded encoder/resolver position, and the actual encoder/resolver position when motion is complete.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:SettlingErrorLinearActualCharacteristic
+mtc-cnstr:SettlingErrorLinearActual
     a owl:Class ;
-    rdfs:label """settling error linear actual characteristic""" ;
+    rdfs:label """settling error linear actual""" ;
     iof-av:directSource """MTConnect Sample SettlingErrorLinear.Actual""" ;
-    rdfs:subClassOf mtc-cnstr:SettlingErrorLinearCharacteristic ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1737,11 +1737,11 @@ mtc-cnstr:FollowingErrorQuality
     iof-av:naturalLanguageDefinition """difference between actual and commanded position at any specific point in time during a motion.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:FollowingErrorActualQuality
+mtc-cnstr:FollowingErrorActualCharacteristic
     a owl:Class ;
-    rdfs:label """following error actual quality""" ;
+    rdfs:label """following error actual characteristic""" ;
     iof-av:directSource """MTConnect Sample FollowingError.Actual""" ;
-    rdfs:subClassOf mtc-cnstr:FollowingErrorQuality ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1749,7 +1749,7 @@ mtc-cnstr:FollowingErrorAngularQuality
     a owl:Class ;
     rdfs:label """following error angular quality""" ;
     iof-av:directSource """MTConnect Sample FollowingErrorAngular""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000145> ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ;
     iof-av:naturalLanguageDefinition """angular difference between the commanded encoder/resolver position and the actual encoder/resolver position at any specified point in time during a motion.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
@@ -1769,11 +1769,11 @@ mtc-cnstr:FollowingErrorAngularActualQuality
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 
-mtc-cnstr:FollowingErrorLinearActualQuality
+mtc-cnstr:FollowingErrorLinearActualCharacteristic
     a owl:Class ;
-    rdfs:label """following error linear actual quality""" ;
+    rdfs:label """following error linear actual characteristic""" ;
     iof-av:directSource """MTConnect Sample FollowingErrorLinear.Actual""" ;
-    rdfs:subClassOf mtc-cnstr:FollowingErrorLinearQuality ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/ProcessParameter> ;
     iof-av:naturalLanguageDefinition """measured or reported value of an observation.""" ;
     rdfs:isDefinedBy <https://model.mtconnect.org/ontology/machinetool/SampleTypes/> .
 

@@ -24,7 +24,7 @@ mtc-cnstr:TableRepresentation
     iof-av:directSource """MTConnect Representation Table""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
     iof-av:naturalLanguageDefinition """representation for an observation composed of two-dimensional sets of key-value pairs where the entry represents rows containing sets of key-value pairs given by cell entities. \n""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000306> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;

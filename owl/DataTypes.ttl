@@ -6448,6 +6448,7 @@ mtc-cnstr:SensorAttachmentResult
     skos:altLabel """SensorAttachmentResult""" ;
     iof-av:directSource """MTConnect Representation SensorAttachmentResult""" ;
     rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/Event> ] ;
@@ -6462,7 +6463,7 @@ mtc-cnstr:MaintenanceListResult
     skos:altLabel """MaintenanceListResult""" ;
     iof-av:directSource """MTConnect Representation MaintenanceListResult""" ;
     rdfs:subClassOf mtc-cnstr:TableRepresentation ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000306> ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasValueLiteral ;
                       owl:someValuesFrom xsd:float ] ;
@@ -6540,7 +6541,6 @@ mtc-cnstr:LocationAddressResult
     skos:altLabel """LocationAddressResult""" ;
     iof-av:directSource """MTConnect Representation LocationAddressResult""" ;
     rdfs:subClassOf mtc-cnstr:DataSet ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;
@@ -6606,6 +6606,7 @@ mtc-cnstr:LocationSpatialGeographicResult
     skos:altLabel """LocationSpatialGeographicResult""" ;
     iof-av:directSource """MTConnect Representation LocationSpatialGeographicResult""" ;
     rdfs:subClassOf mtc-cnstr:DataSet ;
+    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000003> ] ;

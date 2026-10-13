@@ -22,7 +22,7 @@ mtc-cnstr:ResetTrigger
     rdfs:label """reset trigger""" ;
     skos:altLabel """ResetTrigger""" ;
     iof-av:directSource """MTConnect ResetTrigger""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001930> ;
+    rdfs:subClassOf <https://spec.industrialontologies.org/ontology/construct/Classifier> ;
     iof-av:naturalLanguageDefinition """type of event that may cause a reset to occur.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
@@ -67,7 +67,7 @@ mtc-cnstr:InitialValue
     rdfs:label """initial value""" ;
     skos:altLabel """InitialValue""" ;
     iof-av:directSource """MTConnect InitialValue""" ;
-    rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001931> ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/OBI_0001933> ;
     iof-av:naturalLanguageDefinition """starting value for a data item as well as the value to be set for the data item after a reset event.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
@@ -178,6 +178,9 @@ mtc-cnstr:PeriodFilter
     rdfs:subClassOf mtc-cnstr:FilterPropertiesofDataItem ;
     iof-av:naturalLanguageDefinition """data reported for a data item is provided on a periodic basis. The `PERIOD` for reporting data is defined in the value of the filter.\n\nThe value of filter **MUST** be an absolute value reported in seconds representing the time between reported samples of the value of the data item.""" ;
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001931> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                      owl:onProperty iof-cnstr:isAbout ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000020> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasType ;
                       owl:someValuesFrom mtc-cnstr:FilterEnum ] ;

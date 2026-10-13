@@ -90,7 +90,7 @@ mtc-cnstr:ScaleDataSet
     mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/OBI_0001933> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000019> ] ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000031> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasXValue ;
                       owl:someValuesFrom xsd:float ] ;

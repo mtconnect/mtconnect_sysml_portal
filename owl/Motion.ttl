@@ -67,7 +67,7 @@ mtc-cnstr:AbstractAxis
     iof-av:directSource """MTConnect AbstractAxis""" ;
     rdfs:subClassOf iof-cnstr:DesignSpecification ;
     iof-av:naturalLanguageDefinition """axis along or around which the component moves relative to a coordinate system.""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000308> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000142> ] ;
@@ -84,7 +84,6 @@ mtc-cnstr:AxisDataSet
     rdfs:subClassOf mtc-cnstr:DataSet ;
     rdfs:subClassOf mtc-cnstr:AbstractAxis ;
     iof-av:naturalLanguageDefinition """axis along or around which the component moves relative to a coordinate system represented as a dataset.""" ;
-    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000142> ] ;

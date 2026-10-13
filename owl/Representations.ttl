@@ -80,7 +80,7 @@ mtc-cnstr:DataSet
     iof-av:directSource """MTConnect Representation DataSet""" ;
     rdfs:subClassOf mtc-cnstr:Representation ;
     iof-av:naturalLanguageDefinition """representation for an observation composed of value(s) represented as a set of key-value pairs.\n""" ;
-    mtc-cnstr:iofParentCandidate <https://spec.industrialontologies.org/ontology/construct/MeasurementInformationContentEntity> ;
+    mtc-cnstr:iofParentCandidate <http://purl.obolibrary.org/obo/IAO_0000100> ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
                       owl:someValuesFrom <https://www.omg.org/spec/Commons/Collections/StructuredCollection> ] ;
@@ -101,7 +101,7 @@ mtc-cnstr:EntryRepresentations
     iof-av:naturalLanguageDefinition """key-value pair published as part of a data set.""" ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty iof-cnstr:isAbout ;
-                      owl:someValuesFrom <https://spec.industrialontologies.org/ontology/construct/InformationContentEntity> ] ;
+                      owl:someValuesFrom <http://purl.obolibrary.org/obo/OBI_0001933> ] ;
     rdfs:subClassOf [ a owl:Restriction ;
                       owl:onProperty mtc-cnstr:hasKeyValue ;
                       owl:someValuesFrom xsd:string ] ;
